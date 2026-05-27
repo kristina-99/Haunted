@@ -392,7 +392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643444177}
-  - component: {fileID: 643444176}
+  - component: {fileID: 643444178}
   m_Layer: 0
   m_Name: BootstrapScenes
   m_TagString: Untagged
@@ -400,18 +400,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &643444176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643444175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ec3b4864176e6c439ba5365a70e6603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BootSceneDriver
 --- !u!4 &643444177
 Transform:
   m_ObjectHideFlags: 0
@@ -427,6 +415,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643444178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643444175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec3b4864176e6c439ba5365a70e6603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BootSceneDriver
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
