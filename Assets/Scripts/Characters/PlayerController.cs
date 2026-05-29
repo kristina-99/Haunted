@@ -1,16 +1,24 @@
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Rigidbody rigidBody;
+    private float speed = 1f;
+    private MoveCommand moveCommand;
+
+    void Awake()
     {
-        
+        rigidBody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        var inputHorizontal = Input.GetAxis("Horizontal");
+        moveCommand.Execute();
     }
 }

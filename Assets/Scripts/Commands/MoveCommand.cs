@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class MoveCommand : MonoBehaviour
+public class MoveCommand : MonoBehaviour, ICommand
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Rigidbody rb;
+    private float velocity;
+
+    public MoveCommand(Rigidbody rb, float velocity)
     {
-        
+        this.rb = rb;
+        this.velocity = velocity;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Execute()
     {
-        
+        rb.linearVelocity += new Vector3(velocity,0,0);
+        Quaternion.LookRotation(rb.linearVelocity.normalized);
     }
 }
