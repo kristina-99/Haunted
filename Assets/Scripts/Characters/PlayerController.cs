@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,12 +10,12 @@ using UnityEngine.Rendering;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    private const float Speed = 1f;
     private Rigidbody rigidBody;
-    private float speed = 1f;
     private MoveCommand moveCommand;
-    private InteractCommand interactCommand;
     private float inputHorizontal;
     private float inputVertical;
+    private static Queue<ICommand> actionQueue = new Queue<ICommand>();
 
     void Awake()
     {
@@ -29,18 +31,31 @@ public class PlayerController : MonoBehaviour
     {
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
-        moveCommand = new MoveCommand(rigidBody, inputHorizontal * speed, inputVertical * speed, animator);
-        moveCommand.Execute();
+        moveCommand = new MoveCommand(rigidBody, inputHorizontal * Speed, inputVertical * Speed, animator);
+        ScheduleCommand(moveCommand);
+        ExecuteNextCommand();
+    }
+
+    private void ScheduleCommand(ICommand command)
+    {
+        actionQueue.Enqueue(command);
+    }
+
+    private void ExecuteNextCommand()
+    {
+        ICommand activeCommand = actionQueue.Dequeue();
+        activeCommand.Execute();
     }
 
     void OnUseAbility()
     {
-        //use ability
+        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator);
+        ScheduleCommand(useAbilityCommand);
     }
 
     void OnInteract()
     {
-        interactCommand = new InteractCommand(rigidBody, animator);
-        interactCommand.Execute();
+        InteractCommand interactCommand = new InteractCommand(rigidBody, animator);
+        ScheduleCommand(interactCommand);
     }
 }

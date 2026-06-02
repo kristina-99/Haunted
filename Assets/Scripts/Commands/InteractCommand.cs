@@ -6,9 +6,9 @@ public class InteractCommand : ICommand
 {
     public GameObject currentHitObject;
     private const float SphereRadius = 1.5f;
+    private const float MaxDistance = 5f;
     private Rigidbody rb;
     private RaycastHit hit;
-    private float maxDistance = 5f;
     private float currentHitDistance;
     private Vector3 origin;
     private Vector3 direction;
@@ -28,7 +28,7 @@ public class InteractCommand : ICommand
 
         int layerMask = LayerMask.GetMask("Default");
 
-        if(Physics.SphereCast(origin,SphereRadius,direction,out hit, maxDistance, layerMask, QueryTriggerInteraction.UseGlobal))
+        if(Physics.SphereCast(origin,SphereRadius,direction,out hit, MaxDistance, layerMask, QueryTriggerInteraction.UseGlobal))
         {
             currentHitObject = hit.transform.GameObject();
             currentHitDistance = hit.distance;
@@ -36,7 +36,7 @@ public class InteractCommand : ICommand
         }
         else
         {
-            currentHitDistance = maxDistance;
+            currentHitDistance = MaxDistance;
             currentHitObject = null;
         }
     }
