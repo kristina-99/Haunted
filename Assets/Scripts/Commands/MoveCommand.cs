@@ -25,7 +25,7 @@ public class MoveCommand : ICommand
 
     private void Rotate()
     {
-        if (rb.linearVelocity.sqrMagnitude > 0.01f)
+        if (velocityX != 0 || velocityZ != 0)
         {
             Quaternion targetRotation = Quaternion.LookRotation(rb.linearVelocity.normalized);
             rb.MoveRotation(targetRotation);
