@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Extensions
+public static class Extensions
 {
     
 }

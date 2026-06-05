@@ -26,4 +26,24 @@ public class GameConstants
         Trapper,
         Haunted
     }
+    
+    public enum MiniGameType
+    {
+        Tarot,
+        Tank,
+        MK,
+        FPS,
+        Climb
+    }
+
+    public enum RoomId
+    {
+        Lobby,
+        ArcadeFloor,
+        FortuneCorner,
+        SeanceBooth,
+        BackRoom,
+        MaintenanceHall,
+        ManagersOffice
+    }
 }
