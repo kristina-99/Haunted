@@ -5,7 +5,7 @@ using UnityEditor;
 public class InteractCommand : ICommand
 {
     public GameObject currentHitObject;
-    private const float SphereRadius = 1.5f;
+    private const float SphereRadius = 0.5f;
     private const float MaxDistance = 5f;
     private Rigidbody rb;
     private RaycastHit hit;
@@ -26,7 +26,7 @@ public class InteractCommand : ICommand
         origin = rb.transform.position;
         direction = rb.transform.forward;
 
-        int layerMask = LayerMask.GetMask("Default");
+        int layerMask = LayerMask.GetMask("Cabinet");
 
         if(Physics.SphereCast(origin,SphereRadius,direction,out hit, MaxDistance, layerMask, QueryTriggerInteraction.UseGlobal))
         {
