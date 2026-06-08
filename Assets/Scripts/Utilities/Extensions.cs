@@ -2,18 +2,39 @@ using System;
 
 public static class Extensions
 {
-    static bool IsAlive()
+    static bool IsAlive(BaseCharacter character)
     {
-        throw new NotImplementedException();
+        if(character.Health > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    static bool IsHunter()
+    static bool IsHunter(BaseCharacter character)
     {
-        throw new NotImplementedException();
+        if(character.Role != GameConstants.CharacterRole.Haunted)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    static bool IsHaunted()
+    static bool IsHaunted(BaseCharacter character)
     {
-        throw new NotImplementedException();
+        if(character.Role == GameConstants.CharacterRole.Haunted)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

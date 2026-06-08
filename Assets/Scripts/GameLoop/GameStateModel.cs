@@ -6,6 +6,7 @@ public class GameStateModel
     private GamePhase currentPhase;
     private List<BaseCharacter> alivePlayers = new List<BaseCharacter>();
     private Dictionary<int,CharacterRole> roles = new Dictionary<int, CharacterRole>();
+    private Dictionary<CharacterRole,int> votes = new Dictionary<CharacterRole,int>();
     private int voteTally;
     private int tasksRemaining;
     private int roundNumber;
@@ -80,6 +81,7 @@ public class GameStateModel
     public void SetPhase()
     {
         //logic for phases
+        //round number increases after exiting voting phase
     }
 
     public void RegisterKill(BaseCharacter victim)
@@ -90,5 +92,10 @@ public class GameStateModel
     public void RegisterVote()
     {
         voteTally++;
+    }
+
+    public void CompleteTask()
+    {
+        tasksRemaining--;
     }
 }
