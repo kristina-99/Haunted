@@ -39,9 +39,4 @@ public static class Extensions
             return false;
         }
     }
-
-    static void Flat(ref Vector3 position)
-    {
-        position = new Vector3 (position.X, 0, position.Z);
-    }
 }

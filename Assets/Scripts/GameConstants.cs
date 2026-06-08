@@ -46,4 +46,20 @@ public class GameConstants
         MaintenanceHall,
         ManagersOffice
     }
+
+    [Flags]
+    public enum GameResult
+    {
+        HuntersWin = 0,
+        HauntedWins = 1
+    }
+
+    public enum AbilityType
+    {
+        None,
+        Kill,
+        Obelisk,
+        Ritual,
+        GhostTrap     
+    }
 }

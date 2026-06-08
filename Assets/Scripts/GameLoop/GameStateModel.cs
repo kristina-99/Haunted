@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using static GameConstants;
 
@@ -6,7 +7,7 @@ public class GameStateModel
     private GamePhase currentPhase;
     private List<BaseCharacter> alivePlayers = new List<BaseCharacter>();
     private Dictionary<int,CharacterRole> roles = new Dictionary<int, CharacterRole>();
-    private Dictionary<CharacterRole,int> votes = new Dictionary<CharacterRole,int>();
+    private Dictionary<BaseCharacter,int> votes = new Dictionary<BaseCharacter,int>();
     private int voteTally;
     private int tasksRemaining;
     private int roundNumber;
@@ -17,10 +18,6 @@ public class GameStateModel
         get
         {
             return currentPhase;
-        }
-        private set
-        {
-            currentPhase = value;
         }
     }
 
@@ -72,16 +69,48 @@ public class GameStateModel
         }
     }
 
+    private void OnEnable()
+    {
+        GameEvents.OnNightStarted += RouteNightStart;
+        GameEvents.OnDayStarted += RouteDayStart;
+        GameEvents.OnBodyReported += RouteBodyReported;
+        GameEvents.OnGameEnded += RouteGameEnded;
+        GameEvents.OnPlayerKilled += RegisterKill;
+        GameEvents.OnVoteCast += RegisterVote;
+        GameEvents.OnTaskCompleted += CompleteTask;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnNightStarted -= RouteNightStart;
+        GameEvents.OnDayStarted -= RouteDayStart;
+        GameEvents.OnBodyReported -= RouteBodyReported;
+        GameEvents.OnGameEnded -= RouteGameEnded;
+        GameEvents.OnPlayerKilled -= RegisterKill;
+        GameEvents.OnVoteCast -= RegisterVote;
+        GameEvents.OnTaskCompleted -= CompleteTask;
+    }
+    private void RouteNightStart(int round) 
+    => SetPhase(GamePhase.Night);
+
+    private void RouteDayStart()
+    => SetPhase(GamePhase.Day);
+
+    private void RouteBodyReported(BaseCharacter reporter) 
+    => SetPhase(GamePhase.Voting);
+
+    private void RouteGameEnded(GameResult result)
+    => SetPhase(GamePhase.Ended);
+
     // called once on game start
     private void GetAllPlayers(List<BaseCharacter> allPlayersList)
     {
         alivePlayers.AddRange(allPlayersList);
     }
 
-    public void SetPhase()
+    public void SetPhase(GamePhase gamePhase)
     {
-        //logic for phases
-        //round number increases after exiting voting phase
+        currentPhase = gamePhase;
     }
 
     public void RegisterKill(BaseCharacter victim)
@@ -89,13 +118,16 @@ public class GameStateModel
         alivePlayers.Remove(victim);
     }
 
-    public void RegisterVote()
+    public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
+        //add a new key, value pair to votes if key doesn't exist already
+        //if the key already exists increase the value(int)
         voteTally++;
     }
 
-    public void CompleteTask()
+    public void CompleteTask(BaseCharacter completer)
     {
+        // to do: logic for individual characters on task completed
         tasksRemaining--;
     }
 }

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 514866c1c236f9643b2182cbc8df584b, type: 3}
+  m_Script: {fileID: 11500000, guid: a7095bb717297894cb91549492390aef, type: 3}
   m_Name: Cabinet_Tank
-  m_EditorClassIdentifier: Assembly-CSharp::MiniGameSOScript
-  type: 1
-  duration: 30
-  roomId: 1
+  m_EditorClassIdentifier: Assembly-CSharp::CabinetConfigSO
+  miniGameType: 1
+  displayName: TankGame
+  taskDuration: 30
+  assignedRoom: 1
