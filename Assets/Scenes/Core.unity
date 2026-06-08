@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 279324424}
   - component: {fileID: 279324423}
   m_Layer: 9
-  m_Name: Cabinet1 (4)
+  m_Name: TankCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56bf54bc8746907419da0d80b4bda274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankGame
+  cabinetConfig: {fileID: 11400000, guid: f2246af68c95e66468616c562842fc55, type: 2}
 --- !u!65 &279324424
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -797,12 +798,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279324422}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.11, y: 0.7, z: -4.09}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.25984, y: 0.61515, z: -1.7520101}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &306878666
 GameObject:
@@ -1321,7 +1322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 015646749131a5c4287f859a63523ea8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.61
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 015646749131a5c4287f859a63523ea8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1329,7 +1330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 015646749131a5c4287f859a63523ea8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.57
+      value: -1.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 015646749131a5c4287f859a63523ea8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1914,7 +1915,7 @@ GameObject:
   - component: {fileID: 495177030}
   - component: {fileID: 495177029}
   m_Layer: 9
-  m_Name: Cabinet1 (2)
+  m_Name: FPSCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1932,6 +1933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a526c21cd65d0046bed993b3fa35636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSGame
+  cabinetConfig: {fileID: 11400000, guid: 0db394f94cc54054e829814de28cc01b, type: 2}
 --- !u!65 &495177030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2018,12 +2020,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495177028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.75, y: 0.7, z: 4.96}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.38015985, y: 0.61515, z: 7.29799}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &499631381
 GameObject:
@@ -2683,7 +2685,7 @@ GameObject:
   - component: {fileID: 756239751}
   - component: {fileID: 756239755}
   m_Layer: 9
-  m_Name: Cabinet1 (1)
+  m_Name: ClimbCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2775,12 +2777,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756239750}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.58, y: 0.7, z: 6.47}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.78984, y: 0.61515, z: 8.80799}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &756239755
 MonoBehaviour:
@@ -2794,6 +2796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf5fc2c2a693944c88f5c1553b4980c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClimbGame
+  cabinetConfig: {fileID: 11400000, guid: 1dcd5d3b86e00cc439911c2bfe624e76, type: 2}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,7 +3196,7 @@ GameObject:
   - component: {fileID: 979383091}
   - component: {fileID: 979383095}
   m_Layer: 9
-  m_Name: Cabinet1
+  m_Name: TarotCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3285,12 +3288,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979383090}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.72, y: 0.7, z: -0.59}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.350159, y: 0.61515, z: 1.7479901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &979383095
 MonoBehaviour:
@@ -3304,6 +3307,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e3879f67bfe6f4eb870359581bc547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TarotGame
+  cabinetConfig: {fileID: 11400000, guid: 140280f701559084bb3ba71db0792873, type: 2}
+--- !u!1 &998697890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 998697891}
+  m_Layer: 0
+  m_Name: GameCabinets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &998697891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998697890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.36984, y: 0.08485, z: -2.33799}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 979383094}
+  - {fileID: 279324427}
+  - {fileID: 756239754}
+  - {fileID: 1167227425}
+  - {fileID: 495177033}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1050348311
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3806,7 @@ GameObject:
   - component: {fileID: 1167227422}
   - component: {fileID: 1167227421}
   m_Layer: 9
-  m_Name: Cabinet1 (3)
+  m_Name: MKCabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3784,6 +3824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30adc7cea36b7a44b8ff07f834fb724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MKGame
+  cabinetConfig: {fileID: 11400000, guid: fc17c01a3cc1de84ab1784d21c77fcf5, type: 2}
 --- !u!65 &1167227422
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3870,12 +3911,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167227420}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.35, y: 0.7, z: 2.64}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.719841, y: 0.61515, z: 4.97799}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1183923896
 GameObject:
@@ -6145,6 +6186,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1267895280}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 2118340279}
@@ -6156,9 +6198,4 @@ SceneRoots:
   - {fileID: 1491938606}
   - {fileID: 1747009316}
   - {fileID: 1306021832}
-  - {fileID: 1267895280}
-  - {fileID: 979383094}
-  - {fileID: 756239754}
-  - {fileID: 1167227425}
-  - {fileID: 279324427}
-  - {fileID: 495177033}
+  - {fileID: 998697891}

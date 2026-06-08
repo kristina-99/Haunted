@@ -39,5 +39,16 @@ public class InteractCommand : ICommand
             currentHitDistance = MaxDistance;
             currentHitObject = null;
         }
+
+        DetectCabinet();
+    }
+
+    private void DetectCabinet()
+    {
+        if(currentHitObject != null)
+        {
+            IMiniGame miniGame = currentHitObject.GetComponent<IMiniGame>();
+            Debug.Log("This minigame is " + miniGame.DisplayName);
+        }
     }
 }
