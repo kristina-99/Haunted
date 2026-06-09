@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class KillCommand : MonoBehaviour
+public class KillCommand : ICommand
 {
-    void Start()
+    public KillCommand()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    void Update()
+    public void Execute()
     {
-        
+        throw new System.NotImplementedException();
     }
 }
