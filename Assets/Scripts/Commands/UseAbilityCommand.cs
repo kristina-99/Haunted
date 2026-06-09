@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class UseAbilityCommand : MonoBehaviour
+public class UseAbilityCommand : ICommand
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Animator animator;
+    public UseAbilityCommand(Animator animator)
     {
-        
+        this.animator = animator;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Execute()
     {
-        
+        animator.SetTrigger("UseAbility");
     }
 }

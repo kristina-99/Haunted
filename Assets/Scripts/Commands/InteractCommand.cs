@@ -1,16 +1,41 @@
 using UnityEngine;
 
-public class InteractCommand : MonoBehaviour
+public class InteractCommand : ICommand
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameObject currentHitObject;
+    private const float SphereRadius = 1.5f;
+    private const float MaxDistance = 5f;
+    private Rigidbody rb;
+    private RaycastHit hit;
+    private float currentHitDistance;
+    private Vector3 origin;
+    private Vector3 direction;
+    private Animator animator;
+
+    public InteractCommand(Rigidbody rb, Animator animator)
     {
-        
+        this.rb = rb;
+        this.animator = animator;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Execute()
     {
         
+        origin = rb.transform.position;
+        direction = rb.transform.forward;
+
+        int layerMask = LayerMask.GetMask("Default");
+
+        if(Physics.SphereCast(origin,SphereRadius,direction,out hit, MaxDistance, layerMask, QueryTriggerInteraction.UseGlobal))
+        {
+            currentHitObject = hit.transform.gameObject;
+            currentHitDistance = hit.distance;
+            animator.SetTrigger("Interact");
+        }
+        else
+        {
+            currentHitDistance = MaxDistance;
+            currentHitObject = null;
+        }
     }
 }
