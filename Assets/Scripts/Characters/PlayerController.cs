@@ -1,10 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -20,11 +15,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
-    }
-
-    void Update()
-    {
-        
     }
 
     void FixedUpdate()
