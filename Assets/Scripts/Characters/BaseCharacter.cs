@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using static GameConstants;
 
 public abstract class BaseCharacter : MonoBehaviour
@@ -28,6 +29,13 @@ public abstract class BaseCharacter : MonoBehaviour
         {
             role = value;
         }
+    }
+
+    public void getKilled()
+    {
+        health = 0;
+        //play death animation//
+        Destroy(this);
     }
 
     public abstract void OnRoleAction();

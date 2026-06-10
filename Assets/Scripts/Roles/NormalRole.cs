@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class NormalRole : MonoBehaviour
+public class NormalRole : RoleBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void UseAbility(BaseCharacter character)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //task speed
+        canUseAbility = false;
     }
 }

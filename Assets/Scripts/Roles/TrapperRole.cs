@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class TrapperRole : MonoBehaviour
+public class TrapperRole : RoleBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void UseAbility(BaseCharacter target)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //after using the ability
+        canUseAbility = false;
     }
 }

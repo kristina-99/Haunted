@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class ProtectorRole : MonoBehaviour
+public class ProtectorRole : RoleBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public SphereCollider protectedZone;
+    public override void UseAbility(BaseCharacter target)
     {
-        
+        protectedZone.center = transform.InverseTransformPoint(gameObject.transform.position);
+        protectedZone.enabled = true;  
+        canUseAbility = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

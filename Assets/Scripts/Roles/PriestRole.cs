@@ -1,16 +1,21 @@
 using UnityEngine;
+using static GameConstants;
 
-public class PriestRole : MonoBehaviour
+public class PriestRole : RoleBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private BaseCharacter character;
+    public override void UseAbility(BaseCharacter target)
     {
-        
-    }
+        if(target.Role == CharacterRole.Haunted)
+        {
+            target.getKilled();
+        }
+        else
+        {
+            character = GetComponent<BaseCharacter>();
+            character.getKilled();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        canUseAbility = false;
     }
 }

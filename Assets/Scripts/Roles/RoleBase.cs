@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class RoleBase : MonoBehaviour
+public abstract class RoleBase : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected bool canUseAbility = true;
+    public abstract void UseAbility(BaseCharacter target);
+    private void AllowAbility()
     {
-        
+        canUseAbility = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameEvents.OnNightStarted += RouteNightStart;
     }
+    private void OnDisable()
+    {
+        GameEvents.OnNightStarted -= RouteNightStart;
+    }
+    private void RouteNightStart(int round) 
+    => AllowAbility();
 }

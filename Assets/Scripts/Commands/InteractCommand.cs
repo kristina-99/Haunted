@@ -1,12 +1,13 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Callbacks;
 
 public class InteractCommand : ICommand
 {
     public GameObject currentHitObject;
     private const float SphereRadius = 0.5f;
-    private const float MaxDistance = 5f;
+    private const float MaxDistance = 5.0f;
     private Rigidbody rb;
     private RaycastHit hit;
     private float currentHitDistance;
@@ -30,7 +31,7 @@ public class InteractCommand : ICommand
 
         if(Physics.SphereCast(origin,SphereRadius,direction,out hit, MaxDistance, layerMask, QueryTriggerInteraction.UseGlobal))
         {
-            currentHitObject = hit.transform.GameObject();
+            currentHitObject = hit.transform.gameObject;
             currentHitDistance = hit.distance;
             animator.SetTrigger("Interact");
         }
