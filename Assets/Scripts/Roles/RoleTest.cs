@@ -32,6 +32,7 @@ public class RoleTest : MonoBehaviour
             roleScriptName = $"{selectedRole}Role";
             AttachNewScript(roleScriptName);
             currentRole = selectedRole;
+            player.Role = currentRole;
         }        
     }
 
