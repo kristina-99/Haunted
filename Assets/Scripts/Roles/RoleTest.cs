@@ -7,9 +7,4 @@ public class RoleTest : MonoBehaviour
 {
     private BaseCharacter player;
     public CharacterRole selectedRole;
-
-    private void Awake()
-    {
-        player.Role = selectedRole;
-    }
 }

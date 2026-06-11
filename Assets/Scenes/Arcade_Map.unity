@@ -2199,9 +2199,9 @@ GameObject:
   - component: {fileID: 688077095}
   - component: {fileID: 688077094}
   - component: {fileID: 688077093}
-  - component: {fileID: 688077092}
   - component: {fileID: 688077099}
-  - component: {fileID: 688077098}
+  - component: {fileID: 688077100}
+  - component: {fileID: 688077101}
   m_Layer: 0
   m_Name: Bot1
   m_TagString: Untagged
@@ -2209,20 +2209,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &688077092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688077091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa50b5ce54f310f4d988d58db051a3a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotMovemet
-  startPoint: {fileID: 1491938606}
-  target: {fileID: 1747009316}
 --- !u!195 &688077093
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2340,7 +2326,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &688077098
+--- !u!54 &688077099
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688077091}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &688077100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2349,21 +2362,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 688077091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da8aa6a5ddc424540b1dc17caa31bd2a, type: 3}
+  m_Script: {fileID: 11500000, guid: a24ce6eb7f2a3924f9c81b2ab526ac6b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PriestRole
---- !u!114 &688077099
-MonoBehaviour:
+  m_EditorClassIdentifier: Assembly-CSharp::BotAgent
+--- !u!95 &688077101
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688077091}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f782728152bf40c4086156c7a7bae384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TrapperRole
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b172b94fe61c9404692ecf9f64f5b13b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &688387788
 GameObject:
   m_ObjectHideFlags: 0
@@ -3950,7 +3973,8 @@ GameObject:
   - component: {fileID: 1253760352}
   - component: {fileID: 1253760351}
   - component: {fileID: 1253760350}
-  - component: {fileID: 1253760349}
+  - component: {fileID: 1253760356}
+  - component: {fileID: 1253760357}
   m_Layer: 0
   m_Name: Bot4
   m_TagString: Untagged
@@ -3958,20 +3982,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1253760349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253760348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa50b5ce54f310f4d988d58db051a3a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotMovemet
-  startPoint: {fileID: 1491938606}
-  target: {fileID: 1747009316}
 --- !u!195 &1253760350
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4089,6 +4099,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1253760356
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253760348}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1253760357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253760348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24ce6eb7f2a3924f9c81b2ab526ac6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotAgent
 --- !u!1 &1258092835
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,8 +4472,8 @@ GameObject:
   - component: {fileID: 1333298711}
   - component: {fileID: 1333298710}
   - component: {fileID: 1333298709}
-  - component: {fileID: 1333298708}
-  - component: {fileID: 1333298714}
+  - component: {fileID: 1333298715}
+  - component: {fileID: 1333298716}
   m_Layer: 0
   m_Name: Bot2
   m_TagString: Untagged
@@ -4432,20 +4481,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1333298708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1333298707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa50b5ce54f310f4d988d58db051a3a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotMovemet
-  startPoint: {fileID: 1491938606}
-  target: {fileID: 1747009316}
 --- !u!195 &1333298709
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4563,7 +4598,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1333298714
+--- !u!54 &1333298715
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333298707}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1333298716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4572,9 +4634,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333298707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043a56fe011e4b647b580720d444be34, type: 3}
+  m_Script: {fileID: 11500000, guid: a24ce6eb7f2a3924f9c81b2ab526ac6b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NormalRole
+  m_EditorClassIdentifier: Assembly-CSharp::BotAgent
 --- !u!1 &1352015650
 GameObject:
   m_ObjectHideFlags: 0
@@ -5618,8 +5680,8 @@ GameObject:
   - component: {fileID: 1849651801}
   - component: {fileID: 1849651800}
   - component: {fileID: 1849651799}
-  - component: {fileID: 1849651798}
-  - component: {fileID: 1849651804}
+  - component: {fileID: 1849651805}
+  - component: {fileID: 1849651806}
   m_Layer: 0
   m_Name: Bot3
   m_TagString: Untagged
@@ -5627,20 +5689,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1849651798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849651797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa50b5ce54f310f4d988d58db051a3a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BotMovemet
-  startPoint: {fileID: 1491938606}
-  target: {fileID: 1747009316}
 --- !u!195 &1849651799
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5758,7 +5806,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1849651804
+--- !u!54 &1849651805
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849651797}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1849651806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5767,10 +5842,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1849651797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f90fda4193fd3a04fb53bcb1ab44633b, type: 3}
+  m_Script: {fileID: 11500000, guid: a24ce6eb7f2a3924f9c81b2ab526ac6b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProtectorRole
-  protectedZone: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::BotAgent
 --- !u!1 &1891301106
 GameObject:
   m_ObjectHideFlags: 0
