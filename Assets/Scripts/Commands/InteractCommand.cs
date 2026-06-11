@@ -42,7 +42,6 @@ public class InteractCommand : ICommand
         }
 
         DetectCabinet();
-        RoleFactory.AssignRoles();  
     }
 
     private void DetectCabinet()

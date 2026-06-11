@@ -11,8 +11,14 @@ public static class RoleFactory
     {
         GetAllRoles();
         GetAllCharacters();
+
+        //skipping the player, so we can select the player's role from the editor
         foreach(BaseCharacter character in allCharacters)
         {
+            if(character is PlayerController)
+            {
+                continue;
+            }
             character.Role = ChooseRole();
             roleScriptName = $"{character.Role}Role";
             Type componentType = Type.GetType($"{roleScriptName}, Assembly-CSharp");

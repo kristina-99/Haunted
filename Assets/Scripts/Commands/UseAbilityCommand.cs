@@ -9,7 +9,6 @@ public class UseAbilityCommand : ICommand
     public UseAbilityCommand(Animator animator)
     {
         this.animator = animator;
-        RoleFactory.AssignRoles();
     }
 
     public void Execute()
