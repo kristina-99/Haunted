@@ -38,11 +38,10 @@ public abstract class BaseCharacter : MonoBehaviour
         }
     }
 
-    public void getKilled()
+    public void GetKilled()
     {
         isAlive = false;
         animator.SetBool("Dead",true);
-        Destroy(this.gameObject, DeathDelay);
     }
 
     public abstract void OnRoleAction();

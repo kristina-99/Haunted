@@ -46,7 +46,7 @@ public static class Extensions
 
         foreach (BaseCharacter character in Object.FindObjectsByType<BaseCharacter>())
         {
-            if (character == self) continue; 
+            if (character == self || !IsAlive(character)) continue; 
 
             float dSqr = (character.transform.position - currentPos).sqrMagnitude;
             if (dSqr < closestDistanceSqr)

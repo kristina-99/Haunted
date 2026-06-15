@@ -23,7 +23,7 @@ public class HauntedRole : RoleBase
             CalculateDistance(target);
             if(distanceFromTarget <= AttackDistance && isInTheSafeZone == false)
             {
-                target.getKilled();
+                target.GetKilled();
                 GameEvents.PlayerKilled(target);
             }
         }

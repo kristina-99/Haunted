@@ -8,12 +8,12 @@ public class PriestRole : RoleBase
     {
         if(target.Role == CharacterRole.Haunted)
         {
-            target.getKilled();
+            target.GetKilled();
         }
         else
         {
             character = GetComponent<BaseCharacter>();
-            character.getKilled();
+            character.GetKilled();
         }
 
         canUseAbility = false;
