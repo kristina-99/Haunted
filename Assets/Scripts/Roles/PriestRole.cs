@@ -4,8 +4,10 @@ using static GameConstants;
 public class PriestRole : RoleBase
 {
     private BaseCharacter character;
-    public override void UseAbility(BaseCharacter target)
+    private BaseCharacter target;
+    public override void UseAbility()
     {
+        target = transform.GetClosestTarget(character);
         if(target.Role == CharacterRole.Haunted)
         {
             target.GetKilled();

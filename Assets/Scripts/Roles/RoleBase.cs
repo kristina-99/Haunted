@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class RoleBase : MonoBehaviour
 {
     protected bool canUseAbility = true;
-    public abstract void UseAbility(BaseCharacter target);
+    public abstract void UseAbility();
     private void AllowAbility()
     {
         canUseAbility = true;

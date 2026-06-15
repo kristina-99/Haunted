@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TrapperRole : RoleBase
 {
-    public override void UseAbility(BaseCharacter target)
+    public override void UseAbility()
     {
         //after using the ability
         canUseAbility = false;

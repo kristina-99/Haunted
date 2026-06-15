@@ -42,28 +42,9 @@ public class PlayerController : BaseCharacter
         activeCommand.Execute();
     }
 
-    // private BaseCharacter GetClosestTarget()
-    // {
-    //     BaseCharacter closest = null;
-    //     float closestDistanceSqr = Mathf.Infinity;
-    //     Vector3 currentPos = transform.position;
-    //     foreach(BaseCharacter character in FindObjectsByType<BaseCharacter>())
-    //     {
-    //         if (character == myCharacter) continue; 
-
-    //         float dSqr = (character.transform.position - currentPos).sqrMagnitude;
-    //         if (dSqr < closestDistanceSqr)
-    //         {
-    //             closestDistanceSqr = dSqr;
-    //             closest = character;
-    //         }
-    //     }
-    //     return closest;
-    // }
-
     void OnUseAbility()
     {
-        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator);
+        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator, gameObject.GetComponent<RoleBase>());
         ScheduleCommand(useAbilityCommand);
     }
 

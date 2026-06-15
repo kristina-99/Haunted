@@ -4,14 +4,20 @@ using UnityEngine;
 public class HauntedRole : RoleBase
 {
     private float distanceFromTarget;
-    private bool isInTheSafeZone = false;
     private const float AttackDistance = 3.0f;
+    private const float LightsOnPeriod = 30f;
+    private bool isInTheSafeZone = false;
     private bool canKill = true;
+    private bool isLightOn = false;
 
-    public override void UseAbility(BaseCharacter target)
+    public override void UseAbility()
     {
-        //else lights out
-
+        if(canUseAbility)
+        {
+            isLightOn = true;
+            Debug.Log("Lights are on!");
+            Invoke("TurnOffLights", LightsOnPeriod);
+        }
         //after using the ability
         canUseAbility = false;
     }
@@ -49,5 +55,11 @@ public class HauntedRole : RoleBase
     private void CalculateDistance(BaseCharacter target)
     {
         distanceFromTarget = Vector3.Distance(target.gameObject.transform.position, this.gameObject.transform.position);
+    }
+
+    private void TurnOffLights()
+    {
+        isLightOn = false;
+        Debug.Log("Lights are off!");
     }
 }
