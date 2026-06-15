@@ -42,24 +42,24 @@ public class PlayerController : BaseCharacter
         activeCommand.Execute();
     }
 
-    private BaseCharacter GetClosestTarget()
-    {
-        BaseCharacter closest = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPos = transform.position;
-        foreach(BaseCharacter character in BaseCharacter.FindObjectsByType<BaseCharacter>())
-        {
-            if (character == myCharacter) continue; 
+    // private BaseCharacter GetClosestTarget()
+    // {
+    //     BaseCharacter closest = null;
+    //     float closestDistanceSqr = Mathf.Infinity;
+    //     Vector3 currentPos = transform.position;
+    //     foreach(BaseCharacter character in FindObjectsByType<BaseCharacter>())
+    //     {
+    //         if (character == myCharacter) continue; 
 
-            float dSqr = (character.transform.position - currentPos).sqrMagnitude;
-            if (dSqr < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqr;
-                closest = character;
-            }
-        }
-        return closest;
-    }
+    //         float dSqr = (character.transform.position - currentPos).sqrMagnitude;
+    //         if (dSqr < closestDistanceSqr)
+    //         {
+    //             closestDistanceSqr = dSqr;
+    //             closest = character;
+    //         }
+    //     }
+    //     return closest;
+    // }
 
     void OnUseAbility()
     {
@@ -69,7 +69,7 @@ public class PlayerController : BaseCharacter
 
     void OnKill()
     {
-        KillCommand killCommand = new KillCommand(myCharacter, GetClosestTarget());
+        KillCommand killCommand = new KillCommand(myCharacter, transform.GetClosestTarget(myCharacter));
         ScheduleCommand(killCommand);
     }
 

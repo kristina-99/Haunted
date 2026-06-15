@@ -1,6 +1,4 @@
-using System;
-using System.Numerics;
-using UnityEngine.TextCore;
+using UnityEngine;
 
 public static class Extensions
 {
@@ -38,5 +36,25 @@ public static class Extensions
         {
             return false;
         }
+    }
+
+    public static BaseCharacter GetClosestTarget(this Transform origin, BaseCharacter self)
+    {
+        BaseCharacter closest = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPos = origin.position;
+
+        foreach (BaseCharacter character in Object.FindObjectsByType<BaseCharacter>())
+        {
+            if (character == self) continue; 
+
+            float dSqr = (character.transform.position - currentPos).sqrMagnitude;
+            if (dSqr < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqr;
+                closest = character;
+            }
+        }
+        return closest;
     }
 }

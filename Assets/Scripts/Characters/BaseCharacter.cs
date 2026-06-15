@@ -5,6 +5,7 @@ using static GameConstants;
 [RequireComponent(typeof(Animator))]
 public abstract class BaseCharacter : MonoBehaviour
 {
+    private const float DeathDelay = 3f;
     private Animator animator;
     private bool isAlive = true;
     private CharacterRole role;
@@ -41,7 +42,7 @@ public abstract class BaseCharacter : MonoBehaviour
     {
         isAlive = false;
         animator.SetBool("Dead",true);
-        Destroy(this,2f);
+        Destroy(this.gameObject, DeathDelay);
     }
 
     public abstract void OnRoleAction();
