@@ -7,6 +7,8 @@ public static class RoleFactory
     private static List<CharacterRole> availableRoles;
     private static List<BaseCharacter> allCharacters;
     private static string roleScriptName;
+    private static Random randomRoleindex;
+
     public static void AssignRoles()
     {
         GetAllRoles();
@@ -19,10 +21,15 @@ public static class RoleFactory
             {
                 continue;
             }
+
             character.Role = ChooseRole();
             roleScriptName = $"{character.Role}Role";
+            
             Type componentType = Type.GetType($"{roleScriptName}, Assembly-CSharp");
-            character.gameObject.AddComponent(componentType);
+            if (componentType != null)
+            {
+                character.gameObject.AddComponent(componentType);
+            }
         }
     }
 
@@ -34,8 +41,8 @@ public static class RoleFactory
         }
         else
         {
-            Random random = new Random();
-            int index = random.Next(availableRoles.Count);
+            randomRoleindex = new Random();
+            int index = randomRoleindex.Next(availableRoles.Count);
             CharacterRole choosenRole = availableRoles[index];
             availableRoles.Remove(availableRoles[index]);
             return choosenRole;

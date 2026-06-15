@@ -6,7 +6,7 @@ public static class Extensions
 {
     static bool IsAlive(BaseCharacter character)
     {
-        if(character.Health > 0)
+        if(character.IsAlive)
         {
             return true;
         }

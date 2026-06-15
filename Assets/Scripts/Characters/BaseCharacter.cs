@@ -2,20 +2,26 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using static GameConstants;
 
+[RequireComponent(typeof(Animator))]
 public abstract class BaseCharacter : MonoBehaviour
 {
-    private int health;
+    private Animator animator;
+    private bool isAlive = true;
     private CharacterRole role;
 
-    public int Health
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+    public bool IsAlive
     {
         get
         {
-            return health;
+            return isAlive;
         }
         set
         {
-            health = value;
+            isAlive = value;
         }
     }
 
@@ -33,9 +39,9 @@ public abstract class BaseCharacter : MonoBehaviour
 
     public void getKilled()
     {
-        health = 0;
-        //play death animation//
-        Destroy(this);
+        isAlive = false;
+        animator.SetBool("Dead",true);
+        Destroy(this,2f);
     }
 
     public abstract void OnRoleAction();
