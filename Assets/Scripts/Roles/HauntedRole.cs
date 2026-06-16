@@ -10,6 +10,16 @@ public class HauntedRole : RoleBase
     private bool canKill = true;
     private bool isLightOn = false;
 
+    private void OnEnable()
+    {
+        GameEvents.OnNightStarted += AllowKill;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnNightStarted -= AllowKill;
+    }
+
     public override void UseAbility()
     {
         if(canUseAbility)
@@ -18,7 +28,7 @@ public class HauntedRole : RoleBase
             Debug.Log("Lights are on!");
             Invoke("TurnOffLights", LightsOnPeriod);
         }
-        //after using the ability
+        
         canUseAbility = false;
     }
 
@@ -36,7 +46,12 @@ public class HauntedRole : RoleBase
         canKill = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void AllowKill(int roundNumber)
+    {
+        canKill = true;
+    }
+
+    private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("SafeZone"))
         {
