@@ -57,4 +57,10 @@ public static class Extensions
         }
         return closest;
     }
+
+    public static void MoveSphereCollider(SphereCollider collider, Vector3 destination)
+    {
+        collider.transform.position = destination;
+        collider.center = Vector3.zero;
+    }
 }

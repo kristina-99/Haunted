@@ -25,8 +25,7 @@ public class TrapperRole : RoleBase
     }
     public override void UseAbility()
     {
-        trapZone.transform.position = transform.position;
-        trapZone.center = Vector3.zero;
+        Extensions.MoveSphereCollider(trapZone,transform.position);
         trapZone.enabled = true;
         canUseAbility = false;
     }

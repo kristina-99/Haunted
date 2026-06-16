@@ -26,8 +26,7 @@ public class ProtectorRole : RoleBase
 
     public override void UseAbility()
     {
-        protectedZone.transform.position = transform.position;
-        protectedZone.center = Vector3.zero;
+        Extensions.MoveSphereCollider(protectedZone,transform.position);
         protectedZone.enabled = true;
         canUseAbility = false;
     }
