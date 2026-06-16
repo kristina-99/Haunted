@@ -11,6 +11,18 @@ public class PlayerController : BaseCharacter
     private float inputHorizontal;
     private float inputVertical;
     private static Queue<ICommand> actionQueue = new Queue<ICommand>();
+    private bool canMove = true;
+
+
+    private void OnEnable()
+    {
+        GameEvents.OnHauntedStunned += FreezeCharacter;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnHauntedStunned -= FreezeCharacter;
+    }
 
     protected override void Awake()
     {
@@ -21,11 +33,14 @@ public class PlayerController : BaseCharacter
 
     void FixedUpdate()
     {
-        inputHorizontal = Input.GetAxis("Horizontal");
-        inputVertical = Input.GetAxis("Vertical");
-        moveCommand = new MoveCommand(rigidBody, inputHorizontal * Speed, inputVertical * Speed, animator);
-        ScheduleCommand(moveCommand);
-        ExecuteNextCommand();
+        if(canMove)
+        {
+            inputHorizontal = Input.GetAxis("Horizontal");
+            inputVertical = Input.GetAxis("Vertical");
+            moveCommand = new MoveCommand(rigidBody, inputHorizontal * Speed, inputVertical * Speed, animator);
+            ScheduleCommand(moveCommand);
+            ExecuteNextCommand();
+        }
     }
 
     private void ScheduleCommand(ICommand command)
@@ -37,6 +52,23 @@ public class PlayerController : BaseCharacter
     {
         ICommand activeCommand = actionQueue.Dequeue();
         activeCommand.Execute();
+    }
+
+    void FreezeCharacter()
+    {
+        if(canMove)
+        {
+            StartCoroutine(FreezeRoutine());
+        }
+    }
+
+    System.Collections.IEnumerator FreezeRoutine()
+    {
+        canMove = false;
+        Debug.Log("You are stunned and can't move!");
+        yield return new WaitForSeconds(30f);
+        canMove = true;
+        Debug.Log("You can move again!");
     }
 
     void OnUseAbility()

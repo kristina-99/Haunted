@@ -6,6 +6,7 @@ public class HauntedRole : RoleBase
     private float distanceFromTarget;
     private const float AttackDistance = 3.0f;
     private const float LightsOnPeriod = 30f;
+    private const float StunTime = 10f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
     private bool isLightOn = false;
@@ -49,6 +50,14 @@ public class HauntedRole : RoleBase
     private void AllowKill(int roundNumber)
     {
         canKill = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Trap"))
+        {
+           GameEvents.HauntedStunned();
+        }
     }
 
     private void OnTriggerStay(Collider other)
