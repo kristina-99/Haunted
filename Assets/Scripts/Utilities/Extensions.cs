@@ -63,4 +63,9 @@ public static class Extensions
         collider.transform.position = destination;
         collider.center = Vector3.zero;
     }
+
+    public static void SpawnDeadBody(GameObject deadBodyPrefab, Vector3 destination)
+    {
+        Object.Instantiate(deadBodyPrefab,destination,Quaternion.identity);
+    }
 }

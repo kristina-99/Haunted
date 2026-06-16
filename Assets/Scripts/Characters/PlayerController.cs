@@ -12,6 +12,7 @@ public class PlayerController : BaseCharacter
     private float inputVertical;
     private static Queue<ICommand> actionQueue = new Queue<ICommand>();
     private bool canMove = true;
+    private bool isNearDeadBody = false;
 
 
     private void OnEnable()
@@ -40,6 +41,26 @@ public class PlayerController : BaseCharacter
             moveCommand = new MoveCommand(rigidBody, inputHorizontal * Speed, inputVertical * Speed, animator);
             ScheduleCommand(moveCommand);
             ExecuteNextCommand();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        int indexLayer = LayerMask.NameToLayer("DeadBodies");
+
+        if(other.gameObject.layer == indexLayer)
+        {
+            isNearDeadBody = true;
+        }
+    }
+
+    void OgerExit(Collider other)
+    {
+        int indexLayer = LayerMask.NameToLayer("DeadBodies");
+
+        if(other.gameObject.layer == indexLayer)
+        {
+            isNearDeadBody = false;
         }
     }
 
@@ -87,6 +108,16 @@ public class PlayerController : BaseCharacter
     {
         InteractCommand interactCommand = new InteractCommand(rigidBody, animator);
         ScheduleCommand(interactCommand);
+    }
+
+    void OnBodyReport()
+    {
+        if(isNearDeadBody)
+        {
+            ReportCommand reportCommand = new ReportCommand();
+            ScheduleCommand(reportCommand);
+            GameEvents.BodyReported(this);
+        }
     }
 
     public override void OnRoleAction()
