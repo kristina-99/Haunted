@@ -5,12 +5,13 @@ using static GameConstants;
 [RequireComponent(typeof(Animator))]
 public abstract class BaseCharacter : MonoBehaviour
 {
+    private static readonly int DeadHash = Animator.StringToHash("Dead");
     private const float DeathDelay = 3f;
-    private Animator animator;
+    protected Animator animator;
     private bool isAlive = true;
     private CharacterRole role;
 
-    void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
     }
@@ -41,7 +42,7 @@ public abstract class BaseCharacter : MonoBehaviour
     public void GetKilled()
     {
         isAlive = false;
-        animator.SetBool("Dead",true);
+        animator.SetBool(DeadHash, true);
     }
 
     public abstract void OnRoleAction();

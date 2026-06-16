@@ -11,15 +11,12 @@ public class PlayerController : BaseCharacter
     private float inputHorizontal;
     private float inputVertical;
     private static Queue<ICommand> actionQueue = new Queue<ICommand>();
-    private BaseCharacter myCharacter;
-    private Animator animator;
 
-    void Awake()
+    protected override void Awake()
     {
-        animator = GetComponent<Animator>();
+        base.Awake();
         rigidBody = GetComponent<Rigidbody>();
         gameStateModel = new GameStateModel();
-        myCharacter = GetComponent<BaseCharacter>();
     }
 
     void FixedUpdate()
@@ -50,7 +47,7 @@ public class PlayerController : BaseCharacter
 
     void OnKill()
     {
-        KillCommand killCommand = new KillCommand(myCharacter, transform.GetClosestTarget(myCharacter));
+        KillCommand killCommand = new KillCommand(this, transform.GetClosestTarget(this));
         ScheduleCommand(killCommand);
     }
 
