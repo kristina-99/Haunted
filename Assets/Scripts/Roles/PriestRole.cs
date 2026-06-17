@@ -16,12 +16,14 @@ public class PriestRole : RoleBase
         target = transform.GetClosestTarget(character);
         if(target.Role == CharacterRole.Haunted)
         {
-            target.GetKilled();
+            target.OnCharacterDeath();
+            GameEvents.PlayerKilled(target);
             Debug.Log("Congratulations, you have killed the Haunted and won the game!");
         }
         else
         {
-            character.GetKilled();
+            character.OnCharacterDeath();
+            GameEvents.PlayerKilled(target);
         }
 
         canUseAbility = false;

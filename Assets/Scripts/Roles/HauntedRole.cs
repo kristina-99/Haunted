@@ -1,24 +1,27 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class HauntedRole : RoleBase
 {
-    private float distanceFromTarget;
-    private const float AttackDistance = 3.0f;
     private const float LightsOnPeriod = 30f;
     private const float StunTime = 10f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
     private bool isLightOn = false;
 
-    private void OnEnable()
+    public bool IsInTheSafeZone
     {
-        GameEvents.OnNightStarted += AllowKill;
+        get
+        {
+            return isInTheSafeZone;
+        }
     }
 
-    private void OnDisable()
+    public bool CanKill
     {
-        GameEvents.OnNightStarted -= AllowKill;
+        get
+        {
+            return canKill;
+        }
     }
 
     public override void UseAbility()
@@ -33,23 +36,14 @@ public class HauntedRole : RoleBase
         canUseAbility = false;
     }
 
-    public void Kill(BaseCharacter target)
-    {
-        if(canKill)
-        {
-            CalculateDistance(target);
-            if(distanceFromTarget <= AttackDistance && isInTheSafeZone == false)
-            {
-                target.GetKilled();
-                GameEvents.PlayerKilled(target);
-            }
-        }
-        canKill = false;
-    }
-
-    private void AllowKill(int roundNumber)
+    public void AllowKill(int roundNumber)
     {
         canKill = true;
+    }
+
+    public void DisableKill()
+    {
+        canKill = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -74,11 +68,6 @@ public class HauntedRole : RoleBase
         {
             isInTheSafeZone = false;
         }
-    }
-
-    private void CalculateDistance(BaseCharacter target)
-    {
-        distanceFromTarget = Vector3.Distance(target.gameObject.transform.position, this.gameObject.transform.position);
     }
 
     private void TurnOffLights()
