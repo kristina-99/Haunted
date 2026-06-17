@@ -4,26 +4,25 @@ using static GameConstants;
 public class PriestRole : RoleBase
 {
     private BaseCharacter character;
-    private BaseCharacter target;
 
     void Awake()
     {
         character = GetComponent<BaseCharacter>();
     }
 
-    public override void UseAbility()
+    public override void UseAbility(BaseCharacter target)
     {
-        target = transform.GetClosestTarget(character);
         if(target.Role == CharacterRole.Haunted)
         {
             target.OnCharacterDeath();
             GameEvents.PlayerKilled(target);
             Debug.Log("Congratulations, you have killed the Haunted and won the game!");
+            GameEvents.GameEnded(GameResult.HuntersWin);
         }
         else
         {
             character.OnCharacterDeath();
-            GameEvents.PlayerKilled(target);
+            GameEvents.PlayerKilled(character);
         }
 
         canUseAbility = false;

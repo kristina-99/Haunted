@@ -3,7 +3,6 @@ using UnityEngine;
 public class HauntedRole : RoleBase
 {
     private const float LightsOnPeriod = 30f;
-    private const float StunTime = 10f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
     private bool isLightOn = false;
@@ -24,7 +23,7 @@ public class HauntedRole : RoleBase
         }
     }
 
-    public override void UseAbility()
+    public override void UseAbility(BaseCharacter target)
     {
         if(canUseAbility)
         {

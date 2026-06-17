@@ -5,16 +5,6 @@ public class ProtectorRole : RoleBase
     private GameObject safeZoneObject;
     private SphereCollider protectedZone;
 
-    void OnEnable()
-    {
-        GameEvents.OnNightStarted += ResetAbility;
-    }
-
-    void OnDisable()
-    {
-        GameEvents.OnNightStarted -= ResetAbility;
-    }
-
     void Awake()
     {
         safeZoneObject = GameObject.FindWithTag("SafeZone");
@@ -24,16 +14,10 @@ public class ProtectorRole : RoleBase
         }
     }
 
-    public override void UseAbility()
+    public override void UseAbility(BaseCharacter target)
     {
         Extensions.MoveSphereCollider(protectedZone,transform.position);
         protectedZone.enabled = true;
         canUseAbility = false;
-    }
-
-    private void ResetAbility(int roundNumber)
-    {
-        protectedZone.enabled = false;
-        canUseAbility = true;
     }
 }
