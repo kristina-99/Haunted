@@ -1,7 +1,7 @@
 using UnityEngine;
 using static GameConstants;
 
-public class TankGame : MonoBehaviour, IMiniGame
+public class TankGame : MonoBehaviour, IMiniGame, IInteractable
 {
     public CabinetConfigSO cabinetConfig;
     private MiniGameType miniGameType;
@@ -36,6 +36,17 @@ public class TankGame : MonoBehaviour, IMiniGame
         {
             return assignedRoom;
         }
+    }
+
+    public string GetPromptText()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Interact(PlayerController player)
+    {
+        //logic to start the mini game
+        Debug.Log("This is the Tank Game cabinet!");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

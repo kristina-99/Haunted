@@ -1,7 +1,7 @@
 using UnityEngine;
 using static GameConstants;
 
-public class FPSGame : MonoBehaviour, IMiniGame
+public class FPSGame : MonoBehaviour, IMiniGame, IInteractable
 {
     public CabinetConfigSO cabinetConfig;
     private MiniGameType miniGameType;
@@ -36,6 +36,17 @@ public class FPSGame : MonoBehaviour, IMiniGame
         {
             return assignedRoom;
         }
+    }
+
+    public string GetPromptText()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Interact(PlayerController player)
+    {
+        //logic to start the mini game
+        Debug.Log("This is the FPS Game cabinet!");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
