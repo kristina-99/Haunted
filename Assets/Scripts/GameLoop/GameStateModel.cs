@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using static GameConstants;
 
 public class GameStateModel
@@ -8,6 +9,7 @@ public class GameStateModel
     private List<BaseCharacter> alivePlayers = new List<BaseCharacter>();
     private Dictionary<int,CharacterRole> roles = new Dictionary<int, CharacterRole>();
     private Dictionary<BaseCharacter,int> votes = new Dictionary<BaseCharacter,int>();
+    private HashSet<BaseCharacter> playersWhoVoted = new HashSet<BaseCharacter>();
     private int voteTally;
     private int tasksRemaining;
     private int roundNumber;
@@ -120,9 +122,34 @@ public class GameStateModel
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
-        //add a new key, value pair to votes if key doesn't exist already
-        //if the key already exists increase the value(int)
+        if(voter == null || target == null)
+        {
+            return;
+        }
+
+        if(playersWhoVoted.Contains(voter))
+        {
+            //player shouldn't be able to vote twice!
+            return;
+        }
+
+        if(!votes.ContainsKey(target))
+        {
+            votes[target] = 1;
+        }
+        else
+        {
+            votes[target]++;
+        }
+
+        playersWhoVoted.Add(voter);
+
         voteTally++;
+
+        if(voteTally == alivePlayers.Count)
+        {
+            //stop voting and count votes
+        }
     }
 
     public void CompleteTask(BaseCharacter completer)
