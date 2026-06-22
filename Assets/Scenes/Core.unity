@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 279324426}
   - component: {fileID: 279324425}
   - component: {fileID: 279324424}
-  - component: {fileID: 279324423}
+  - component: {fileID: 279324428}
   m_Layer: 9
   m_Name: TankCabinet
   m_TagString: Untagged
@@ -699,19 +699,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &279324423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279324422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56bf54bc8746907419da0d80b4bda274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TankGame
-  cabinetConfig: {fileID: 11400000, guid: f2246af68c95e66468616c562842fc55, type: 2}
 --- !u!65 &279324424
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -805,6 +792,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279324428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279324422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
+  cabinetConfig: {fileID: 11400000, guid: f2246af68c95e66468616c562842fc55, type: 2}
 --- !u!1 &306878666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,7 +1913,7 @@ GameObject:
   - component: {fileID: 495177032}
   - component: {fileID: 495177031}
   - component: {fileID: 495177030}
-  - component: {fileID: 495177029}
+  - component: {fileID: 495177034}
   m_Layer: 9
   m_Name: FPSCabinet
   m_TagString: Untagged
@@ -1921,19 +1921,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &495177029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495177028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a526c21cd65d0046bed993b3fa35636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FPSGame
-  cabinetConfig: {fileID: 11400000, guid: 0db394f94cc54054e829814de28cc01b, type: 2}
 --- !u!65 &495177030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2027,6 +2014,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &495177034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495177028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
+  cabinetConfig: {fileID: 11400000, guid: 0db394f94cc54054e829814de28cc01b, type: 2}
 --- !u!1 &499631381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,9 +2793,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 756239750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bf5fc2c2a693944c88f5c1553b4980c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClimbGame
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
   cabinetConfig: {fileID: 11400000, guid: 1dcd5d3b86e00cc439911c2bfe624e76, type: 2}
 --- !u!1 &832575517
 GameObject:
@@ -3304,9 +3304,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 979383090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e3879f67bfe6f4eb870359581bc547, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TarotGame
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
   cabinetConfig: {fileID: 11400000, guid: 140280f701559084bb3ba71db0792873, type: 2}
 --- !u!1 &998697890
 GameObject:
@@ -3804,7 +3804,7 @@ GameObject:
   - component: {fileID: 1167227424}
   - component: {fileID: 1167227423}
   - component: {fileID: 1167227422}
-  - component: {fileID: 1167227421}
+  - component: {fileID: 1167227426}
   m_Layer: 9
   m_Name: MKCabinet
   m_TagString: Untagged
@@ -3812,19 +3812,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1167227421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167227420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e30adc7cea36b7a44b8ff07f834fb724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MKGame
-  cabinetConfig: {fileID: 11400000, guid: fc17c01a3cc1de84ab1784d21c77fcf5, type: 2}
 --- !u!65 &1167227422
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3918,6 +3905,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 998697891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1167227426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167227420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
+  cabinetConfig: {fileID: 11400000, guid: fc17c01a3cc1de84ab1784d21c77fcf5, type: 2}
 --- !u!1 &1183923896
 GameObject:
   m_ObjectHideFlags: 0
