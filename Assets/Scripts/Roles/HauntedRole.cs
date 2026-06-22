@@ -5,11 +5,11 @@ public class HauntedRole : RoleBase
 {
     private float distanceFromTarget;
     private const float AttackDistance = 3.0f;
-    private const float LightsOnPeriod = 30f;
+    private const float LightsOffPeriod = 30f;
     private const float StunTime = 10f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
-    private bool isLightOn = false;
+    private bool isLightOn = true;
 
     private void OnEnable()
     {
@@ -25,9 +25,9 @@ public class HauntedRole : RoleBase
     {
         if(canUseAbility)
         {
-            isLightOn = true;
-            Debug.Log("Lights are on!");
-            Invoke("TurnOffLights", LightsOnPeriod);
+            isLightOn = false;
+            Debug.Log("Lights are off!");
+            Invoke("TurnOnLights", LightsOffPeriod);
         }
         
         canUseAbility = false;
@@ -81,9 +81,9 @@ public class HauntedRole : RoleBase
         distanceFromTarget = Vector3.Distance(target.gameObject.transform.position, this.gameObject.transform.position);
     }
 
-    private void TurnOffLights()
+    private void TurnOnLights()
     {
-        isLightOn = false;
-        Debug.Log("Lights are off!");
+        isLightOn = true;
+        Debug.Log("Lights are back on!");
     }
 }
