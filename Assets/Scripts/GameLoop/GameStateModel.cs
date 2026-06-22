@@ -172,7 +172,8 @@ public class GameStateModel : MonoBehaviour
 
         if(voteTally == alivePlayers.Count)
         {
-            //stop voting and count votes
+            //count votes
+            //if Haunted is voted out call GameEvents.GameEnded(GameResult.HuntersWin);
         }
     }
 
@@ -180,5 +181,9 @@ public class GameStateModel : MonoBehaviour
     {
         // to do: logic for individual characters on task completed
         tasksRemaining--;
+        if(tasksRemaining == 0)
+        {
+            GameEvents.GameEnded(GameResult.HuntersWin);
+        }
     }
 }
