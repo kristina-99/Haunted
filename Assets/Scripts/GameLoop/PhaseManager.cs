@@ -5,10 +5,10 @@ using static GameConstants;
 public class PhaseManager : MonoBehaviour
 {
     private const float NightDuration = 100f;
-    private  const float DayDuration = 120f;
-    private float counter = 0f;
+    private const float DayDuration = 120f;
     private int roundCounter = 0;
-    private Coroutine gameLoopRoutine;
+    
+    private Coroutine activePhaseRoutine;
     private bool interruptNightPhase = false;
     private bool gameOver = false;
 
@@ -21,43 +21,36 @@ public class PhaseManager : MonoBehaviour
     void OnDisable()
     {
         GameEvents.OnBodyReported -= InterruptNightPhase;
-        GameEvents.OnGameEnded -= GameOver;       
-    }
-
-    void Start()
-    {
-        gameLoopRoutine = StartCoroutine(GameLoopRoutine());
+        GameEvents.OnGameEnded -= GameOver;      
     }
 
     void Update()
     {
-        counter++;
-        if(counter == 20f)
+        if (activePhaseRoutine == null && !gameOver)
         {
-            RoleFactory.AssignRoles();
+            activePhaseRoutine = StartCoroutine(PhaseRoutine());
         }
-
     }
 
-    IEnumerator GameLoopRoutine()
+    IEnumerator PhaseRoutine()
     {
-        while(!gameOver)
+        roundCounter++;
+        interruptNightPhase = false;
+        GameEvents.NightStarted(roundCounter);
+
+        float nightEndTime = Time.time + NightDuration;
+        while (Time.time < nightEndTime && !interruptNightPhase)
         {
-            roundCounter++;
-            interruptNightPhase = false; 
-            GameEvents.NightStarted(roundCounter);
-
-            float nightEndTime = Time.time + NightDuration;
-            yield return new WaitUntil(() => Time.time >= nightEndTime || interruptNightPhase);
-
-            if (gameOver) break; 
-
+            yield return null; 
+        }
+        
+        if (!gameOver)
+        {
             GameEvents.DayStarted();
             yield return new WaitForSeconds(DayDuration);
         }
-        
-        Debug.Log("Game Over!");
-        gameLoopRoutine = null;
+
+        activePhaseRoutine = null;
     }
 
     private void InterruptNightPhase(BaseCharacter reportedBody)
@@ -69,11 +62,12 @@ public class PhaseManager : MonoBehaviour
     {
         gameOver = true;
 
-        if (gameLoopRoutine != null)
+        if (activePhaseRoutine != null)
         {
-            StopCoroutine(gameLoopRoutine);
-            gameLoopRoutine = null;
+            StopCoroutine(activePhaseRoutine);
+            activePhaseRoutine = null;
         }
-    }
 
+        Debug.Log("The game is over and the PhaseRoutine is stopped!");
+    }
 }

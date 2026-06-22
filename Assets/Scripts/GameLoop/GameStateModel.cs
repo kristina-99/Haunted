@@ -1,19 +1,26 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
+using UnityEngine;
 using static GameConstants;
 
-public class GameStateModel
+public class GameStateModel : MonoBehaviour
 {
     private GamePhase currentPhase;
-    private List<BaseCharacter> alivePlayers = new List<BaseCharacter>();
-    private Dictionary<int,CharacterRole> roles = new Dictionary<int, CharacterRole>();
-    private Dictionary<BaseCharacter,int> votes = new Dictionary<BaseCharacter,int>();
-    private HashSet<BaseCharacter> playersWhoVoted = new HashSet<BaseCharacter>();
+    private List<BaseCharacter> alivePlayers;
+    private Dictionary<BaseCharacter,CharacterRole> roles;
+    private Dictionary<BaseCharacter,int> votes;
+    private HashSet<BaseCharacter> playersWhoVoted;
     private int voteTally;
     private int tasksRemaining;
     private int roundNumber;
     private int discussionCount;
+
+    void Start()
+    {
+        roles = new Dictionary<BaseCharacter, CharacterRole>();
+        votes = new Dictionary<BaseCharacter,int>();
+        playersWhoVoted = new HashSet<BaseCharacter>();
+    }
 
     public GamePhase CurrentPhase
     {
@@ -80,6 +87,8 @@ public class GameStateModel
         GameEvents.OnPlayerKilled += RegisterKill;
         GameEvents.OnVoteCast += RegisterVote;
         GameEvents.OnTaskCompleted += CompleteTask;
+        GameEvents.OnArcadeMapLoaded += GetAllPlayers;
+        GameEvents.OnArcadeMapLoaded += AssignRoles;
     }
 
     private void OnDisable()
@@ -91,6 +100,8 @@ public class GameStateModel
         GameEvents.OnPlayerKilled -= RegisterKill;
         GameEvents.OnVoteCast -= RegisterVote;
         GameEvents.OnTaskCompleted -= CompleteTask;
+        GameEvents.OnArcadeMapLoaded -= GetAllPlayers;
+        GameEvents.OnArcadeMapLoaded -= AssignRoles;
     }
     private void RouteNightStart(int round) 
     => SetPhase(GamePhase.Night);
@@ -104,10 +115,19 @@ public class GameStateModel
     private void RouteGameEnded(GameResult result)
     => SetPhase(GamePhase.Ended);
 
-    // called once on game start
-    private void GetAllPlayers(List<BaseCharacter> allPlayersList)
+    // called once on ArcadeMapLoaded
+    private void GetAllPlayers()
     {
-        alivePlayers.AddRange(allPlayersList);
+        alivePlayers = FindObjectsByType<BaseCharacter>().ToList();
+    }
+
+    private void AssignRoles()
+    {
+        RoleFactory.AssignRoles();
+        foreach(BaseCharacter character in alivePlayers)
+        {
+            roles.Add(character,character.Role);
+        }
     }
 
     public void SetPhase(GamePhase gamePhase)
@@ -118,6 +138,10 @@ public class GameStateModel
     public void RegisterKill(BaseCharacter victim)
     {
         alivePlayers.Remove(victim);
+        if(alivePlayers.Count == 2)
+        {
+            GameEvents.GameEnded(GameResult.HauntedWins);
+        }
     }
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)

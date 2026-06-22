@@ -4,7 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : BaseCharacter
 {
-    private GameStateModel gameStateModel;
     private const float Speed = 1f;
     private Rigidbody rigidBody;
     private MoveCommand moveCommand;
@@ -29,7 +28,6 @@ public class PlayerController : BaseCharacter
     {
         base.Awake();
         rigidBody = GetComponent<Rigidbody>();
-        gameStateModel = new GameStateModel();
     }
 
     void FixedUpdate()
