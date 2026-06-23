@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class VoteCommand : MonoBehaviour
+public class VoteCommand : ICommand
 {
-    void Start()
+    public VoteCommand()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    void Update()
+    public void Execute()
     {
-        
+        throw new System.NotImplementedException();
     }
 }

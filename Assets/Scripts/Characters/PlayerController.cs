@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseCharacter
 {
     public Animator animator;
     private const float Speed = 1f;
@@ -47,5 +47,10 @@ public class PlayerController : MonoBehaviour
     {
         InteractCommand interactCommand = new InteractCommand(rigidBody, animator);
         ScheduleCommand(interactCommand);
+    }
+
+    public override void OnRoleAction()
+    {
+        throw new System.NotImplementedException();
     }
 }
