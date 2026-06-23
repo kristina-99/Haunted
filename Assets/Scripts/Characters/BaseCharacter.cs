@@ -1,20 +1,31 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using static GameConstants;
 
+[RequireComponent(typeof(Animator))]
 public abstract class BaseCharacter : MonoBehaviour
 {
-    private int health;
+    public GameObject deadBody;
+    private static readonly int DeadHash = Animator.StringToHash("Dead");
+    private const float DeathDelay = 1f;
+    protected Animator animator;
+    private bool isAlive = true;
     private CharacterRole role;
 
-    public int Health
+    protected virtual void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+    public bool IsAlive
     {
         get
         {
-            return health;
+            return isAlive;
         }
         set
         {
-            health = value;
+            isAlive = value;
         }
     }
 
@@ -28,6 +39,14 @@ public abstract class BaseCharacter : MonoBehaviour
         {
             role = value;
         }
+    }
+
+    public void GetKilled()
+    {
+        isAlive = false;
+        animator.SetBool("Dead", true);
+        Destroy(this.gameObject, DeathDelay);
+        Extensions.SpawnDeadBody(deadBody,transform.position);
     }
 
     public abstract void OnRoleAction();

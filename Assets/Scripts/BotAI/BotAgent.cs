@@ -1,7 +1,12 @@
 using UnityEngine;
 
-public class BotAgent : MonoBehaviour
+public class BotAgent : BaseCharacter
 {
+    public override void OnRoleAction()
+    {
+        throw new System.NotImplementedException();
+    }
+
     void Start()
     {
         

@@ -1,14 +1,22 @@
 using UnityEngine;
 
-public class RoleBase : MonoBehaviour
+public abstract class RoleBase : MonoBehaviour
 {
-    void Start()
+    protected bool canUseAbility = true;
+    public abstract void UseAbility();
+    private void AllowAbility()
     {
-        
+        canUseAbility = true;
     }
 
-    void Update()
+    private void OnEnable()
     {
-        
+        GameEvents.OnNightStarted += RouteNightStart;
     }
+    private void OnDisable()
+    {
+        GameEvents.OnNightStarted -= RouteNightStart;
+    }
+    private void RouteNightStart(int round) 
+    => AllowAbility();
 }

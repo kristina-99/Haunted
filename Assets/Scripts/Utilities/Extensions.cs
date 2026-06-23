@@ -6,7 +6,7 @@ public static class Extensions
 {
     static bool IsAlive(BaseCharacter character)
     {
-        if(character.Health > 0)
+        if(character.IsAlive)
         {
             return true;
         }
@@ -38,5 +38,36 @@ public static class Extensions
         {
             return false;
         }
+    }
+
+    public static BaseCharacter GetClosestTarget(this Transform origin, BaseCharacter self)
+    {
+        BaseCharacter closest = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPos = origin.position;
+
+        foreach (BaseCharacter character in Object.FindObjectsByType<BaseCharacter>())
+        {
+            if (character == self || !IsAlive(character)) continue; 
+
+            float dSqr = (character.transform.position - currentPos).sqrMagnitude;
+            if (dSqr < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqr;
+                closest = character;
+            }
+        }
+        return closest;
+    }
+
+    public static void MoveSphereCollider(SphereCollider collider, Vector3 destination)
+    {
+        collider.transform.position = destination;
+        collider.center = Vector3.zero;
+    }
+
+    public static void SpawnDeadBody(GameObject deadBodyPrefab, Vector3 destination)
+    {
+        Object.Instantiate(deadBodyPrefab,destination,Quaternion.identity);
     }
 }
