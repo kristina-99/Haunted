@@ -2329,6 +2329,7 @@ GameObject:
   - component: {fileID: 756239753}
   - component: {fileID: 756239752}
   - component: {fileID: 756239751}
+  - component: {fileID: 756239755}
   m_Layer: 9
   m_Name: Cabinet1 (1)
   m_TagString: Untagged
@@ -2429,6 +2430,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &756239755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756239750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
+  cabinetConfig: {fileID: 11400000, guid: 1dcd5d3b86e00cc439911c2bfe624e76, type: 2}
 --- !u!1 &820884847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2904,6 +2918,7 @@ GameObject:
   - component: {fileID: 979383093}
   - component: {fileID: 979383092}
   - component: {fileID: 979383091}
+  - component: {fileID: 979383095}
   m_Layer: 9
   m_Name: Cabinet1
   m_TagString: Untagged
@@ -3004,6 +3019,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &979383095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979383090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c09fa44f3670b2408897fede24034fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniGameCabinet
+  cabinetConfig: {fileID: 11400000, guid: fc17c01a3cc1de84ab1784d21c77fcf5, type: 2}
 --- !u!1 &1050348311
 GameObject:
   m_ObjectHideFlags: 0
