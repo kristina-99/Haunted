@@ -4,26 +4,64 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : BaseCharacter
 {
-    public Animator animator;
+    private GameStateModel gameStateModel;
     private const float Speed = 1f;
     private Rigidbody rigidBody;
     private MoveCommand moveCommand;
     private float inputHorizontal;
     private float inputVertical;
     private static Queue<ICommand> actionQueue = new Queue<ICommand>();
+    private bool canMove = true;
+    private bool isNearDeadBody = false;
 
-    void Awake()
+
+    private void OnEnable()
     {
+        GameEvents.OnHauntedStunned += FreezeCharacter;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnHauntedStunned -= FreezeCharacter;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         rigidBody = GetComponent<Rigidbody>();
+        gameStateModel = new GameStateModel();
     }
 
     void FixedUpdate()
     {
-        inputHorizontal = Input.GetAxis("Horizontal");
-        inputVertical = Input.GetAxis("Vertical");
-        moveCommand = new MoveCommand(rigidBody, inputHorizontal * Speed, inputVertical * Speed, animator);
-        ScheduleCommand(moveCommand);
-        ExecuteNextCommand();
+        if(canMove)
+        {
+            inputHorizontal = Input.GetAxis("Horizontal");
+            inputVertical = Input.GetAxis("Vertical");
+            moveCommand = new MoveCommand(rigidBody, inputHorizontal * Speed, inputVertical * Speed, animator);
+            ScheduleCommand(moveCommand);
+            ExecuteNextCommand();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        int indexLayer = LayerMask.NameToLayer("DeadBodies");
+
+        if(other.gameObject.layer == indexLayer)
+        {
+            isNearDeadBody = true;
+        }
+    }
+
+    void OgerExit(Collider other)
+    {
+        int indexLayer = LayerMask.NameToLayer("DeadBodies");
+
+        if(other.gameObject.layer == indexLayer)
+        {
+            isNearDeadBody = false;
+        }
     }
 
     private void ScheduleCommand(ICommand command)
@@ -37,16 +75,49 @@ public class PlayerController : BaseCharacter
         activeCommand.Execute();
     }
 
+    void FreezeCharacter()
+    {
+        if(canMove)
+        {
+            StartCoroutine(FreezeRoutine());
+        }
+    }
+
+    System.Collections.IEnumerator FreezeRoutine()
+    {
+        canMove = false;
+        Debug.Log("You are stunned and can't move!");
+        yield return new WaitForSeconds(30f);
+        canMove = true;
+        Debug.Log("You can move again!");
+    }
+
     void OnUseAbility()
     {
-        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator);
+        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator, gameObject.GetComponent<RoleBase>());
         ScheduleCommand(useAbilityCommand);
+    }
+
+    void OnKill()
+    {
+        KillCommand killCommand = new KillCommand(this, transform.GetClosestTarget(this));
+        ScheduleCommand(killCommand);
     }
 
     void OnInteract()
     {
         InteractCommand interactCommand = new InteractCommand(rigidBody, animator);
         ScheduleCommand(interactCommand);
+    }
+
+    void OnBodyReport()
+    {
+        if(isNearDeadBody)
+        {
+            ReportCommand reportCommand = new ReportCommand();
+            ScheduleCommand(reportCommand);
+            GameEvents.BodyReported(this);
+        }
     }
 
     public override void OnRoleAction()

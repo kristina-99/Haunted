@@ -1,14 +1,10 @@
 using UnityEngine;
 
-public class NormalRole : MonoBehaviour
+public class NormalRole : RoleBase
 {
-    void Start()
+    public override void UseAbility()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        //task speed
+        canUseAbility = false;
     }
 }

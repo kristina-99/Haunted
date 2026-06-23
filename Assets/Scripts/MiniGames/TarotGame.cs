@@ -1,6 +1,7 @@
 using UnityEngine;
+using static GameConstants;
 
-public class TarotGame : MonoBehaviour
+public class TarotGame : MonoBehaviour, IMiniGame
 {
     
 }

@@ -1,14 +1,29 @@
 using UnityEngine;
+using static GameConstants;
 
-public class PriestRole : MonoBehaviour
+public class PriestRole : RoleBase
 {
-    void Start()
+    private BaseCharacter character;
+    private BaseCharacter target;
+
+    void Awake()
     {
-        
+        character = GetComponent<BaseCharacter>();
     }
 
-    void Update()
+    public override void UseAbility()
     {
-        
+        target = transform.GetClosestTarget(character);
+        if(target.Role == CharacterRole.Haunted)
+        {
+            target.GetKilled();
+            Debug.Log("Congratulations, you have killed the Haunted and won the game!");
+        }
+        else
+        {
+            character.GetKilled();
+        }
+
+        canUseAbility = false;
     }
 }

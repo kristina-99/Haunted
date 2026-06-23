@@ -1,14 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class KillCommand : ICommand
 {
-    public KillCommand()
+    private BaseCharacter attacker;
+    private BaseCharacter target;
+    private HauntedRole hauntedRole;
+
+    public KillCommand(BaseCharacter attacker, BaseCharacter target)
     {
-        throw new System.NotImplementedException();
+        hauntedRole = attacker.gameObject.GetComponent<HauntedRole>();
+        this.attacker = attacker;
+        this.target = target;
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        if (hauntedRole != null)
+        {
+            hauntedRole.Kill(target);
+        }
     }
 }

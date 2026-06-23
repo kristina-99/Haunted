@@ -1,6 +1,7 @@
 using UnityEngine;
+using static GameConstants;
 
-public class TankGame : MonoBehaviour
+public class TankGame : MonoBehaviour, IMiniGame
 {
     
 }
