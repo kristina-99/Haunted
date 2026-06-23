@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using UnityEngine.TextCore;
 
+
 public static class Extensions
 {
     static bool IsAlive(BaseCharacter character)
