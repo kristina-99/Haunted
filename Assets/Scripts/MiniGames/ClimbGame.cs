@@ -1,7 +1,7 @@
 using UnityEngine;
 using static GameConstants;
 
-public class ClimbGame : MonoBehaviour, IMiniGame
+public class ClimbGame : MonoBehaviour
 {
     
 }
