@@ -1,8 +1,7 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BotMovemet : MonoBehaviour
+public class BotMovement : MonoBehaviour
 {
     public Transform startPoint;
     public Transform target;

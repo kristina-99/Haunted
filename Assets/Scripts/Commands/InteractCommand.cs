@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEditor;
 
 public class InteractCommand : ICommand
 {
@@ -30,7 +28,7 @@ public class InteractCommand : ICommand
 
         if(Physics.SphereCast(origin,SphereRadius,direction,out hit, MaxDistance, layerMask, QueryTriggerInteraction.UseGlobal))
         {
-            currentHitObject = hit.transform.GameObject();
+            currentHitObject = hit.transform.gameObject;
             currentHitDistance = hit.distance;
             animator.SetTrigger("Interact");
         }

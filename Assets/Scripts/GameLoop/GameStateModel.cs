@@ -69,41 +69,7 @@ public class GameStateModel
         }
     }
 
-    private void OnEnable()
-    {
-        GameEvents.OnNightStarted += RouteNightStart;
-        GameEvents.OnDayStarted += RouteDayStart;
-        GameEvents.OnBodyReported += RouteBodyReported;
-        GameEvents.OnGameEnded += RouteGameEnded;
-        GameEvents.OnPlayerKilled += RegisterKill;
-        GameEvents.OnVoteCast += RegisterVote;
-        GameEvents.OnTaskCompleted += CompleteTask;
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnNightStarted -= RouteNightStart;
-        GameEvents.OnDayStarted -= RouteDayStart;
-        GameEvents.OnBodyReported -= RouteBodyReported;
-        GameEvents.OnGameEnded -= RouteGameEnded;
-        GameEvents.OnPlayerKilled -= RegisterKill;
-        GameEvents.OnVoteCast -= RegisterVote;
-        GameEvents.OnTaskCompleted -= CompleteTask;
-    }
-    private void RouteNightStart(int round) 
-    => SetPhase(GamePhase.Night);
-
-    private void RouteDayStart()
-    => SetPhase(GamePhase.Day);
-
-    private void RouteBodyReported(BaseCharacter reporter) 
-    => SetPhase(GamePhase.Voting);
-
-    private void RouteGameEnded(GameResult result)
-    => SetPhase(GamePhase.Ended);
-
-    // called once on game start
-    private void GetAllPlayers(List<BaseCharacter> allPlayersList)
+    public void GetAllPlayers(List<BaseCharacter> allPlayersList)
     {
         alivePlayers.AddRange(allPlayersList);
     }
@@ -120,14 +86,28 @@ public class GameStateModel
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
-        //add a new key, value pair to votes if key doesn't exist already
-        //if the key already exists increase the value(int)
+        // Add a new key, value pair to votes if target doesn't exist already
+        // If the target already exists, increase the value(int)
+        if (votes.ContainsKey(target))
+        {
+            votes[target]++;
+        }
+        else
+        {
+            votes[target] = 1;
+        }
+
         voteTally++;
     }
 
     public void CompleteTask(BaseCharacter completer)
     {
-        // to do: logic for individual characters on task completed
         tasksRemaining--;
+    }
+    
+    public void ClearVotes()
+    {
+        votes.Clear();
+        voteTally = 0;
     }
 }
