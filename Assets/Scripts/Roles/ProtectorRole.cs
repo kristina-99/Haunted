@@ -14,6 +14,11 @@ public class ProtectorRole : RoleBase
         }
     }
 
+    protected override void HandleNightStarted(int roundNumber)
+    {
+        AllowAbility();
+    }
+
     public override void UseAbility(BaseCharacter target)
     {
         Extensions.MoveSphereCollider(protectedZone,transform.position);

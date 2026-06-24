@@ -11,31 +11,18 @@ public class KillCommand : ICommand
         hauntedRole = attacker.gameObject.GetComponent<HauntedRole>();
         this.attacker = attacker;
         this.target = target;
-
-        //subscribing here because Enable and Disable don't work on pure C# classes
-        if(hauntedRole != null)
-        {
-            GameEvents.OnNightStarted += hauntedRole.AllowKill;
-        }
     }
 
     public void Execute()
     {
+        //check if currentPhase is Night!!!
+
         currentDistance = Extensions.CalculateDistance(target,attacker);
         if (hauntedRole != null && hauntedRole.CanKill && (currentDistance <= KillRange) && !hauntedRole.IsInTheSafeZone)
         {
             target.OnCharacterDeath();
             GameEvents.PlayerKilled(target);
             hauntedRole.DisableKill();
-        }
-    }
-
-    public void Dispose()
-    {
-        // call manually to unsubscribe
-        if (hauntedRole != null)
-        {
-            GameEvents.OnNightStarted -= hauntedRole.AllowKill;
         }
     }
 }

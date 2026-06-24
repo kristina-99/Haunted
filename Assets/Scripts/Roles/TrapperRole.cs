@@ -13,6 +13,12 @@ public class TrapperRole : RoleBase
             trapZone = trapObject.GetComponent<SphereCollider>();
         }
     }
+
+    protected override void HandleNightStarted(int roundNumber)
+    {
+        AllowAbility();
+    }
+
     public override void UseAbility(BaseCharacter target)
     {
         Extensions.MoveSphereCollider(trapZone,transform.position);
