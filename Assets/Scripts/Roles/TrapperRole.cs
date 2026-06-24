@@ -24,5 +24,6 @@ public class TrapperRole : RoleBase
         Extensions.MoveSphereCollider(trapZone,transform.position);
         trapZone.enabled = true;
         canUseAbility = false;
+        Debug.Log("You have set a trap!");
     }
 }

@@ -1,163 +1,60 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using static GameConstants;
 
-public class GameStateModel : MonoBehaviour
+public class GameStateModel
 {
     private GamePhase currentPhase;
-    private List<BaseCharacter> alivePlayers;
-    private Dictionary<BaseCharacter,CharacterRole> roles;
-    private Dictionary<BaseCharacter,int> votes;
-    private HashSet<BaseCharacter> playersWhoVoted;
+    private List<BaseCharacter> alivePlayers = new List<BaseCharacter>();
+    private Dictionary<BaseCharacter, CharacterRole> roles = new Dictionary<BaseCharacter, CharacterRole>();
+    private Dictionary<BaseCharacter, int> votes = new Dictionary<BaseCharacter, int>();
+    private HashSet<BaseCharacter> playersWhoVoted = new HashSet<BaseCharacter>();
     private int voteTally;
-    private int tasksRemaining;
+    private int tasksRemaining = 10;
     private int roundNumber;
     private int discussionCount;
 
-    void Start()
+    // Use property shortcuts for cleaner reading
+    public GamePhase CurrentPhase => currentPhase;
+    public int VoteTally => voteTally;
+    public int TasksRemaining => tasksRemaining;
+    public int RoundNumber => roundNumber;
+    public int DiscussionCount => discussionCount;
+    public int AlivePlayersCount => alivePlayers.Count;
+
+    public void SetPhase(GamePhase gamePhase) => currentPhase = gamePhase;
+
+    // Receives the players gathered by the GameManager
+    public void InitializePlayers(List<BaseCharacter> players)
     {
-        roles = new Dictionary<BaseCharacter, CharacterRole>();
-        votes = new Dictionary<BaseCharacter,int>();
-        playersWhoVoted = new HashSet<BaseCharacter>();
+        alivePlayers = players;
     }
 
-    public GamePhase CurrentPhase
+    // Stores assigned role statuses natively if needed
+    public void PopulateRoles()
     {
-        get
+        roles.Clear();
+        foreach (var character in alivePlayers)
         {
-            return currentPhase;
+            roles.Add(character, character.Role);
         }
-    }
-
-    public int VoteTally
-    {
-        get
-        {
-            return voteTally;
-        }
-        private set
-        {
-            voteTally = value;
-        }
-    }
-
-    public int TasksRemaining
-    {
-        get
-        {
-            return tasksRemaining;
-        }
-        private set
-        {
-            tasksRemaining = value;
-        }
-    }
-
-    public int RoundNumber
-    {
-        get
-        {
-            return roundNumber;
-        }
-        private set
-        {
-            roundNumber = value;
-        }
-    }
-
-    public int DiscussionCount
-    {
-        get
-        {
-            return discussionCount;
-        }
-        private set
-        {
-            discussionCount = value;
-        }
-    }
-
-    private void OnEnable()
-    {
-        GameEvents.OnNightStarted += RouteNightStart;
-        GameEvents.OnDayStarted += RouteDayStart;
-        GameEvents.OnBodyReported += RouteBodyReported;
-        GameEvents.OnGameEnded += RouteGameEnded;
-        GameEvents.OnPlayerKilled += RegisterKill;
-        GameEvents.OnVoteCast += RegisterVote;
-        GameEvents.OnTaskCompleted += CompleteTask;
-        GameEvents.OnArcadeMapLoaded += GetAllPlayers;
-        GameEvents.OnArcadeMapLoaded += AssignRoles;
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnNightStarted -= RouteNightStart;
-        GameEvents.OnDayStarted -= RouteDayStart;
-        GameEvents.OnBodyReported -= RouteBodyReported;
-        GameEvents.OnGameEnded -= RouteGameEnded;
-        GameEvents.OnPlayerKilled -= RegisterKill;
-        GameEvents.OnVoteCast -= RegisterVote;
-        GameEvents.OnTaskCompleted -= CompleteTask;
-        GameEvents.OnArcadeMapLoaded -= GetAllPlayers;
-        GameEvents.OnArcadeMapLoaded -= AssignRoles;
-    }
-    private void RouteNightStart(int round) 
-    => SetPhase(GamePhase.Night);
-
-    private void RouteDayStart()
-    => SetPhase(GamePhase.Day);
-
-    private void RouteBodyReported(BaseCharacter reporter) 
-    => SetPhase(GamePhase.Voting);
-
-    private void RouteGameEnded(GameResult result)
-    => SetPhase(GamePhase.Ended);
-
-    // called once on ArcadeMapLoaded
-    private void GetAllPlayers()
-    {
-        alivePlayers = FindObjectsByType<BaseCharacter>().ToList();
-    }
-
-    private void AssignRoles()
-    {
-        RoleFactory.AssignRoles();
-        foreach(BaseCharacter character in alivePlayers)
-        {
-            roles.Add(character,character.Role);
-        }
-    }
-
-    public void SetPhase(GamePhase gamePhase)
-    {
-        currentPhase = gamePhase;
     }
 
     public void RegisterKill(BaseCharacter victim)
     {
-        alivePlayers.Remove(victim);
-        if(alivePlayers.Count == 2)
+        if (alivePlayers.Contains(victim))
         {
-            GameEvents.GameEnded(GameResult.HauntedWins);
+            alivePlayers.Remove(victim);
         }
     }
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
-        if(voter == null || target == null)
+        if (voter == null || target == null || playersWhoVoted.Contains(voter))
         {
             return;
         }
 
-        if(playersWhoVoted.Contains(voter))
-        {
-            //player shouldn't be able to vote twice!
-            return;
-        }
-
-        if(!votes.ContainsKey(target))
+        if (!votes.ContainsKey(target))
         {
             votes[target] = 1;
         }
@@ -167,23 +64,24 @@ public class GameStateModel : MonoBehaviour
         }
 
         playersWhoVoted.Add(voter);
-
         voteTally++;
 
-        if(voteTally == alivePlayers.Count)
+        if (voteTally == alivePlayers.Count)
         {
-            //count votes
-            //if Haunted is voted out call GameEvents.GameEnded(GameResult.HuntersWin);
+            // End of voting logic goes here...
         }
     }
 
     public void CompleteTask(BaseCharacter completer)
     {
-        // to do: logic for individual characters on task completed
-        tasksRemaining--;
-        if(tasksRemaining == 0)
+        if (tasksRemaining > 0)
         {
-            GameEvents.GameEnded(GameResult.HuntersWin);
+            tasksRemaining--;
         }
+    }
+
+    public List<BaseCharacter> GetAlivePlayers()
+    {
+        return alivePlayers;
     }
 }

@@ -16,13 +16,12 @@ public class PriestRole : RoleBase
         {
             target.OnCharacterDeath();
             GameEvents.PlayerKilled(target);
-            Debug.Log("Congratulations, you have killed the Haunted and won the game!");
-            GameEvents.GameEnded(GameResult.HuntersWin);
         }
         else
         {
             character.OnCharacterDeath();
             GameEvents.PlayerKilled(character);
+            Debug.Log("You couldn't identify the haunted have died");
         }
 
         canUseAbility = false;

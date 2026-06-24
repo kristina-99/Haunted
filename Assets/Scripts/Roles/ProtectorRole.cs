@@ -24,5 +24,6 @@ public class ProtectorRole : RoleBase
         Extensions.MoveSphereCollider(protectedZone,transform.position);
         protectedZone.enabled = true;
         canUseAbility = false;
+        Debug.Log("You have set a protected zone!");
     }
 }

@@ -19,7 +19,7 @@ public class UseAbilityCommand : ICommand
         animator.SetTrigger("UseAbility");
 
         // check for current GamePhase
-        if(!(characterRole is HauntedRole) && !(characterRole is NormalRole) && !(characterRole is PriestRole) && characterRole.CanUseAbility)
+        if(!(characterRole is NormalRole) && characterRole.CanUseAbility)
         {
             characterRole.UseAbility(target);
         }    

@@ -39,11 +39,13 @@ public class PhaseManager : MonoBehaviour
         GameEvents.NightStarted(roundCounter);
 
         float nightEndTime = Time.time + NightDuration;
+        Debug.Log("The Night phase has begun");
         while (Time.time < nightEndTime && !interruptNightPhase)
         {
             yield return null; 
         }
         
+        Debug.Log("The Day phase has begun");
         if (!gameOver)
         {
             GameEvents.DayStarted();
@@ -55,6 +57,7 @@ public class PhaseManager : MonoBehaviour
 
     private void InterruptNightPhase(BaseCharacter reportedBody)
     {
+        Debug.Log("Night phase is interrupted");
         interruptNightPhase = true;
     }
 

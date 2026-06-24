@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HauntedRole : RoleBase
 {
-    private const float LightsOnPeriod = 30f;
+    private const float LightsOffPeriod = 30f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
     private bool isLightOn = false;
@@ -34,8 +34,8 @@ public class HauntedRole : RoleBase
         if(canUseAbility)
         {
             isLightOn = true;
-            Debug.Log("Lights are on!");
-            Invoke("TurnOffLights", LightsOnPeriod);
+            Debug.Log("Lights are off!");
+            Invoke("TurnOffLights", LightsOffPeriod);
         }
         
         canUseAbility = false;
@@ -78,6 +78,6 @@ public class HauntedRole : RoleBase
     private void TurnOffLights()
     {
         isLightOn = false;
-        Debug.Log("Lights are off!");
+        Debug.Log("Lights are on!");
     }
 }
