@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HauntedRole : RoleBase
@@ -6,6 +7,11 @@ public class HauntedRole : RoleBase
     private bool isInTheSafeZone = false;
     private bool canKill = true;
     private bool isLightOn = false;
+
+    protected override void HandleNightStarted(int roundNumber)
+    {
+        AllowKill(roundNumber);
+    }
 
     public bool IsInTheSafeZone
     {
