@@ -1,14 +1,15 @@
-using UnityEngine;
-
 public class VoteCommand : ICommand
 {
-    public VoteCommand()
+    private BaseCharacter voter;
+    private BaseCharacter target;
+    public VoteCommand(BaseCharacter voter, BaseCharacter target)
     {
-        throw new System.NotImplementedException();
+        this.voter = voter;
+        this.target = target;
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
+        GameEvents.VoteCast(voter, target);
     }
 }

@@ -54,7 +54,7 @@ public class PlayerController : BaseCharacter
         }
     }
 
-    void OgerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         int indexLayer = LayerMask.NameToLayer("DeadBodies");
 
@@ -94,7 +94,7 @@ public class PlayerController : BaseCharacter
 
     void OnUseAbility()
     {
-        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator, gameObject.GetComponent<RoleBase>());
+        UseAbilityCommand useAbilityCommand = new UseAbilityCommand(animator, gameObject.GetComponent<RoleBase>(), transform.GetClosestTarget(this));
         ScheduleCommand(useAbilityCommand);
     }
 

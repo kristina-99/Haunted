@@ -11,10 +11,13 @@ public class PlayerCameraFollow : MonoBehaviour
     {
         offset = transform.position - target.position;
     }
-    
+
     private void LateUpdate()
     {
-        Vector3 targetPosition = target.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, target.position, ref currentVelocity, SmoothTime);
+        if(target != null)
+        {
+            Vector3 targetPosition = target.position + offset;
+            transform.position = Vector3.SmoothDamp(transform.position, target.position, ref currentVelocity, SmoothTime);
+        }
     }
 }

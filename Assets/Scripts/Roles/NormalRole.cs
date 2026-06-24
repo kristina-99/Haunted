@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class NormalRole : RoleBase
 {
-    public override void UseAbility()
+    public override void UseAbility(BaseCharacter target)
     {
-        //task speed
-        canUseAbility = false;
+        //task speed - consistent for the whole game
+        canUseAbility = true;
     }
 }

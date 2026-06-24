@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class HauntedRole : RoleBase
@@ -11,17 +10,23 @@ public class HauntedRole : RoleBase
     private bool canKill = true;
     private bool isLightOn = true;
 
-    private void OnEnable()
+    public bool IsInTheSafeZone
     {
-        GameEvents.OnNightStarted += AllowKill;
+        get
+        {
+            return isInTheSafeZone;
+        }
     }
 
-    private void OnDisable()
+    public bool CanKill
     {
-        GameEvents.OnNightStarted -= AllowKill;
+        get
+        {
+            return canKill;
+        }
     }
 
-    public override void UseAbility()
+    public override void UseAbility(BaseCharacter target)
     {
         if(canUseAbility)
         {
@@ -33,23 +38,14 @@ public class HauntedRole : RoleBase
         canUseAbility = false;
     }
 
-    public void Kill(BaseCharacter target)
-    {
-        if(canKill)
-        {
-            CalculateDistance(target);
-            if(distanceFromTarget <= AttackDistance && isInTheSafeZone == false)
-            {
-                target.GetKilled();
-                GameEvents.PlayerKilled(target);
-            }
-        }
-        canKill = false;
-    }
-
-    private void AllowKill(int roundNumber)
+    public void AllowKill(int roundNumber)
     {
         canKill = true;
+    }
+
+    public void DisableKill()
+    {
+        canKill = false;
     }
 
     private void OnTriggerEnter(Collider other)

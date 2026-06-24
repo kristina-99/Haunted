@@ -49,10 +49,13 @@ public static class Extensions
 
         foreach (BaseCharacter character in Object.FindObjectsByType<BaseCharacter>())
         {
-            if (character == self || !IsAlive(character)) continue; 
+            if(character == self || !IsAlive(character)) 
+            {
+                continue;
+            }
 
             float dSqr = (character.transform.position - currentPos).sqrMagnitude;
-            if (dSqr < closestDistanceSqr)
+            if(dSqr < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqr;
                 closest = character;
@@ -70,5 +73,12 @@ public static class Extensions
     public static void SpawnDeadBody(GameObject deadBodyPrefab, Vector3 destination)
     {
         Object.Instantiate(deadBodyPrefab,destination,Quaternion.identity);
+    }
+
+    public static float CalculateDistance(BaseCharacter firstCharacter, BaseCharacter secondCharacter)
+    {
+        float distance;
+        distance = Vector3.Distance(firstCharacter.gameObject.transform.position, secondCharacter.gameObject.transform.position);
+        return distance;
     }
 }
