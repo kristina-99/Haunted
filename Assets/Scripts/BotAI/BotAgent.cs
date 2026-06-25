@@ -7,12 +7,25 @@ public class BotAgent : BaseCharacter
         throw new System.NotImplementedException();
     }
 
+    void OnEnable()
+    {
+        GameEvents.OnDayStarted += VoteRandomly;
+    }
+    void OnDisable()
+    {
+        
+    }
     void Start()
     {
         
     }
 
     void Update()
+    {
+        
+    }
+
+    private void VoteRandomly()
     {
         
     }

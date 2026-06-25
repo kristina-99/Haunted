@@ -69,8 +69,13 @@ public class GameManager : MonoBehaviour
         if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
         {
             // Evaluate votes here and dispatch appropriate win events safely
+            int mostVotes = gameStateModel.GetVotes().Values.Max();
+            int winnersCount = gameStateModel.GetVotes().Count(entry => entry.Value == mostVotes);
+            if(winnersCount == 1)
+            {
+                CheckWinConditions();
+            }
         }
-        CheckWinConditions();
     }
 
     private void CompleteTask(BaseCharacter completer)

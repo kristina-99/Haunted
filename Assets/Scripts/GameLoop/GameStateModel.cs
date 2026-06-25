@@ -23,6 +23,11 @@ public class GameStateModel
 
     public void SetPhase(GamePhase gamePhase) => currentPhase = gamePhase;
 
+    public Dictionary<BaseCharacter, int> GetVotes()
+    {
+        return votes;
+    }
+    
     // Receives the players gathered by the GameManager
     public void InitializePlayers(List<BaseCharacter> players)
     {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : BaseCharacter
@@ -122,4 +123,11 @@ public class PlayerController : BaseCharacter
     {
         throw new System.NotImplementedException();
     }
+
+    public void OnVoteCast(BaseCharacter target)
+    {
+        VoteCommand voteCommand = new VoteCommand(this,target);
+        ScheduleCommand(voteCommand);
+    }
+
 }
