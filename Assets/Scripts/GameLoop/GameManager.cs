@@ -4,9 +4,21 @@ using static GameConstants;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public GameStateModel gameStateModel;
+
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         gameStateModel = new GameStateModel();
     }
 
@@ -76,6 +88,7 @@ public class GameManager : MonoBehaviour
                 CheckWinConditions();
             }
         }
+
     }
 
     private void CompleteTask(BaseCharacter completer)

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using static GameConstants;
 
 public class GameStateModel
@@ -69,12 +71,14 @@ public class GameStateModel
         }
 
         playersWhoVoted.Add(voter);
-        voteTally++;
+        ++voteTally;
 
         if (voteTally == alivePlayers.Count)
         {
             // End of voting logic goes here...
         }
+
+        //random comment
     }
 
     public void CompleteTask(BaseCharacter completer)

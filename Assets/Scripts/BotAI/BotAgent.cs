@@ -1,7 +1,18 @@
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 public class BotAgent : BaseCharacter
 {
+    private Queue<ICommand> actionQueue = new Queue<ICommand>();
+
+    void FixedUpdate()
+    {
+        if(actionQueue.Count != 0)
+        {
+            ExecuteNextCommand();
+        }
+    }
     public override void OnRoleAction()
     {
         throw new System.NotImplementedException();
@@ -13,7 +24,7 @@ public class BotAgent : BaseCharacter
     }
     void OnDisable()
     {
-        
+        GameEvents.OnDayStarted -= VoteRandomly;
     }
     void Start()
     {
@@ -27,6 +38,24 @@ public class BotAgent : BaseCharacter
 
     private void VoteRandomly()
     {
-        
+        List<BaseCharacter> alivePlayers = GameManager.Instance.gameStateModel.GetAlivePlayers();
+        int votedCharacterIndex = UnityEngine.Random.Range(0, alivePlayers.Count);
+        BaseCharacter votedCharacter = alivePlayers[votedCharacterIndex];
+
+        VoteCommand voteCommand = new VoteCommand(this,votedCharacter);
+        UnityEngine.Debug.Log($"{gameObject.name} voted for: {votedCharacter.gameObject.name}");
+        ScheduleCommand(voteCommand);
+
+    }
+
+    private void ScheduleCommand(ICommand command)
+    {
+        actionQueue.Enqueue(command);
+    }
+
+    private void ExecuteNextCommand()
+    {
+        ICommand activeCommand = actionQueue.Dequeue();
+        activeCommand.Execute();
     }
 }
