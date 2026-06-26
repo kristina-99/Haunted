@@ -114,11 +114,10 @@ public class GameManager : MonoBehaviour
         var alivePlayers = gameStateModel.GetAlivePlayers();
         bool isHauntedAlive = alivePlayers.Any(player => player.Role == CharacterRole.Haunted);
 
-        //Possible if Priest kills Haunted
         if (!isHauntedAlive)
         {
             GameEvents.GameEnded(GameResult.HuntersWin);
-            Debug.Log("Priest has killed Haunted and Hunters win!");
+            Debug.Log("Haunted is dead and Hunters win!");
             return; 
         }
         //if only one alive hunter is left and the haunted is still alive

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VotingOptionSlot : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class VotingOptionSlot : MonoBehaviour
         GameEvents.OnArcadeMapLoaded += AttachCharacter;
         GameEvents.OnVotingFinished += UpdateVoteDisplay;
         GameEvents.OnNightStarted += ClearDisplay;
+        GameEvents.OnDayStarted += DisableCharacterButton;
     }
 
     void OnDisable()
@@ -22,6 +24,7 @@ public class VotingOptionSlot : MonoBehaviour
         GameEvents.OnArcadeMapLoaded -= AttachCharacter;
         GameEvents.OnVotingFinished -= UpdateVoteDisplay;
         GameEvents.OnNightStarted -= ClearDisplay;
+        GameEvents.OnDayStarted -= DisableCharacterButton;
     }
 
     public void UpdateVoteDisplay()
@@ -44,6 +47,14 @@ public class VotingOptionSlot : MonoBehaviour
             {
                 associatedCharacter = character;
             }
+        }
+    }
+
+    private void DisableCharacterButton()
+    {
+        if(associatedCharacter == null)
+        {
+            this.gameObject.GetComponent<Button>().interactable = false;
         }
     }
 }

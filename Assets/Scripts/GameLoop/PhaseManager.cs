@@ -4,24 +4,27 @@ using static GameConstants;
 
 public class PhaseManager : MonoBehaviour
 {
-    private const float NightDuration = 10f;
+    private const float NightDuration = 30f;
     private const float DayDuration = 120f;
     private int roundCounter = 0;
     
     private Coroutine activePhaseRoutine;
     private bool interruptNightPhase = false;
+    private bool interruptDayPhase = false;
     private bool gameOver = false;
 
     void OnEnable()
     {
         GameEvents.OnBodyReported += InterruptNightPhase;
         GameEvents.OnGameEnded += GameOver;
+        GameEvents.OnVotingFinished += InterruptDayPhase;
     }
 
     void OnDisable()
     {
         GameEvents.OnBodyReported -= InterruptNightPhase;
         GameEvents.OnGameEnded -= GameOver;      
+        GameEvents.OnVotingFinished -= InterruptDayPhase;
     }
 
     void Update()
@@ -45,11 +48,13 @@ public class PhaseManager : MonoBehaviour
             yield return null; 
         }
         
+        interruptDayPhase = false;
+        GameEvents.DayStarted();
+        float dayTimeEndTime = Time.time + DayDuration;
         Debug.Log("The Day phase has begun");
-        if (!gameOver)
+        while (Time.time < dayTimeEndTime && !interruptDayPhase)
         {
-            GameEvents.DayStarted();
-            yield return new WaitForSeconds(DayDuration);
+            yield return null; 
         }
 
         activePhaseRoutine = null;
@@ -59,6 +64,12 @@ public class PhaseManager : MonoBehaviour
     {
         Debug.Log("Night phase is interrupted");
         interruptNightPhase = true;
+    }
+
+    private void InterruptDayPhase()
+    {
+        Debug.Log("Voting has finished and day phase is interrupted!");
+        interruptDayPhase = true;
     }
 
     private void GameOver(GameResult gameResult)

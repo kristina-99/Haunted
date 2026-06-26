@@ -55,7 +55,7 @@ public class PlayerVotingSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Could not find an alive BaseCharacter component named {characterName}!");
+            Debug.Log($"Could not find an alive BaseCharacter component named {characterName}!");
         }
     }
 }
