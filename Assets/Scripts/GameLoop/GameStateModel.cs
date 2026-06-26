@@ -36,6 +36,8 @@ public class GameStateModel
         alivePlayers = players;
     }
 
+    
+
     // Stores assigned role statuses natively if needed
     public void PopulateRoles()
     {
@@ -76,11 +78,24 @@ public class GameStateModel
         if (voteTally == alivePlayers.Count)
         {
             // End of voting logic goes here...
+            GameEvents.VotingFinished();
         }
 
         //random comment
     }
 
+    public int GetCharacterVotes(BaseCharacter character)
+    {
+        if(votes.ContainsKey(character))
+        {
+            return votes[character];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
     public void CompleteTask(BaseCharacter completer)
     {
         if (tasksRemaining > 0)

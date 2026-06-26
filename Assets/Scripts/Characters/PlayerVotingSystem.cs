@@ -34,8 +34,6 @@ public class PlayerVotingSystem : MonoBehaviour
     {
         PlayerPrefs.SetString(saveKey, selectedButttonName);
         PlayerPrefs.Save();
-
-        Debug.Log($"Saved choice across scenes: Button {selectedButttonName}");
     }
 
     public void OnVoteButtonClick()

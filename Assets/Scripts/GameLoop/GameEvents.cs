@@ -14,6 +14,7 @@ public static event Action<BaseCharacter> OnBodyReported;
 public static event Action<BaseCharacter, AbilityType> OnAbilityUsed;
 public static event Action OnHauntedStunned;
 public static event Action OnArcadeMapLoaded;
+public static event Action OnVotingFinished;
 // Raise helpers — null-check built in
 public static void PlayerKilled(BaseCharacter v) =>
 OnPlayerKilled?.Invoke(v);
@@ -35,4 +36,6 @@ public static void HauntedStunned() =>
 OnHauntedStunned?.Invoke();
 public static void ArcadeMapLoaded()=>
 OnArcadeMapLoaded?.Invoke();
+public static void VotingFinished()=>
+OnVotingFinished?.Invoke();
 }
