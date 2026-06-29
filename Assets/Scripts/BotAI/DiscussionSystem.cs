@@ -10,11 +10,7 @@ public class DiscussionSystem : MonoBehaviour
     [Header("Timing Settings")]
     private const float MinWaitTime = 2.0f; 
     private const float MaxWaitTime = 7.0f;
-
-    // void Start()
-    // {
-    //     aliveCharacters = GetAlivePlayers();
-    // }
+    private Coroutine discussionCoroutine;
 
     private void OnEnable()
     {
@@ -26,29 +22,30 @@ public class DiscussionSystem : MonoBehaviour
     {
         GameEvents.OnDayStarted -= StartBotDiscussion;
         GameEvents.OnVotingFinished -= StopBotDiscussion;
-
     }
 
     private void StartBotDiscussion()
     {
         aliveCharacters = GetAlivePlayers();
-        StartCoroutine(DelayedBotMessageRoutine());
+        StopBotDiscussion(); 
+        
+        discussionCoroutine = StartCoroutine(DelayedBotMessageRoutine());
     }
 
     private void StopBotDiscussion()
     {
-        if(DelayedBotMessageRoutine() != null)
+        if (discussionCoroutine != null)
         {
-            StopCoroutine(DelayedBotMessageRoutine());
+            StopCoroutine(discussionCoroutine);
+            discussionCoroutine = null;
         }
     }
 
     private IEnumerator DelayedBotMessageRoutine()
     {
-        while(true)
+        while (true)
         {
             float randomDelay = Random.Range(MinWaitTime, MaxWaitTime);
-        
             yield return new WaitForSeconds(randomDelay);
 
             GenerateBotMessage();
@@ -57,34 +54,41 @@ public class DiscussionSystem : MonoBehaviour
 
     private void GenerateBotMessage()
     {
-        int randomSenderIndex = Random.Range(0, aliveCharacters.Count);
-        while(aliveCharacters[randomSenderIndex] is PlayerController)
-        {
-            randomSenderIndex = Random.Range(0, aliveCharacters.Count);
-        }
-        BaseCharacter botSender = aliveCharacters[randomSenderIndex];
+        if (aliveCharacters == null || aliveCharacters.Count < 2) return;
 
-        List<BaseCharacter> potentialTargets = new List<BaseCharacter>(aliveCharacters);
-        potentialTargets.Remove(botSender);
+        BaseCharacter player = aliveCharacters.FindLast(x => x is PlayerController);
 
-        int randomTargetIndex = Random.Range(0, potentialTargets.Count);
-        BaseCharacter targetCharacter = potentialTargets[randomTargetIndex];
+        BaseCharacter botSender = PickRandomCharacter(player);
+        if (botSender == null) return; 
 
-        int randomMessageIndex = Random.Range(0,2);
+        BaseCharacter targetCharacter = PickRandomCharacter(botSender);
+        if (targetCharacter == null) return;
 
-        string message;
-
-        if(randomMessageIndex == 0)
-        {
-            message = $"Leave {targetCharacter} alone, I'm certain they're innocent";
-        }
-        else
-        {
-            message = $"I think {targetCharacter} is acting incredibly suspicious right now";
-        }
+        int randomMessageIndex = Random.Range(0, 2);
+        string message = randomMessageIndex == 0
+        ? $"Leave {targetCharacter.name} alone, I'm certain they're innocent"
+        : $"I think {targetCharacter.name} is acting incredibly suspicious right now";
 
         ChatMessage chatMessage = new ChatMessage(botSender.name, message);
         GameEvents.MessageReceived(chatMessage);
     }
 
+    private BaseCharacter PickRandomCharacter(BaseCharacter characterToExclude)
+    {
+        int count = aliveCharacters.Count;
+        if (count == 0) return null;
+
+        int startIndex = Random.Range(0, count);
+
+        for (int i = 0; i < count; i++)
+        {
+            BaseCharacter candidate = aliveCharacters[(startIndex + i) % count];
+            if (candidate != characterToExclude)
+            {
+                return candidate;
+            }
+        }
+        
+        return null;
+    }
 }
