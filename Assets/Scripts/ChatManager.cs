@@ -28,7 +28,6 @@ public class ChatManager : MonoBehaviour
         newTextComponent.gameObject.SetActive(true);
         
         newTextComponent.text = $"<b>{message.SenderName}:</b> {message.MessageText}";
-        messagePanel.AddComponent<TMP_Text>();
     }
     
     private void RemoveOldMessages()
