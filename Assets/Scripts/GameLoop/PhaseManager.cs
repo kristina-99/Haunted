@@ -13,6 +13,16 @@ public class PhaseManager : MonoBehaviour
     private bool interruptDayPhase = false;
     private bool gameOver = false;
 
+    public float GetDayDuration()
+    {
+        return DayDuration;
+    }
+
+    public float GetNightDuration()
+    {
+        return NightDuration;
+    }
+
     void OnEnable()
     {
         GameEvents.OnBodyReported += InterruptNightPhase;
