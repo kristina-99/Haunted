@@ -6,12 +6,8 @@ using DG.Tweening;
 
 public class VotingUIController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public CanvasGroup votingCanvas;
     private List<TextMeshPro> votingResultTextBoxes;
-    //vzimame text boxes
-    //vzimame voting result
-    //za vseki voting result go slagame v podhodqshtata textbox kutiika
 
     void Start()
     {
@@ -31,12 +27,6 @@ public class VotingUIController : MonoBehaviour
         GameEvents.OnNightStarted += HideVotingPanel;
         GameEvents.OnDayStarted -= DisplayVotingPanel;
     }
-
-    // private void DisplayResults()
-    // {
-    //     // foreach()
-    //     // GameManager.Instance.gameStateModel.GetCharacterVotes()
-    // }
 
     private void HideVotingPanel(int round)
     {

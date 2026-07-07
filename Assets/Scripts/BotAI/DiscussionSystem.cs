@@ -10,6 +10,8 @@ public class DiscussionSystem : MonoBehaviour
     [Header("Timing Settings")]
     private const float MinWaitTime = 2.0f; 
     private const float MaxWaitTime = 7.0f;
+    private const int MessageOptions = 2;
+    private const int MinAliveCharactersCount = 2;
     private Coroutine discussionCoroutine;
 
     private void OnEnable()
@@ -54,7 +56,7 @@ public class DiscussionSystem : MonoBehaviour
 
     private void GenerateBotMessage()
     {
-        if (aliveCharacters == null || aliveCharacters.Count < 2) return;
+        if (aliveCharacters == null || aliveCharacters.Count < MinAliveCharactersCount) return;
 
         BaseCharacter player = aliveCharacters.FindLast(x => x is PlayerController);
 
@@ -64,7 +66,7 @@ public class DiscussionSystem : MonoBehaviour
         BaseCharacter targetCharacter = PickRandomCharacter(botSender);
         if (targetCharacter == null) return;
 
-        int randomMessageIndex = Random.Range(0, 2);
+        int randomMessageIndex = Random.Range(0, MessageOptions);
         string message = randomMessageIndex == 0
         ? $"Leave {targetCharacter.name} alone, I'm certain they're innocent"
         : $"I think {targetCharacter.name} is acting incredibly suspicious right now";

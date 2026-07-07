@@ -5,6 +5,7 @@ public class PlayerDiscussionSystem : MonoBehaviour
 {
     private GameObject[] characterButtonObjects;
     private string saveKey = "SelectedCharacter";
+    private string targetName;
 
     void Start()
     {
@@ -33,31 +34,24 @@ public class PlayerDiscussionSystem : MonoBehaviour
     {
         PlayerPrefs.SetString(saveKey, selectedButttonName);
         PlayerPrefs.Save();
+        targetName = PlayerPrefs.GetString(saveKey);
     }
 
     public void OnBlameButtonClick()
     {
-        //get selected character
-        string targetName = PlayerPrefs.GetString(saveKey);
-
-        //create message/string "Player blames Bot..."
         string blameMessage = $"I think {targetName} is acting incredibly suspicious right now";
-
-        //create a ChatMessageObject with player as sender and the above message
-        ChatMessage chatMessage = new ChatMessage(gameObject.name, blameMessage);
-        GameEvents.MessageReceived(chatMessage);
+        SendMessage(gameObject.name,blameMessage);
     }
 
     public void OnDefendButtonClick()
     {
-        //get selected character
-        string targetName = PlayerPrefs.GetString(saveKey);
-
-        //create message/string "Player blames Bot..."
         string defendMessage = $"Leave {targetName} alone, I'm certain they're innocent";
+        SendMessage(gameObject.name,defendMessage);
+    }
 
-        //create a ChatMessageObject with player as sender and the above message
-        ChatMessage chatMessage = new ChatMessage(gameObject.name, defendMessage);
+    private void SendMessage(string name, string message)
+    {
+        ChatMessage chatMessage = new ChatMessage(name,message);
         GameEvents.MessageReceived(chatMessage);
     }
 }

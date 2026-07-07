@@ -6,6 +6,7 @@ using static GameEvents;
 public class PhaseTimer : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
+    private const float SecondsPerMinute = 60;
     private float remainingTime;
     private PhaseManager phaseManager;
     private string currentPhase;
@@ -47,11 +48,10 @@ public class PhaseTimer : MonoBehaviour
         else if(remainingTime < 0)
         {
             remainingTime = 0;
-            timerText.color = Color.red;
         }
 
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        int minutes = Mathf.FloorToInt(remainingTime / SecondsPerMinute);
+        int seconds = Mathf.FloorToInt(remainingTime % SecondsPerMinute);
         timerText.text = currentPhase + string.Format("{0:00}:{1:00}",minutes,seconds);
     }
 
