@@ -15,7 +15,7 @@ public static event Action<BaseCharacter> OnBodyReported;
 public static event Action<BaseCharacter, AbilityType> OnAbilityUsed;
 public static event Action OnHauntedStunned;
 public static event Action OnArcadeMapLoaded;
-public static event Action OnVotingFinished;
+public static event Action<BaseCharacter,bool> OnVotingFinished;
 public static event Action<ChatMessage> OnMessageReceived;
 // Raise helpers — null-check built in
 public static void PlayerKilled(BaseCharacter v) =>
@@ -38,8 +38,8 @@ public static void HauntedStunned() =>
 OnHauntedStunned?.Invoke();
 public static void ArcadeMapLoaded()=>
 OnArcadeMapLoaded?.Invoke();
-public static void VotingFinished()=>
-OnVotingFinished?.Invoke();
+public static void VotingFinished(BaseCharacter votedOut, bool isTie)=>
+OnVotingFinished?.Invoke(votedOut,isTie);
 public static void MessageReceived(ChatMessage message)=>
 OnMessageReceived.Invoke(message);
 }

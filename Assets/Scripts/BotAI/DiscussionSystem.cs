@@ -17,14 +17,17 @@ public class DiscussionSystem : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnDayStarted += StartBotDiscussion;
-        GameEvents.OnVotingFinished += StopBotDiscussion;
+        GameEvents.OnVotingFinished += RouteVotingFinished;
     }
 
     private void OnDisable()
     {
         GameEvents.OnDayStarted -= StartBotDiscussion;
-        GameEvents.OnVotingFinished -= StopBotDiscussion;
+        GameEvents.OnVotingFinished -= RouteVotingFinished;
     }
+
+    private void RouteVotingFinished(BaseCharacter votedOut, bool isTie)
+    => StopBotDiscussion();
 
     private void StartBotDiscussion()
     {

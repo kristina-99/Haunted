@@ -27,15 +27,18 @@ public class PhaseManager : MonoBehaviour
     {
         GameEvents.OnBodyReported += InterruptNightPhase;
         GameEvents.OnGameEnded += GameOver;
-        GameEvents.OnVotingFinished += InterruptDayPhase;
+        GameEvents.OnVotingFinished += RouteVotingFinished;
     }
 
     void OnDisable()
     {
         GameEvents.OnBodyReported -= InterruptNightPhase;
         GameEvents.OnGameEnded -= GameOver;      
-        GameEvents.OnVotingFinished -= InterruptDayPhase;
+        GameEvents.OnVotingFinished -= RouteVotingFinished;
     }
+
+    private void RouteVotingFinished(BaseCharacter votedOut, bool isTie)
+    => InterruptDayPhase();
 
     void Update()
     {

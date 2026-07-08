@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class VotingOptionSlot : MonoBehaviour
     void OnEnable()
     {
         GameEvents.OnArcadeMapLoaded += AttachCharacter;
-        GameEvents.OnVotingFinished += UpdateVoteDisplay;
+        GameEvents.OnVotingFinished += RouteVotingFinished;
         GameEvents.OnNightStarted += ClearDisplay;
         GameEvents.OnDayStarted += DisableCharacterButton;
     }
@@ -22,10 +23,13 @@ public class VotingOptionSlot : MonoBehaviour
     void OnDisable()
     {
         GameEvents.OnArcadeMapLoaded -= AttachCharacter;
-        GameEvents.OnVotingFinished -= UpdateVoteDisplay;
+        GameEvents.OnVotingFinished -= RouteVotingFinished;
         GameEvents.OnNightStarted -= ClearDisplay;
         GameEvents.OnDayStarted -= DisableCharacterButton;
     }
+
+    private void RouteVotingFinished(BaseCharacter votedOut, bool isTie)
+    => UpdateVoteDisplay();
 
     public void UpdateVoteDisplay()
     {
@@ -33,8 +37,14 @@ public class VotingOptionSlot : MonoBehaviour
         voteCountText.text = $"Votes: {votesCount}";
     }
 
-    public void ClearDisplay(int round)
+    private void ClearDisplay(int round)
     {
+        StartCoroutine(ClearDisplayAfterDelay());
+    }
+
+    private IEnumerator ClearDisplayAfterDelay()
+    {
+        yield return new WaitForSeconds(4f);
         voteCountText.text = "Votes: 0";
     }
 

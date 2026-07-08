@@ -75,21 +75,44 @@ public class GameManager : MonoBehaviour
     }
 
     private void HandleVoteCast(BaseCharacter voter, BaseCharacter target)
+{
+    gameStateModel.RegisterVote(voter, target);
+    
+    if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
     {
-        gameStateModel.RegisterVote(voter, target);
+        var voteData = gameStateModel.GetVotes();
         
-        if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
+        // Default states
+        BaseCharacter votedOut = null;
+        bool isTie = true;
+
+        if (voteData != null && voteData.Count > 0)
         {
-            // Evaluate votes here and dispatch appropriate win events safely
-            int mostVotes = gameStateModel.GetVotes().Values.Max();
-            int winnersCount = gameStateModel.GetVotes().Count(entry => entry.Value == mostVotes);
-            if(winnersCount == 1)
+            int mostVotes = voteData.Values.Max();
+            int winnersCount = voteData.Count(entry => entry.Value == mostVotes);
+
+            // If there's exactly one winner, it's not a tie
+            if (winnersCount == 1)
             {
-                CheckWinConditions();
+                isTie = false;
+                votedOut = voteData.FirstOrDefault(x => x.Value == mostVotes).Key;
             }
         }
 
+        // Process character death if someone was cleanly voted out
+        if (!isTie && votedOut != null)
+        {
+            votedOut.OnCharacterDeath();
+            CheckWinConditions();
+        }
+
+        // Broadcast the results directly to anyone listening (like the UI)
+        GameEvents.VotingFinished(votedOut, isTie);
+
+        // Reset the model data safely now that processing is done
+        gameStateModel.ClearVotes();
     }
+}
 
     private void CompleteTask(BaseCharacter completer)
     {

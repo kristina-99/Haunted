@@ -17,7 +17,7 @@ public class PhaseTimer : MonoBehaviour
         OnDayStarted += RestartTimerDay;
         OnNightStarted += RestartTimerNight;
         OnBodyReported += RouteBodyReported;
-        OnVotingFinished += StopDayTimer;
+        OnVotingFinished += RouteVotingFinished;
     }
 
     void OnDisable()
@@ -25,11 +25,14 @@ public class PhaseTimer : MonoBehaviour
         OnDayStarted -= RestartTimerDay;
         OnNightStarted -= RestartTimerNight;
         OnBodyReported -= RouteBodyReported;
-        OnVotingFinished -= StopDayTimer;
+        OnVotingFinished -= RouteVotingFinished;
     }
 
     private void RouteBodyReported(BaseCharacter reporter) 
     => RestartTimerDay();
+
+    private void RouteVotingFinished(BaseCharacter votedOut, bool isTie)
+    => StopDayTimer();
 
     void Start()
     {

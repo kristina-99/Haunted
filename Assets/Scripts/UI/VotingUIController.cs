@@ -33,7 +33,7 @@ public class VotingUIController : MonoBehaviour
         votingCanvas.interactable = false;
         votingCanvas.blocksRaycasts = false;
 
-        votingCanvas.DOFade(0f, 1f);
+        votingCanvas.DOFade(0f, 4f);
     }
 
     private void DisplayVotingPanel()

@@ -74,14 +74,13 @@ public class GameStateModel
 
         playersWhoVoted.Add(voter);
         ++voteTally;
+    }
 
-        if (voteTally == alivePlayers.Count)
-        {
-            // End of voting logic goes here...
-            GameEvents.VotingFinished();
-        }
-
-        //random comment
+    public void ClearVotes()
+    {
+        votes.Clear();
+        playersWhoVoted.Clear();
+        voteTally = 0;
     }
 
     public int GetCharacterVotes(BaseCharacter character)
