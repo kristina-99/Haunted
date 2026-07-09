@@ -76,6 +76,21 @@ public class GameStateModel
         ++voteTally;
     }
 
+    public void RegisterVotedOut(BaseCharacter victim)
+    {
+        if (victim == null) return;
+
+        if (alivePlayers.Contains(victim))
+        {
+            alivePlayers.Remove(victim);
+        }
+
+        if (roles.ContainsKey(victim))
+        {
+            roles.Remove(victim);
+        }
+    }
+
     public void ClearVotes()
     {
         votes.Clear();

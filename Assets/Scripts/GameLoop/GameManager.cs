@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
         if (!isTie && votedOut != null)
         {
             votedOut.OnCharacterDeath();
+            gameStateModel.RegisterVotedOut(votedOut);
             CheckWinConditions();
         }
 
@@ -139,23 +140,23 @@ public class GameManager : MonoBehaviour
 
         if (!isHauntedAlive)
         {
-            GameEvents.GameEnded(GameResult.HuntersWin);
             Debug.Log("Haunted is dead and Hunters win!");
+            GameEvents.GameEnded(GameResult.HuntersWin);
             return; 
         }
         //if only one alive hunter is left and the haunted is still alive
         //mutually exclusive with the above condition
         else if (gameStateModel.AlivePlayersCount == 2)
         {
-            GameEvents.GameEnded(GameResult.HauntedWins);
             Debug.Log("Only 1 Hunter left and Haunted wins!");
+            GameEvents.GameEnded(GameResult.HauntedWins);
             return;
         }
         
         if(gameStateModel.TasksRemaining == 0)
         {
-            GameEvents.GameEnded(GameResult.HuntersWin);
             Debug.Log("All tasks finished and Hunters win");
+            GameEvents.GameEnded(GameResult.HuntersWin);
             return;
         }
 

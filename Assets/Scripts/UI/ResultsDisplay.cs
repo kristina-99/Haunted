@@ -11,68 +11,114 @@ public class ResultsDisplay : MonoBehaviour
     public Image background;
     public TMP_Text votedOutCharacter;
     public TMP_Text isHauntedReveal;
+    private Sequence _animationSequence;
 
-    void Start()
+    private void Start()
     {
-        resultsCanvas.blocksRaycasts = false;
-        Color backgroundColor = background.color;
-        backgroundColor.a = 0f;
-        background.color = backgroundColor;
-
-        votedOutCharacter.color = new Color(votedOutCharacter.color.r, votedOutCharacter.color.g, votedOutCharacter.color.b, 0f);
-        isHauntedReveal.color = new Color(isHauntedReveal.color.r, isHauntedReveal.color.g, isHauntedReveal.color.b, 0f);
+        ResetUI();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         GameEvents.OnVotingFinished += HandleResults; 
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         GameEvents.OnVotingFinished -= HandleResults;
+        KillActiveTweens();
     }
 
-    IEnumerator RevealResults()
+    /// <summary>
+    /// Resets all UI elements to their default hidden/transparent states.
+    /// </summary>
+    private void ResetUI()
     {
+        resultsCanvas.alpha = 0f;
         resultsCanvas.blocksRaycasts = false;
-        float waitTime = Time.time + 3f;
-        while (Time.time < waitTime)
-        {
-            yield return null; 
-        }
+        resultsCanvas.interactable = false;
 
-        Sequence animationSequence = DOTween.Sequence();
-        
-        animationSequence.Append(background.DOFade(1f, 2.0f).SetEase(Ease.InOutQuad))
-                         .Append(votedOutCharacter.DOFade(1f,1.5f))
-                         .AppendInterval(0.5f)
-                         .Append(isHauntedReveal.DOFade(1f,1.5f));
+        SetAlpha(background, 0f);
+        SetAlpha(votedOutCharacter, 0f);
+        SetAlpha(isHauntedReveal, 0f);
     }
 
-    // The event now hands the UI exactly what it needs to display
     private void HandleResults(BaseCharacter votedOut, bool isTie)
     {
+        // 1. Set text values
         if (isTie || votedOut == null)
         {
             votedOutCharacter.text = "No one was voted out (Tie vote).";
-            isHauntedReveal.text = ""; // Keeps the second text blank
+            isHauntedReveal.text = string.Empty;
         }
         else
         {
             votedOutCharacter.text = $"{votedOut.name} was voted out.";
-
-            // Check the role of the passed character directly
-            if (votedOut.Role == CharacterRole.Haunted)
-            {
-                isHauntedReveal.text = "They were the Haunted!";
-            }
-            else
-            {
-                isHauntedReveal.text = "They were NOT the Haunted.";
-            }
+            isHauntedReveal.text = votedOut.Role == CharacterRole.Haunted 
+                ? "They were the Haunted!" 
+                : "They were NOT the Haunted.";
         }
 
-        StartCoroutine(RevealResults());
+        // 2. Play the display cycle
+        StartCoroutine(RevealResultsRoutine());
     }
+
+    private IEnumerator RevealResultsRoutine()
+    {
+        // Ensure clean state before starting new animations
+        KillActiveTweens();
+        ResetUI();
+        
+        resultsCanvas.alpha = 1f;
+
+        // Construct the timeline using DOTween sequences instead of messy while loops
+        _animationSequence = DOTween.Sequence();
+        
+        _animationSequence
+            .AppendInterval(3.0f) // Initial delay before reveal starts
+            .Append(background.DOFade(1f, 2.0f).SetEase(Ease.InOutQuad))
+            .Append(votedOutCharacter.DOFade(1f, 1.5f))
+            .AppendInterval(0.5f)
+            .Append(isHauntedReveal.DOFade(1f, 1.5f))
+            .AppendInterval(7.0f); // Screen stay duration
+
+        // Wait for the entire sequence to naturally finish playing
+        yield return _animationSequence.WaitForCompletion();
+
+        HideScreen();
+    }
+
+    private void HideScreen()
+    {
+        resultsCanvas.interactable = false;
+        resultsCanvas.blocksRaycasts = false;
+
+        // Fade out everything smoothly, then safely reset back to zero
+        _animationSequence = DOTween.Sequence();
+        _animationSequence.Append(resultsCanvas.DOFade(0f, 3.0f))
+                          .OnComplete(ResetUI);
+    }
+
+    private void KillActiveTweens()
+    {
+        if (_animationSequence != null && _animationSequence.IsActive())
+        {
+            _animationSequence.Kill();
+        }
+        
+        // Safety catch-all for individual elements
+        background.DOKill();
+        votedOutCharacter.DOKill();
+        isHauntedReveal.DOKill();
+        resultsCanvas.DOKill();
+    }
+
+    #region Helper Methods
+    private void SetAlpha(Graphic graphic, float alpha)
+    {
+        Color color = graphic.color;
+        color.a = alpha;
+        graphic.color = color;
+    }
+    #endregion
 }

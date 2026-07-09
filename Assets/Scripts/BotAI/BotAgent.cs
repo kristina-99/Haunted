@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 
 public class BotAgent : BaseCharacter
 {
@@ -38,6 +39,8 @@ public class BotAgent : BaseCharacter
 
     private void VoteRandomly()
     {
+        if (this == null) return;
+        
         List<BaseCharacter> alivePlayers = GameManager.Instance.gameStateModel.GetAlivePlayers();
         int votedCharacterIndex = UnityEngine.Random.Range(0, alivePlayers.Count);
         BaseCharacter votedCharacter = alivePlayers[votedCharacterIndex];
@@ -45,7 +48,7 @@ public class BotAgent : BaseCharacter
         VoteCommand voteCommand = new VoteCommand(this,votedCharacter);
         UnityEngine.Debug.Log($"{gameObject.name} voted for: {votedCharacter.gameObject.name}");
         ScheduleCommand(voteCommand);
-
+        
     }
 
     private void ScheduleCommand(ICommand command)
