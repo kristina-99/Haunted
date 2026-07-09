@@ -10,14 +10,14 @@ public class PhaseTimer : MonoBehaviour
     private float remainingTime;
     private PhaseManager phaseManager;
     private string currentPhase;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+ 
     void OnEnable()
     {
         OnDayStarted += RestartTimerDay;
         OnNightStarted += RestartTimerNight;
         OnBodyReported += RouteBodyReported;
         OnVotingFinished += RouteVotingFinished;
+        OnTransitionStarted += HandleTransitionPhase;
     }
 
     void OnDisable()
@@ -26,6 +26,7 @@ public class PhaseTimer : MonoBehaviour
         OnNightStarted -= RestartTimerNight;
         OnBodyReported -= RouteBodyReported;
         OnVotingFinished -= RouteVotingFinished;
+        OnTransitionStarted -= HandleTransitionPhase;
     }
 
     private void RouteBodyReported(BaseCharacter reporter) 
@@ -53,9 +54,12 @@ public class PhaseTimer : MonoBehaviour
             remainingTime = 0;
         }
 
-        int minutes = Mathf.FloorToInt(remainingTime / SecondsPerMinute);
-        int seconds = Mathf.FloorToInt(remainingTime % SecondsPerMinute);
-        timerText.text = currentPhase + string.Format("{0:00}:{1:00}",minutes,seconds);
+        if(currentPhase != "Transition")
+        {
+            int minutes = Mathf.FloorToInt(remainingTime / SecondsPerMinute);
+            int seconds = Mathf.FloorToInt(remainingTime % SecondsPerMinute);
+            timerText.text = currentPhase + string.Format("{0:00}:{1:00}",minutes,seconds);
+        }
     }
 
     private void RestartTimerDay()
@@ -73,5 +77,11 @@ public class PhaseTimer : MonoBehaviour
     private void StopDayTimer()
     {
         remainingTime = 0;
+    }
+
+    private void HandleTransitionPhase()
+    {
+        timerText.text = "";
+        currentPhase = "Transition";
     }
 }

@@ -18,17 +18,17 @@ public class VotingUIController : MonoBehaviour
 
     void OnEnable()
     {
-        GameEvents.OnNightStarted += HideVotingPanel;
+        GameEvents.OnVotingFinished += HideVotingPanel;
         GameEvents.OnDayStarted += DisplayVotingPanel;
     }
 
     void OnDisable()
     {
-        GameEvents.OnNightStarted += HideVotingPanel;
+        GameEvents.OnVotingFinished += HideVotingPanel;
         GameEvents.OnDayStarted -= DisplayVotingPanel;
     }
 
-    private void HideVotingPanel(int round)
+    private void HideVotingPanel(BaseCharacter target, bool isTie)
     {
         votingCanvas.interactable = false;
         votingCanvas.blocksRaycasts = false;
