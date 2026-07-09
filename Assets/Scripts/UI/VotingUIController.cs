@@ -32,8 +32,11 @@ public class VotingUIController : MonoBehaviour
     {
         votingCanvas.interactable = false;
         votingCanvas.blocksRaycasts = false;
+        votingCanvas.alpha = 1f;
 
-        votingCanvas.DOFade(0f, 4f);
+        Sequence hideSequence = DOTween.Sequence();
+        hideSequence.AppendInterval(2f);
+        hideSequence.Append(votingCanvas.DOFade(0f, 2f));
     }
 
     private void DisplayVotingPanel()
