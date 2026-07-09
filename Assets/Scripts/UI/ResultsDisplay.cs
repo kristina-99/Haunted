@@ -80,7 +80,7 @@ public class ResultsDisplay : MonoBehaviour
             .Append(votedOutCharacter.DOFade(1f, 1.5f))
             .AppendInterval(0.5f)
             .Append(isHauntedReveal.DOFade(1f, 1.5f))
-            .AppendInterval(7.0f); // Screen stay duration
+            .AppendInterval(2.0f); // Screen stay duration
 
         // Wait for the entire sequence to naturally finish playing
         yield return _animationSequence.WaitForCompletion();
