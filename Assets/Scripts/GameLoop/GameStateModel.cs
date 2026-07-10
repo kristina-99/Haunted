@@ -58,18 +58,21 @@ public class GameStateModel
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
-        if (voter == null || target == null || playersWhoVoted.Contains(voter))
+        if (voter == null || playersWhoVoted.Contains(voter))
         {
             return;
         }
 
-        if (!votes.ContainsKey(target))
+        if(target != null)
         {
-            votes[target] = 1;
-        }
-        else
-        {
-            votes[target]++;
+            if (!votes.ContainsKey(target))
+            {
+                votes[target] = 1;
+            }
+            else
+            {
+                votes[target]++;
+            }
         }
 
         playersWhoVoted.Add(voter);

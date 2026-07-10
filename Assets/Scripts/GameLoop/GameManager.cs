@@ -75,45 +75,45 @@ public class GameManager : MonoBehaviour
     }
 
     private void HandleVoteCast(BaseCharacter voter, BaseCharacter target)
-{
-    gameStateModel.RegisterVote(voter, target);
-    
-    if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
     {
-        var voteData = gameStateModel.GetVotes();
+        gameStateModel.RegisterVote(voter, target);
         
-        // Default states
-        BaseCharacter votedOut = null;
-        bool isTie = true;
-
-        if (voteData != null && voteData.Count > 0)
+        if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
         {
-            int mostVotes = voteData.Values.Max();
-            int winnersCount = voteData.Count(entry => entry.Value == mostVotes);
+            var voteData = gameStateModel.GetVotes();
+            
+            // Default states
+            BaseCharacter votedOut = null;
+            bool isTie = true;
 
-            // If there's exactly one winner, it's not a tie
-            if (winnersCount == 1)
+            if (voteData != null && voteData.Count > 0)
             {
-                isTie = false;
-                votedOut = voteData.FirstOrDefault(x => x.Value == mostVotes).Key;
+                int mostVotes = voteData.Values.Max();
+                int winnersCount = voteData.Count(entry => entry.Value == mostVotes);
+
+                // If there's exactly one winner, it's not a tie
+                if (winnersCount == 1)
+                {
+                    isTie = false;
+                    votedOut = voteData.FirstOrDefault(x => x.Value == mostVotes).Key;
+                }
             }
+
+            // Process character death if someone was cleanly voted out
+            if (!isTie && votedOut != null)
+            {
+                votedOut.OnCharacterDeath();
+                gameStateModel.RegisterVotedOut(votedOut);
+                CheckWinConditions();
+            }
+
+            // Broadcast the results directly to anyone listening (like the UI)
+            GameEvents.VotingFinished(votedOut, isTie);
+
+            // Reset the model data safely now that processing is done
+            gameStateModel.ClearVotes();
         }
-
-        // Process character death if someone was cleanly voted out
-        if (!isTie && votedOut != null)
-        {
-            votedOut.OnCharacterDeath();
-            gameStateModel.RegisterVotedOut(votedOut);
-            CheckWinConditions();
-        }
-
-        // Broadcast the results directly to anyone listening (like the UI)
-        GameEvents.VotingFinished(votedOut, isTie);
-
-        // Reset the model data safely now that processing is done
-        gameStateModel.ClearVotes();
     }
-}
 
     private void CompleteTask(BaseCharacter completer)
     {

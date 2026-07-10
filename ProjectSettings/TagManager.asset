@@ -10,6 +10,7 @@ TagManager:
   - VoteButton
   - BlameButton
   - DefendButton
+  - SkipButton
   layers:
   - Default
   - TransparentFX

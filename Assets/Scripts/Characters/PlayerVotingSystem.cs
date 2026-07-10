@@ -28,15 +28,18 @@ public class PlayerVotingSystem : MonoBehaviour
 
         Button voteButton = GameObject.FindGameObjectWithTag("VoteButton").GetComponent<Button>();
         voteButton.onClick.AddListener(() => OnVoteButtonClick());
+
+        Button skipButton = GameObject.FindGameObjectWithTag("SkipButton").GetComponent<Button>();
+        skipButton.onClick.AddListener(() => OnSkipButtonClick());
     }
 
-    public void OnCharacterButtonClick(string selectedButttonName)
+    private void OnCharacterButtonClick(string selectedButttonName)
     {
         PlayerPrefs.SetString(saveKey, selectedButttonName);
         PlayerPrefs.Save();
     }
 
-    public void OnVoteButtonClick()
+    private void OnVoteButtonClick()
     {
         string characterName = PlayerPrefs.GetString(saveKey);
         List<BaseCharacter> alivePlayers = GameManager.Instance.gameStateModel.GetAlivePlayers();
@@ -57,5 +60,10 @@ public class PlayerVotingSystem : MonoBehaviour
         {
             Debug.Log($"Could not find an alive BaseCharacter component named {characterName}!");
         }
+    }
+
+    private void OnSkipButtonClick()
+    {
+        playerController.OnVoteCast(null);
     }
 }
