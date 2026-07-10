@@ -11,6 +11,17 @@ public class PlayerDiscussionSystem : MonoBehaviour
     {
         characterButtonObjects = GameObject.FindGameObjectsWithTag("CharacterButton");
 
+        SetCharacterButtons();
+
+        Button blameButton = GameObject.FindGameObjectWithTag("BlameButton").GetComponent<Button>();
+        blameButton.onClick.AddListener(() => OnBlameButtonClick());
+
+        Button defendButton = GameObject.FindGameObjectWithTag("DefendButton").GetComponent<Button>();
+        defendButton.onClick.AddListener(() => OnDefendButtonClick());
+    }
+
+    private void SetCharacterButtons()
+    {
         foreach(GameObject characterButton in characterButtonObjects)
         {
             Button button = characterButton.GetComponent<Button>();
@@ -23,11 +34,6 @@ public class PlayerDiscussionSystem : MonoBehaviour
             }
         }
 
-        Button blameButton = GameObject.FindGameObjectWithTag("BlameButton").GetComponent<Button>();
-        blameButton.onClick.AddListener(() => OnBlameButtonClick());
-
-        Button defendButton = GameObject.FindGameObjectWithTag("DefendButton").GetComponent<Button>();
-        defendButton.onClick.AddListener(() => OnDefendButtonClick());
     }
 
     public void OnCharacterButtonClick(string selectedButttonName)

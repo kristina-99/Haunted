@@ -24,8 +24,10 @@ public class VotingUIController : MonoBehaviour
 
     void OnDisable()
     {
-        GameEvents.OnVotingFinished += HideVotingPanel;
+        GameEvents.OnVotingFinished -= HideVotingPanel;
         GameEvents.OnDayStarted -= DisplayVotingPanel;
+
+        votingCanvas.DOKill();
     }
 
     private void HideVotingPanel(BaseCharacter target, bool isTie)
@@ -34,13 +36,16 @@ public class VotingUIController : MonoBehaviour
         votingCanvas.blocksRaycasts = false;
         votingCanvas.alpha = 1f;
 
-        Sequence hideSequence = DOTween.Sequence();
-        hideSequence.AppendInterval(2f);
-        hideSequence.Append(votingCanvas.DOFade(0f, 2f));
+        DOTween.Sequence()
+            .AppendInterval(2f)
+            .Append(votingCanvas.DOFade(0f, 2f))
+            .SetLink(gameObject);
     }
 
     private void DisplayVotingPanel()
     {
+        votingCanvas.DOKill();
+
         votingCanvas.interactable = true;
         votingCanvas.blocksRaycasts = true;
         votingCanvas.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);

@@ -27,6 +27,11 @@ public class GameStateModel
 
     public void SetPhase(GamePhase gamePhase) => currentPhase = gamePhase;
 
+    public void ResetSkipCount()
+    {
+        skipCount = 0;
+    }
+
     public Dictionary<BaseCharacter, int> GetVotes()
     {
         return votes;

@@ -83,7 +83,6 @@ public class GameManager : MonoBehaviour
         {
             var voteData = gameStateModel.GetVotes();
             
-            // Default states
             BaseCharacter votedOut = null;
             bool isTie = true;
             bool hasMajoritySkipped = gameStateModel.SkipCount * 2 > gameStateModel.AlivePlayersCount;
@@ -100,7 +99,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // Process character death if someone was cleanly voted out
+
             if (!isTie && votedOut != null)
             {
                 votedOut.OnCharacterDeath();
@@ -108,10 +107,8 @@ public class GameManager : MonoBehaviour
                 CheckWinConditions();
             }
 
-            // Broadcast the results directly to anyone listening (like the UI)
+            gameStateModel.ResetSkipCount();
             GameEvents.VotingFinished(votedOut, isTie);
-
-            // Reset the model data safely now that processing is done
             gameStateModel.ClearVotes();
         }
     }
@@ -145,8 +142,7 @@ public class GameManager : MonoBehaviour
             GameEvents.GameEnded(GameResult.HuntersWin);
             return; 
         }
-        //if only one alive hunter is left and the haunted is still alive
-        //mutually exclusive with the above condition
+
         else if (gameStateModel.AlivePlayersCount == 2)
         {
             Debug.Log("Only 1 Hunter left and Haunted wins!");
@@ -161,6 +157,5 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // check if Haunted is voted out
     }
 }

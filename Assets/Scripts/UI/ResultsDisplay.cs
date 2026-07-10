@@ -29,9 +29,6 @@ public class ResultsDisplay : MonoBehaviour
         KillActiveTweens();
     }
 
-    /// <summary>
-    /// Resets all UI elements to their default hidden/transparent states.
-    /// </summary>
     private void ResetUI()
     {
         resultsCanvas.alpha = 0f;

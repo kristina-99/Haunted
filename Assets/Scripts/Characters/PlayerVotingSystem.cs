@@ -14,6 +14,17 @@ public class PlayerVotingSystem : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         characterButtonObjects = GameObject.FindGameObjectsWithTag("CharacterButton");
 
+        SetCharacterButtons();
+
+        Button voteButton = GameObject.FindGameObjectWithTag("VoteButton").GetComponent<Button>();
+        voteButton.onClick.AddListener(() => OnVoteButtonClick());
+
+        Button skipButton = GameObject.FindGameObjectWithTag("SkipButton").GetComponent<Button>();
+        skipButton.onClick.AddListener(() => OnSkipButtonClick());
+    }
+
+    private void SetCharacterButtons()
+    {
         foreach(GameObject characterButton in characterButtonObjects)
         {
             Button button = characterButton.GetComponent<Button>();
@@ -26,11 +37,6 @@ public class PlayerVotingSystem : MonoBehaviour
             }
         }
 
-        Button voteButton = GameObject.FindGameObjectWithTag("VoteButton").GetComponent<Button>();
-        voteButton.onClick.AddListener(() => OnVoteButtonClick());
-
-        Button skipButton = GameObject.FindGameObjectWithTag("SkipButton").GetComponent<Button>();
-        skipButton.onClick.AddListener(() => OnSkipButtonClick());
     }
 
     private void OnCharacterButtonClick(string selectedButttonName)
