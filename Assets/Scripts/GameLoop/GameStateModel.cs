@@ -14,6 +14,7 @@ public class GameStateModel
     private int tasksRemaining = 10;
     private int roundNumber;
     private int discussionCount;
+    private int skipCount;
 
     // Use property shortcuts for cleaner reading
     public GamePhase CurrentPhase => currentPhase;
@@ -22,6 +23,7 @@ public class GameStateModel
     public int RoundNumber => roundNumber;
     public int DiscussionCount => discussionCount;
     public int AlivePlayersCount => alivePlayers.Count;
+    public int SkipCount => skipCount;
 
     public void SetPhase(GamePhase gamePhase) => currentPhase = gamePhase;
 
@@ -73,6 +75,10 @@ public class GameStateModel
             {
                 votes[target]++;
             }
+        }
+        else
+        {
+            skipCount++;
         }
 
         playersWhoVoted.Add(voter);

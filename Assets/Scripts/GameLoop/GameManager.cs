@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using static GameConstants;
@@ -85,13 +86,13 @@ public class GameManager : MonoBehaviour
             // Default states
             BaseCharacter votedOut = null;
             bool isTie = true;
+            bool hasMajoritySkipped = gameStateModel.SkipCount * 2 > gameStateModel.AlivePlayersCount;
 
-            if (voteData != null && voteData.Count > 0)
+            if (voteData != null && voteData.Count > 0 && !hasMajoritySkipped)
             {
                 int mostVotes = voteData.Values.Max();
                 int winnersCount = voteData.Count(entry => entry.Value == mostVotes);
 
-                // If there's exactly one winner, it's not a tie
                 if (winnersCount == 1)
                 {
                     isTie = false;
