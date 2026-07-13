@@ -12,6 +12,7 @@ public class PhaseManager : MonoBehaviour
     private Coroutine activePhaseRoutine;
     private bool interruptNightPhase = false;
     private bool interruptDayPhase = false;
+    private bool gameStarted = false;
     private bool gameOver = false;
 
     public float GetDayDuration()
@@ -29,6 +30,7 @@ public class PhaseManager : MonoBehaviour
         GameEvents.OnBodyReported += InterruptNightPhase;
         GameEvents.OnGameEnded += GameOver;
         GameEvents.OnVotingFinished += RouteVotingFinished;
+        GameEvents.OnGameStarted += StartGame;
     }
 
     void OnDisable()
@@ -36,6 +38,7 @@ public class PhaseManager : MonoBehaviour
         GameEvents.OnBodyReported -= InterruptNightPhase;
         GameEvents.OnGameEnded -= GameOver;      
         GameEvents.OnVotingFinished -= RouteVotingFinished;
+        GameEvents.OnGameStarted -= StartGame;
     }
 
     private void RouteVotingFinished(BaseCharacter votedOut, bool isTie)
@@ -43,7 +46,7 @@ public class PhaseManager : MonoBehaviour
 
     void Update()
     {
-        if (activePhaseRoutine == null && !gameOver)
+        if (activePhaseRoutine == null && gameStarted && !gameOver)
         {
             activePhaseRoutine = StartCoroutine(PhaseRoutine());
         }
@@ -75,6 +78,12 @@ public class PhaseManager : MonoBehaviour
         yield return new WaitForSeconds(TransitionDuration);
 
         activePhaseRoutine = null;
+    }
+    
+    private void StartGame()
+    {
+        gameStarted = true;
+        Debug.Log("Game has started");
     }
 
     private void InterruptNightPhase(BaseCharacter reportedBody)

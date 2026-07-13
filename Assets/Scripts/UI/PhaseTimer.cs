@@ -13,6 +13,7 @@ public class PhaseTimer : MonoBehaviour
  
     void OnEnable()
     {
+        OnGameStarted += RouteGameStarted;
         OnDayStarted += RestartTimerDay;
         OnNightStarted += RestartTimerNight;
         OnBodyReported += RouteBodyReported;
@@ -22,12 +23,16 @@ public class PhaseTimer : MonoBehaviour
 
     void OnDisable()
     {
+        OnGameStarted -= RouteGameStarted;
         OnDayStarted -= RestartTimerDay;
         OnNightStarted -= RestartTimerNight;
         OnBodyReported -= RouteBodyReported;
         OnVotingFinished -= RouteVotingFinished;
         OnTransitionStarted -= HandleTransitionPhase;
     }
+
+    private void RouteGameStarted() 
+    => RestartTimerNight(1);
 
     private void RouteBodyReported(BaseCharacter reporter) 
     => RestartTimerDay();
@@ -38,8 +43,6 @@ public class PhaseTimer : MonoBehaviour
     void Start()
     {
         phaseManager = FindAnyObjectByType<PhaseManager>();
-        remainingTime = phaseManager.GetNightDuration();
-        currentPhase = "Night time: ";
     }
 
     // Update is called once per frame
