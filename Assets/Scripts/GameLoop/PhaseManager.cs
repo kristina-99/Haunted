@@ -4,7 +4,7 @@ using static GameConstants;
 
 public class PhaseManager : MonoBehaviour
 {
-    private const float NightDuration = 20f;
+    private const float NightDuration = 100f;
     private const float DayDuration = 120f;
     private const float TransitionDuration = 12f;
     private int roundCounter = 0;
