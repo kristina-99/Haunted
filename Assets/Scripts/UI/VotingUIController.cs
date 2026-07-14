@@ -1,53 +1,38 @@
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 
-public class VotingUIController : MonoBehaviour
+public class VotingUIController : UIPanel
 {
-    public CanvasGroup votingCanvas;
-    private List<TextMeshPro> votingResultTextBoxes;
 
-    void Start()
+    private void Start()
     {
-        votingCanvas.alpha = 0f;
-        votingCanvas.interactable = false;
-        votingCanvas.blocksRaycasts = false;
+        ResetUI();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        GameEvents.OnVotingFinished += HideVotingPanel;
+        GameEvents.OnVotingFinished += HandleVotingFinished;
         GameEvents.OnDayStarted += DisplayVotingPanel;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        GameEvents.OnVotingFinished -= HideVotingPanel;
+        GameEvents.OnVotingFinished -= HandleVotingFinished;
         GameEvents.OnDayStarted -= DisplayVotingPanel;
-
-        votingCanvas.DOKill();
-    }
-
-    private void HideVotingPanel(BaseCharacter target, bool isTie)
-    {
-        votingCanvas.interactable = false;
-        votingCanvas.blocksRaycasts = false;
-        votingCanvas.alpha = 1f;
-
-        DOTween.Sequence()
-            .AppendInterval(2f)
-            .Append(votingCanvas.DOFade(0f, 2f))
-            .SetLink(gameObject);
+        KillActiveTransition();
     }
 
     private void DisplayVotingPanel()
     {
-        votingCanvas.DOKill();
+        Show(0.5f, Ease.OutQuad);
+    }
 
-        votingCanvas.interactable = true;
-        votingCanvas.blocksRaycasts = true;
-        votingCanvas.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+    private void HandleVotingFinished(BaseCharacter target, bool isTie)
+    {
+        DOTween.Sequence()
+            .AppendInterval(2f)
+            .AppendCallback(() => Hide(2f))
+            .SetLink(gameObject);
     }
 }

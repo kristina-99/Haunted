@@ -1,13 +1,12 @@
-using UnityEngine.UI;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using static GameConstants;
+using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 using System.Collections;
+using static GameConstants;
 
-public class ResultsDisplay : MonoBehaviour
+public class ResultsDisplay : UIPanel
 {
-    public CanvasGroup resultsCanvas;
     public Image background;
     public TMP_Text votedOutCharacter;
     public TMP_Text isHauntedReveal;
@@ -29,12 +28,11 @@ public class ResultsDisplay : MonoBehaviour
         KillActiveTweens();
     }
 
-    private void ResetUI()
+    public override void ResetUI()
     {
-        resultsCanvas.alpha = 0f;
-        resultsCanvas.blocksRaycasts = false;
-        resultsCanvas.interactable = false;
+        base.ResetUI(); // Resets canvasGroup smoothly
 
+        // Handle the nested elements
         SetAlpha(background, 0f);
         SetAlpha(votedOutCharacter, 0f);
         SetAlpha(isHauntedReveal, 0f);
@@ -42,7 +40,6 @@ public class ResultsDisplay : MonoBehaviour
 
     private void HandleResults(BaseCharacter votedOut, bool isTie)
     {
-        // 1. Set text values
         if (isTie || votedOut == null)
         {
             votedOutCharacter.text = "No one was voted out (Tie vote).";
@@ -56,66 +53,49 @@ public class ResultsDisplay : MonoBehaviour
                 : "They were NOT the Haunted.";
         }
 
-        // 2. Play the display cycle
         StartCoroutine(RevealResultsRoutine());
     }
 
     private IEnumerator RevealResultsRoutine()
     {
-        // Ensure clean state before starting new animations
         KillActiveTweens();
         ResetUI();
         
-        resultsCanvas.alpha = 1f;
+        canvasGroup.alpha = 1f; // Make parent group visible
 
-        // Construct the timeline using DOTween sequences instead of messy while loops
         _animationSequence = DOTween.Sequence();
-        
         _animationSequence
-            .AppendInterval(3.0f) // Initial delay before reveal starts
+            .AppendInterval(3.0f)
             .Append(background.DOFade(1f, 2.0f).SetEase(Ease.InOutQuad))
             .Append(votedOutCharacter.DOFade(1f, 1.5f))
             .AppendInterval(0.5f)
             .Append(isHauntedReveal.DOFade(1f, 1.5f))
-            .AppendInterval(2.0f); // Screen stay duration
+            .AppendInterval(2.0f);
 
-        // Wait for the entire sequence to naturally finish playing
         yield return _animationSequence.WaitForCompletion();
 
-        HideScreen();
-    }
-
-    private void HideScreen()
-    {
-        resultsCanvas.interactable = false;
-        resultsCanvas.blocksRaycasts = false;
-
-        // Fade out everything smoothly, then safely reset back to zero
-        _animationSequence = DOTween.Sequence();
-        _animationSequence.Append(resultsCanvas.DOFade(0f, 3.0f))
-                          .OnComplete(ResetUI);
+        // Let the base class handle the smooth fading out of the parent CanvasGroup!
+        Hide(3.0f, Ease.Linear, ResetUI);
     }
 
     private void KillActiveTweens()
     {
+        KillActiveTransition(); // Clears base class tweens
+
         if (_animationSequence != null && _animationSequence.IsActive())
         {
             _animationSequence.Kill();
         }
         
-        // Safety catch-all for individual elements
         background.DOKill();
         votedOutCharacter.DOKill();
         isHauntedReveal.DOKill();
-        resultsCanvas.DOKill();
     }
 
-    #region Helper Methods
     private void SetAlpha(Graphic graphic, float alpha)
     {
         Color color = graphic.color;
         color.a = alpha;
         graphic.color = color;
     }
-    #endregion
 }
