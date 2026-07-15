@@ -10,32 +10,31 @@ public class ResultsDisplay : UIPanel
     public Image background;
     public TMP_Text votedOutCharacter;
     public TMP_Text isHauntedReveal;
+
     private Sequence _animationSequence;
+    
 
-    private void Start()
+    private void OnEnable() 
     {
-        ResetUI();
-    }
-
-    private void OnEnable()
-    {
-        GameEvents.OnVotingFinished += HandleResults; 
+        GameEvents.OnVotingFinished += HandleResults;
     }
 
     private void OnDisable()
     {
         GameEvents.OnVotingFinished -= HandleResults;
-        KillActiveTweens();
     }
 
     public override void ResetUI()
     {
-        base.ResetUI(); // Resets canvasGroup smoothly
+        base.ResetUI();
 
-        // Handle the nested elements
-        SetAlpha(background, 0f);
-        SetAlpha(votedOutCharacter, 0f);
-        SetAlpha(isHauntedReveal, 0f);
+        background.DOKill();
+        votedOutCharacter.DOKill();
+        isHauntedReveal.DOKill();
+
+        background.color = SetAlpha(background.color, 0f);
+        votedOutCharacter.color = SetAlpha(votedOutCharacter.color, 0f);
+        isHauntedReveal.color = SetAlpha(isHauntedReveal.color, 0f);
     }
 
     private void HandleResults(BaseCharacter votedOut, bool isTie)
@@ -58,13 +57,17 @@ public class ResultsDisplay : UIPanel
 
     private IEnumerator RevealResultsRoutine()
     {
-        KillActiveTweens();
+        // Resets the elements and kills any lingering tweens from previous rounds
         ResetUI();
         
-        canvasGroup.alpha = 1f; // Make parent group visible
+        // Show the panel's canvas immediately so nested tweens are visible
+        gameObject.SetActive(true);
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
 
-        _animationSequence = DOTween.Sequence();
-        _animationSequence
+        // Build and play the nested reveal sequence
+        _animationSequence = DOTween.Sequence()
             .AppendInterval(3.0f)
             .Append(background.DOFade(1f, 2.0f).SetEase(Ease.InOutQuad))
             .Append(votedOutCharacter.DOFade(1f, 1.5f))
@@ -74,28 +77,17 @@ public class ResultsDisplay : UIPanel
 
         yield return _animationSequence.WaitForCompletion();
 
-        // Let the base class handle the smooth fading out of the parent CanvasGroup!
-        Hide(3.0f, Ease.Linear, ResetUI);
+        yield return Hide(3.0f).SetEase(Ease.Linear).WaitForCompletion();
     }
 
-    private void KillActiveTweens()
+    private void OnDestroy()
     {
-        KillActiveTransition(); // Clears base class tweens
-
-        if (_animationSequence != null && _animationSequence.IsActive())
-        {
-            _animationSequence.Kill();
-        }
-        
-        background.DOKill();
-        votedOutCharacter.DOKill();
-        isHauntedReveal.DOKill();
+        _animationSequence?.Kill();
     }
 
-    private void SetAlpha(Graphic graphic, float alpha)
+    private Color SetAlpha(Color color, float alpha)
     {
-        Color color = graphic.color;
         color.a = alpha;
-        graphic.color = color;
+        return color;
     }
 }

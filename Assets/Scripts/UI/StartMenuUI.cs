@@ -9,17 +9,11 @@ public class StartMenuUI : UIPanel
 
     void Start()
     {
-        startButton.onClick.AddListener(() => OnStartButtonClick());
-        quitButton.onClick.AddListener(() => OnQuitButtonClick());
+        startButton.onClick.AddListener(GameStarted);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
-    private void OnStartButtonClick()
-    {
-        GameStarted();
-        Hide();
-    }
-
-    private void OnQuitButtonClick()
+    private void QuitGame()
     {
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

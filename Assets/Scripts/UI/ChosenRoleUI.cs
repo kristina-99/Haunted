@@ -12,16 +12,11 @@ public class ChosenRoleUI : UIPanel
     void OnEnable()
     {
         GameEvents.OnArcadeMapLoaded += AssignRoleSprite;
-        GameEvents.OnGameStarted += RouteGameStarted;
     }
     void OnDisable()
     {
         GameEvents.OnArcadeMapLoaded -= AssignRoleSprite;
-        GameEvents.OnGameStarted -= RouteGameStarted;
     }
-
-    private void RouteGameStarted() 
-    => StartCoroutine(ShowRoleScreen());
 
     void Start()
     {
@@ -35,11 +30,4 @@ public class ChosenRoleUI : UIPanel
         chosenRole.sprite = allRoles[(int)player.Role];       
     }
 
-    private IEnumerator ShowRoleScreen()
-    {
-        yield return new WaitForSeconds(3f);
-        Show(2f);
-        yield return new WaitForSeconds(2f);
-        Hide(2f);
-    }
 }

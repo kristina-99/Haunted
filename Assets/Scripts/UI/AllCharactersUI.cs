@@ -10,26 +10,4 @@ public class AllCharactersUI : UIPanel
         ResetUI();
     }
 
-    void OnEnable()
-    {
-        OnGameStarted += HandleOnGameStarted;
-    }
-
-    void OnDisable()
-    {
-        OnGameStarted -= HandleOnGameStarted;       
-    }
-
-    private void HandleOnGameStarted()
-    {
-        StartCoroutine(ShowAndHide());
-    }
-
-    private IEnumerator ShowAndHide()
-    {
-        Show(1f);
-        yield return new WaitForSeconds(2f);
-        Hide(2f);
-    }
-
 }

@@ -8,6 +8,7 @@ public class VotingUIController : UIPanel
     private void Start()
     {
         ResetUI();
+        gameObject.SetActive(true);
     }
 
     private void OnEnable()
@@ -20,19 +21,15 @@ public class VotingUIController : UIPanel
     {
         GameEvents.OnVotingFinished -= HandleVotingFinished;
         GameEvents.OnDayStarted -= DisplayVotingPanel;
-        KillActiveTransition();
     }
 
     private void DisplayVotingPanel()
     {
-        Show(0.5f, Ease.OutQuad);
+        Show(0.5f).SetEase(Ease.OutQuad);
     }
 
     private void HandleVotingFinished(BaseCharacter target, bool isTie)
     {
-        DOTween.Sequence()
-            .AppendInterval(2f)
-            .AppendCallback(() => Hide(2f))
-            .SetLink(gameObject);
+        Hide(2f).SetDelay(2f);
     }
 }
