@@ -6,7 +6,6 @@ public class StartMenuUI : UIPanel
 {
     public Button startButton;
     public Button quitButton;
-    private CanvasGroup startCanvas;
 
     void Start()
     {
