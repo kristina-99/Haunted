@@ -21,9 +21,9 @@ public class AllCharactersUI : UIPanel
     }
 
     private void HandleOnGameStarted()
-{
-    StartCoroutine(ShowAndHide());
-}
+    {
+        StartCoroutine(ShowAndHide());
+    }
 
     private IEnumerator ShowAndHide()
     {
