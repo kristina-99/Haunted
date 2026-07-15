@@ -1,20 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Extensions;
 
 public class ChosenRoleUI : MonoBehaviour
 {
-    private Image chosenRole;
-    [SerializeField] List<Sprite> allRoles;
-    void Start()
+    public Image chosenRole;
+    public List<Sprite> allRoles;
+
+    void OnEnable()
     {
-        BaseCharacter player = Extensions.GetAlivePlayers().Find(player => player is PlayerController);
-        //List order should match the enum order!
-        //chosenRole = allRoles[(int)player.Role];
+        GameEvents.OnArcadeMapLoaded += AssignRoleSprite;
     }
 
-    void Update()
+    void OnDisable()
     {
-        
+        GameEvents.OnArcadeMapLoaded -= AssignRoleSprite;
+    }
+
+    private void AssignRoleSprite()
+    {
+        BaseCharacter player = GetAlivePlayers().Find(player => player is PlayerController);
+        //List order should match the enum order!
+        chosenRole.sprite = allRoles[(int)player.Role];       
     }
 }
