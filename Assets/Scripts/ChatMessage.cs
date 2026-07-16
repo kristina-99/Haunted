@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ChatMessage
 {
     public string SenderName { get; private set; }
