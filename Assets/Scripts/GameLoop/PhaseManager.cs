@@ -4,7 +4,7 @@ using static GameConstants;
 
 public class PhaseManager : MonoBehaviour
 {
-    private const float NightDuration = 100f;
+    private const float NightDuration = 15f;
     private const float DayDuration = 120f;
     private const float TransitionDuration = 12f;
     private int roundCounter = 0;
@@ -30,7 +30,7 @@ public class PhaseManager : MonoBehaviour
         GameEvents.OnBodyReported += InterruptNightPhase;
         GameEvents.OnGameEnded += GameOver;
         GameEvents.OnVotingFinished += RouteVotingFinished;
-        GameEvents.OnGameStarted += StartGame;
+        GameEvents.OnStartScenesFinished += StartGame;
     }
 
     void OnDisable()
@@ -38,7 +38,7 @@ public class PhaseManager : MonoBehaviour
         GameEvents.OnBodyReported -= InterruptNightPhase;
         GameEvents.OnGameEnded -= GameOver;      
         GameEvents.OnVotingFinished -= RouteVotingFinished;
-        GameEvents.OnGameStarted -= StartGame;
+        GameEvents.OnStartScenesFinished -= StartGame;
     }
 
     private void RouteVotingFinished(BaseCharacter votedOut, bool isTie)

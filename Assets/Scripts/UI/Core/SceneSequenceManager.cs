@@ -37,5 +37,6 @@ public class SceneSequenceManager : MonoBehaviour
         yield return chosenRolePanel.Show(2f).WaitForCompletion();
         yield return new WaitForSeconds(2f);
         yield return chosenRolePanel.Hide(2f).WaitForCompletion();
+        GameEvents.StartScenesFinished();
     }
 }

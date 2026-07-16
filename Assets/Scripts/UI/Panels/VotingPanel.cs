@@ -8,7 +8,6 @@ public class VotingPanel : UIPanel
     private void Start()
     {
         ResetUI();
-        gameObject.SetActive(true);
     }
 
     private void OnEnable()

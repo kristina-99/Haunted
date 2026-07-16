@@ -39,8 +39,7 @@ public class UIPanel : MonoBehaviour
         canvasGroup.DOKill();
 
         // Fade out, then deactivate the GameObject once the tween is fully complete
-        return canvasGroup.DOFade(0f, duration)
-            .OnComplete(() => gameObject.SetActive(false));
+        return canvasGroup.DOFade(0f, duration);
     }
 
     /// <summary>
@@ -53,6 +52,6 @@ public class UIPanel : MonoBehaviour
         canvasGroup.alpha = 0f;
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

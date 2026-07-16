@@ -21,7 +21,6 @@ public class ChosenRolePanel : UIPanel
     void Start()
     {
         ResetUI();
-        gameObject.SetActive(true);
     }
 
     private void AssignRoleSprite()

@@ -12,6 +12,7 @@ public static event Action OnTransitionStarted;
 public static event Action<BaseCharacter> OnTaskCompleted; // completer
 public static event Action<BaseCharacter, BaseCharacter> OnVoteCast; // voter,target
 public static event Action OnGameStarted;
+public static event Action OnStartScenesFinished;
 public static event Action<GameResult> OnGameEnded;
 public static event Action<BaseCharacter> OnBodyReported;
 public static event Action<BaseCharacter, AbilityType> OnAbilityUsed;
@@ -34,6 +35,8 @@ public static void VoteCast(BaseCharacter voter, BaseCharacter target) =>
 OnVoteCast?.Invoke(voter, target);
 public static void GameStarted() =>
 OnGameStarted.Invoke();
+public static void StartScenesFinished() =>
+OnStartScenesFinished.Invoke();
 public static void GameEnded(GameResult r) =>
 OnGameEnded?.Invoke(r);
 public static void BodyReported(BaseCharacter reporter) =>

@@ -10,10 +10,10 @@ public class PhaseTimer : MonoBehaviour
     private float remainingTime;
     private PhaseManager phaseManager;
     private string currentPhase;
- 
+
     void OnEnable()
     {
-        OnGameStarted += RouteGameStarted;
+        OnStartScenesFinished += RouteGameStarted;
         OnDayStarted += RestartTimerDay;
         OnNightStarted += RestartTimerNight;
         OnBodyReported += RouteBodyReported;
@@ -23,7 +23,7 @@ public class PhaseTimer : MonoBehaviour
 
     void OnDisable()
     {
-        OnGameStarted -= RouteGameStarted;
+        OnStartScenesFinished -= RouteGameStarted;
         OnDayStarted -= RestartTimerDay;
         OnNightStarted -= RestartTimerNight;
         OnBodyReported -= RouteBodyReported;
@@ -32,7 +32,10 @@ public class PhaseTimer : MonoBehaviour
     }
 
     private void RouteGameStarted() 
-    => RestartTimerNight(1);
+    {
+        timerText.enabled = true;
+        RestartTimerNight(1);
+    }
 
     private void RouteBodyReported(BaseCharacter reporter) 
     => RestartTimerDay();
@@ -43,6 +46,7 @@ public class PhaseTimer : MonoBehaviour
     void Start()
     {
         phaseManager = FindAnyObjectByType<PhaseManager>();
+        timerText.enabled = false;
     }
 
     // Update is called once per frame

@@ -61,7 +61,6 @@ public class ResultsPanel : UIPanel
         ResetUI();
         
         // Show the panel's canvas immediately so nested tweens are visible
-        gameObject.SetActive(true);
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         canvasGroup.interactable = true;
@@ -72,11 +71,9 @@ public class ResultsPanel : UIPanel
             .Append(background.DOFade(1f, 2.0f).SetEase(Ease.InOutQuad))
             .Append(votedOutCharacter.DOFade(1f, 1.5f))
             .AppendInterval(0.5f)
-            .Append(isHauntedReveal.DOFade(1f, 1.5f))
-            .AppendInterval(2.0f);
+            .Append(isHauntedReveal.DOFade(1f, 1.5f));
 
         yield return _animationSequence.WaitForCompletion();
-
         yield return Hide(3.0f).SetEase(Ease.Linear).WaitForCompletion();
     }
 
