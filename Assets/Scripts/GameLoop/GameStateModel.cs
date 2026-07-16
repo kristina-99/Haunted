@@ -68,7 +68,7 @@ public class GameStateModel
             return;
         }
 
-        if(target != null)
+        if (target != null)
         {
             if (!votes.ContainsKey(target))
             {

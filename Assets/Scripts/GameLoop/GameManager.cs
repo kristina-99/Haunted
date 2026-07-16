@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        if(gameStateModel.TasksRemaining == 0)
+        if (gameStateModel.TasksRemaining == 0)
         {
             Debug.Log("All tasks finished and Hunters win");
             GameEvents.GameEnded(GameResult.HuntersWin);

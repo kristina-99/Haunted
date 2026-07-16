@@ -26,7 +26,7 @@ public class PlayerDiscussionSystem : MonoBehaviour
         {
             Button button = characterButton.GetComponent<Button>();
 
-            if(button != null)
+            if (button != null)
             {
                 string buttonName = characterButton.name;
 
