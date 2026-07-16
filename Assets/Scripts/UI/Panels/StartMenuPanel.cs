@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,7 +36,7 @@ public class StartMenuPanel : UIPanel
 
     private void HandleEndMenu(GameConstants.GameResult result)
     {
-        Show(2f);
+        StartCoroutine(ShowPanelAfterResultScreen());
         
         startButton.onClick.RemoveAllListeners();
         startButton.onClick.AddListener(Restart);
@@ -44,5 +45,11 @@ public class StartMenuPanel : UIPanel
     private void Restart()
     {
         SceneManager.LoadScene("Core");
+    }
+
+    private IEnumerator ShowPanelAfterResultScreen()
+    {
+        yield return new WaitForSeconds(10f);
+        Show(2f);
     }
 }
