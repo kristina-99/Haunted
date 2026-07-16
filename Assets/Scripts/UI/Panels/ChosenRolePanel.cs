@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Extensions;
 
-public class ChosenRoleUI : UIPanel
+public class ChosenRolePanel : UIPanel
 {
     public Image chosenRole;
     public List<Sprite> allRoles;
@@ -21,6 +21,7 @@ public class ChosenRoleUI : UIPanel
     void Start()
     {
         ResetUI();
+        gameObject.SetActive(true);
     }
 
     private void AssignRoleSprite()

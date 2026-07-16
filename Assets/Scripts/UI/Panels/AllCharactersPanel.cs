@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using static GameEvents;
 
-public class AllCharactersUI : UIPanel
+public class AllCharactersPanel : UIPanel
 {
     void Start()
     {

@@ -5,7 +5,7 @@ using DG.Tweening;
 using System.Collections;
 using static GameConstants;
 
-public class ResultsDisplay : UIPanel
+public class ResultsPanel : UIPanel
 {
     public Image background;
     public TMP_Text votedOutCharacter;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using DG.Tweening;
 
-public class VotingUIController : UIPanel
+public class VotingPanel : UIPanel
 {
 
     private void Start()

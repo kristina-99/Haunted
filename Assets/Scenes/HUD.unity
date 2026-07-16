@@ -420,9 +420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae88ba6b371e76941bebbdcd4e341fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSequenceManager
-  startMenuUI: {fileID: 879455066}
-  allCharactersUI: {fileID: 1119230240}
-  chosenRoleUI: {fileID: 234125376}
+  startMenuPanel: {fileID: 879455066}
+  allCharactersPanel: {fileID: 1119230242}
+  chosenRolePanel: {fileID: 234125376}
 --- !u!4 &84711854
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f470fd038c9f1c4aa2f427984324b50, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChosenRoleUI
+  m_EditorClassIdentifier: Assembly-CSharp::ChosenRolePanel
   chosenRole: {fileID: 1918176989}
   allRoles:
   - {fileID: 567981437, guid: bb2def14d67088547b03d8103b6d0215, type: 3}
@@ -2869,7 +2869,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87bfc07bc535cf46b9ee390a1671f68, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StartMenuUI
+  m_EditorClassIdentifier: Assembly-CSharp::StartMenuPanel
   startButton: {fileID: 1462442377}
   quitButton: {fileID: 474519353}
 --- !u!1 &890545568
@@ -3272,8 +3272,8 @@ GameObject:
   - component: {fileID: 1119230238}
   - component: {fileID: 1119230237}
   - component: {fileID: 1119230236}
-  - component: {fileID: 1119230240}
   - component: {fileID: 1119230241}
+  - component: {fileID: 1119230242}
   m_Layer: 5
   m_Name: AllPlayersCanvas
   m_TagString: Untagged
@@ -3367,18 +3367,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1119230240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119230235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6157f5d72f75cb646a1f7d6d254a9ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AllCharactersUI
 --- !u!225 &1119230241
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3391,6 +3379,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1119230242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119230235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6157f5d72f75cb646a1f7d6d254a9ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AllCharactersPanel
 --- !u!1 &1150390232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4122,7 +4122,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24099374d478abe4897014e9e70aaa8a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VotingUIController
+  m_EditorClassIdentifier: Assembly-CSharp::VotingPanel
 --- !u!1 &1443727266
 GameObject:
   m_ObjectHideFlags: 0

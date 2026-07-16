@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static GameEvents;
 
-public class StartMenuUI : UIPanel
+public class StartMenuPanel : UIPanel
 {
     public Button startButton;
     public Button quitButton;

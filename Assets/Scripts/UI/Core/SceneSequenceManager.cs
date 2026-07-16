@@ -4,9 +4,9 @@ using DG.Tweening;
 
 public class SceneSequenceManager : MonoBehaviour
 {
-    [SerializeField] private StartMenuUI startMenuUI;
-    [SerializeField] private AllCharactersUI allCharactersUI;
-    [SerializeField] private ChosenRoleUI chosenRoleUI;
+    [SerializeField] private StartMenuPanel startMenuPanel;
+    [SerializeField] private AllCharactersPanel allCharactersPanel;
+    [SerializeField] private ChosenRolePanel chosenRolePanel;
 
     void OnEnable()
     {
@@ -26,16 +26,16 @@ public class SceneSequenceManager : MonoBehaviour
     private IEnumerator PlayUISequence()
     {
         // Step 1: Hide the Start Menu
-        yield return startMenuUI.Hide(1f).WaitForCompletion();
+        yield return startMenuPanel.Hide(1f).WaitForCompletion();
 
         // Step 2: Show All Characters, wait 2 seconds, then hide
-        yield return allCharactersUI.Show(1f).WaitForCompletion();
+        yield return allCharactersPanel.Show(1f).WaitForCompletion();
         yield return new WaitForSeconds(2f); 
-        yield return allCharactersUI.Hide(2f).WaitForCompletion();
+        yield return allCharactersPanel.Hide(2f).WaitForCompletion();
 
         // Step 3: Show Chosen Role, wait 2 seconds, then hide
-        yield return chosenRoleUI.Show(2f).WaitForCompletion();
+        yield return chosenRolePanel.Show(2f).WaitForCompletion();
         yield return new WaitForSeconds(2f);
-        yield return chosenRoleUI.Hide(2f).WaitForCompletion();
+        yield return chosenRolePanel.Hide(2f).WaitForCompletion();
     }
 }
