@@ -17,10 +17,13 @@ public class MoveCommand : ICommand
 
     public void Execute()
     {
-        animator.SetFloat("VelocityX", velocityX);
-        animator.SetFloat("VelocityZ", velocityZ);
-        rb.linearVelocity += new Vector3(velocityX , 0, velocityZ);
-        Rotate();
+        if(animator != null)
+        {
+            animator.SetFloat("VelocityX", velocityX);
+            animator.SetFloat("VelocityZ", velocityZ);
+            rb.linearVelocity += new Vector3(velocityX , 0, velocityZ);
+            Rotate();
+        }
     }
 
     private void Rotate()
