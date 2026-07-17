@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
         gameStateModel = new GameStateModel();
     }
 
-    void Update()
+    private void CompleteTask(BaseCharacter completer)
     {
-        
+        stateModel.CompleteTask(completer);
     }
 
     private void OnEnable()
