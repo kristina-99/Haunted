@@ -52,16 +52,16 @@ public class PhaseTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(remainingTime > 0)
+        if (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
         }
-        else if(remainingTime < 0)
+        else if (remainingTime < 0)
         {
             remainingTime = 0;
         }
 
-        if(currentPhase != "Transition")
+        if (currentPhase != "Transition")
         {
             int minutes = Mathf.FloorToInt(remainingTime / SecondsPerMinute);
             int seconds = Mathf.FloorToInt(remainingTime % SecondsPerMinute);

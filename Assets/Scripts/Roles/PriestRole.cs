@@ -12,7 +12,7 @@ public class PriestRole : RoleBase
 
     public override void UseAbility(BaseCharacter target)
     {
-        if(target.Role == CharacterRole.Haunted)
+        if (target.Role == CharacterRole.Haunted)
         {
             target.OnCharacterDeath();
             GameEvents.PlayerKilled(target);

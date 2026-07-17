@@ -31,7 +31,7 @@ public class HauntedRole : RoleBase
 
     public override void UseAbility(BaseCharacter target)
     {
-        if(canUseAbility)
+        if (canUseAbility)
         {
             isLightOn = true;
             Debug.Log("Lights are off!");
@@ -53,7 +53,7 @@ public class HauntedRole : RoleBase
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Trap"))
+        if (other.CompareTag("Trap"))
         {
            GameEvents.HauntedStunned();
         }
@@ -61,7 +61,7 @@ public class HauntedRole : RoleBase
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("SafeZone"))
+        if (other.CompareTag("SafeZone"))
         {
             isInTheSafeZone = true;
         }
@@ -69,7 +69,7 @@ public class HauntedRole : RoleBase
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("SafeZone"))
+        if (other.CompareTag("SafeZone"))
         {
             isInTheSafeZone = false;
         }

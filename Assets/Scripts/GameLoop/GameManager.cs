@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        if(gameStateModel.TasksRemaining == 0)
+        if (gameStateModel.TasksRemaining == 0)
         {
             Debug.Log("All tasks finished and Hunters win");
             GameEvents.GameEnded(GameResult.HuntersWin);
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
         //condition added for single player - if the player dies Haunted wins
 
-        if(!isPlayerAlive)
+        if (!isPlayerAlive)
         {
             Debug.Log("Player has died and Haunted wins");
             GameEvents.GameEnded(GameResult.HauntedWins);

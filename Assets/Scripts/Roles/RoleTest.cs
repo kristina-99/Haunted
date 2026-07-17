@@ -26,7 +26,7 @@ public class RoleTest : MonoBehaviour
 
     private void ChangeRole()
     {
-        if(currentRole != selectedRole)
+        if (currentRole != selectedRole)
         {
             RemoveFormerScript();
             roleScriptName = $"{selectedRole}Role";
@@ -39,7 +39,7 @@ public class RoleTest : MonoBehaviour
     private void RemoveFormerScript()
     {
         RoleBase formerScript = GetComponent<RoleBase>();
-            if(formerScript != null)
+            if (formerScript != null)
             {
                 Destroy(formerScript);
             }

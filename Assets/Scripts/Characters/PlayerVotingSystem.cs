@@ -29,7 +29,7 @@ public class PlayerVotingSystem : MonoBehaviour
         {
             Button button = characterButton.GetComponent<Button>();
 
-            if(button != null)
+            if (button != null)
             {
                 string buttonName = characterButton.name;
 
@@ -52,7 +52,7 @@ public class PlayerVotingSystem : MonoBehaviour
 
         BaseCharacter target = alivePlayers.Find(p => p.gameObject.name == characterName);
 
-        if(target ==null)
+        if (target ==null)
         {
             Debug.Log("Target is null");
         }

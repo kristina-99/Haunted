@@ -64,10 +64,16 @@ public class DiscussionSystem : MonoBehaviour
         BaseCharacter player = aliveCharacters.FindLast(x => x is PlayerController);
 
         BaseCharacter botSender = PickRandomCharacter(player);
-        if (botSender == null) return; 
+        if (botSender == null)
+        {
+            return;
+        }
 
         BaseCharacter targetCharacter = PickRandomCharacter(botSender);
-        if (targetCharacter == null) return;
+        if (targetCharacter == null) 
+        {
+            return;
+        }
 
         int randomMessageIndex = Random.Range(0, MessageOptions);
         string message = randomMessageIndex == 0
@@ -81,7 +87,10 @@ public class DiscussionSystem : MonoBehaviour
     private BaseCharacter PickRandomCharacter(BaseCharacter characterToExclude)
     {
         int count = aliveCharacters.Count;
-        if (count == 0) return null;
+        if (count == 0)
+        {
+            return null;
+        }
 
         int startIndex = Random.Range(0, count);
 

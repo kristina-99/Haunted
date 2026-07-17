@@ -32,7 +32,7 @@ public class PlayerController : BaseCharacter
 
     void FixedUpdate()
     {
-        if(canMove)
+        if (canMove)
         {
             inputHorizontal = Input.GetAxis("Horizontal");
             inputVertical = Input.GetAxis("Vertical");
