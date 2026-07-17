@@ -40,8 +40,11 @@ public class BotAgent : BaseCharacter
     private void VoteRandomly()
     {
 
-    if (this == null) return;
-
+    if (this == null)
+    {
+            return;
+    }
+    
     BaseCharacter votedCharacter = null;
     float votingProbability = 2f / 3f;
 
