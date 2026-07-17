@@ -8,11 +8,28 @@ public class PlayerDiscussionSystem : MonoBehaviour
     public GameObject[] characterButtonObjects;
     private string saveKey = "SelectedCharacter";
     private string targetName;
+    private BaseCharacter player;
 
+    void OnEnable()
+    {
+        GameEvents.OnArcadeMapLoaded += FindPlayer;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnArcadeMapLoaded -= FindPlayer;
+    }
     void Start()
     {
+        SetCharacterButtons();
+
         blameButton.onClick.AddListener(() => OnBlameButtonClick());
         defendButton.onClick.AddListener(() => OnDefendButtonClick());
+    }
+
+    private void FindPlayer()
+    {
+        player = Extensions.GetAlivePlayers().Find(player => player is PlayerController);
     }
 
     private void SetCharacterButtons()
@@ -41,13 +58,13 @@ public class PlayerDiscussionSystem : MonoBehaviour
     public void OnBlameButtonClick()
     {
         string blameMessage = $"I think {targetName} is acting incredibly suspicious right now";
-        SendMessage(gameObject.name,blameMessage);
+        SendMessage(player.gameObject.name,blameMessage);
     }
 
     public void OnDefendButtonClick()
     {
         string defendMessage = $"Leave {targetName} alone, I'm certain they're innocent";
-        SendMessage(gameObject.name,defendMessage);
+        SendMessage(player.gameObject.name,defendMessage);
     }
 
     private void SendMessage(string name, string message)
