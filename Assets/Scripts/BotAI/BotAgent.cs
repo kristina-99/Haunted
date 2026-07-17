@@ -9,7 +9,7 @@ public class BotAgent : BaseCharacter
 
     void FixedUpdate()
     {
-        if(actionQueue.Count != 0)
+        if (actionQueue.Count != 0)
         {
             ExecuteNextCommand();
         }

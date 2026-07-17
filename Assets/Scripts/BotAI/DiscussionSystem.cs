@@ -59,7 +59,10 @@ public class DiscussionSystem : MonoBehaviour
 
     private void GenerateBotMessage()
     {
-        if (aliveCharacters == null || aliveCharacters.Count < MinAliveCharactersCount) return;
+        if (aliveCharacters == null || aliveCharacters.Count < MinAliveCharactersCount) 
+        {
+            return;
+        }
 
         BaseCharacter player = aliveCharacters.FindLast(x => x is PlayerController);
 

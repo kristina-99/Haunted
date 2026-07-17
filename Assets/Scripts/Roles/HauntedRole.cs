@@ -6,7 +6,7 @@ public class HauntedRole : RoleBase
     private const float LightsOffPeriod = 30f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
-    private bool isLightOn = false;
+    private bool isLightOn = true;
 
     protected override void HandleNightStarted(int roundNumber)
     {
@@ -33,9 +33,9 @@ public class HauntedRole : RoleBase
     {
         if (canUseAbility)
         {
-            isLightOn = true;
+            isLightOn = false;
             Debug.Log("Lights are off!");
-            Invoke("TurnOffLights", LightsOffPeriod);
+            Invoke("TurnOnLights", LightsOffPeriod);
         }
         
         canUseAbility = false;
@@ -75,9 +75,14 @@ public class HauntedRole : RoleBase
         }
     }
 
-    private void TurnOffLights()
+    private void CalculateDistance(BaseCharacter target)
     {
-        isLightOn = false;
-        Debug.Log("Lights are on!");
+        distanceFromTarget = Vector3.Distance(target.gameObject.transform.position, this.gameObject.transform.position);
+    }
+
+    private void TurnOnLights()
+    {
+        isLightOn = true;
+        Debug.Log("Lights are back on!");
     }
 }

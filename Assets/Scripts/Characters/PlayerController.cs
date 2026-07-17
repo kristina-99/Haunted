@@ -46,7 +46,7 @@ public class PlayerController : BaseCharacter
     {
         int indexLayer = LayerMask.NameToLayer("DeadBodies");
 
-        if(other.gameObject.layer == indexLayer)
+        if (other.gameObject.layer == indexLayer)
         {
             isNearDeadBody = true;
         }
@@ -56,7 +56,7 @@ public class PlayerController : BaseCharacter
     {
         int indexLayer = LayerMask.NameToLayer("DeadBodies");
 
-        if(other.gameObject.layer == indexLayer)
+        if (other.gameObject.layer == indexLayer)
         {
             isNearDeadBody = false;
         }
@@ -75,7 +75,7 @@ public class PlayerController : BaseCharacter
 
     void FreezeCharacter()
     {
-        if(canMove)
+        if (canMove)
         {
             StartCoroutine(FreezeRoutine());
         }
@@ -110,7 +110,7 @@ public class PlayerController : BaseCharacter
 
     void OnBodyReport()
     {
-        if(isNearDeadBody)
+        if (isNearDeadBody)
         {
             ReportCommand reportCommand = new ReportCommand();
             ScheduleCommand(reportCommand);
