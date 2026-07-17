@@ -14,7 +14,7 @@ public class PlayerCameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(target != null)
+        if (target != null)
         {
             Vector3 targetPosition = target.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, target.position, ref currentVelocity, SmoothTime);

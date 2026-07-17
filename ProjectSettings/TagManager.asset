@@ -6,6 +6,11 @@ TagManager:
   tags:
   - SafeZone
   - Trap
+  - CharacterButton
+  - VoteButton
+  - BlameButton
+  - DefendButton
+  - SkipButton
   layers:
   - Default
   - TransparentFX

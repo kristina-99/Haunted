@@ -4,9 +4,21 @@ using static GameConstants;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public GameStateModel gameStateModel;
+
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         gameStateModel = new GameStateModel();
     }
 
@@ -68,9 +80,36 @@ public class GameManager : MonoBehaviour
         
         if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
         {
-            // Evaluate votes here and dispatch appropriate win events safely
+            var voteData = gameStateModel.GetVotes();
+            
+            BaseCharacter votedOut = null;
+            bool isTie = true;
+            bool hasMajoritySkipped = gameStateModel.SkipCount * 2 > gameStateModel.AlivePlayersCount;
+
+            if (voteData != null && voteData.Count > 0 && !hasMajoritySkipped)
+            {
+                int mostVotes = voteData.Values.Max();
+                int winnersCount = voteData.Count(entry => entry.Value == mostVotes);
+
+                if (winnersCount == 1)
+                {
+                    isTie = false;
+                    votedOut = voteData.FirstOrDefault(x => x.Value == mostVotes).Key;
+                }
+            }
+
+
+            if (!isTie && votedOut != null)
+            {
+                votedOut.OnCharacterDeath();
+                gameStateModel.RegisterVotedOut(votedOut);
+                CheckWinConditions();
+            }
+
+            gameStateModel.ResetSkipCount();
+            GameEvents.VotingFinished(votedOut, isTie);
+            gameStateModel.ClearVotes();
         }
-        CheckWinConditions();
     }
 
     private void CompleteTask(BaseCharacter completer)
@@ -96,29 +135,26 @@ public class GameManager : MonoBehaviour
         var alivePlayers = gameStateModel.GetAlivePlayers();
         bool isHauntedAlive = alivePlayers.Any(player => player.Role == CharacterRole.Haunted);
 
-        //Possible if Priest kills Haunted
         if (!isHauntedAlive)
         {
+            Debug.Log("Haunted is dead and Hunters win!");
             GameEvents.GameEnded(GameResult.HuntersWin);
-            Debug.Log("Priest has killed Haunted and Hunters win!");
             return; 
         }
-        //if only one alive hunter is left and the haunted is still alive
-        //mutually exclusive with the above condition
+
         else if (gameStateModel.AlivePlayersCount == 2)
         {
-            GameEvents.GameEnded(GameResult.HauntedWins);
             Debug.Log("Only 1 Hunter left and Haunted wins!");
+            GameEvents.GameEnded(GameResult.HauntedWins);
             return;
         }
         
-        if(gameStateModel.TasksRemaining == 0)
+        if (gameStateModel.TasksRemaining == 0)
         {
-            GameEvents.GameEnded(GameResult.HuntersWin);
             Debug.Log("All tasks finished and Hunters win");
+            GameEvents.GameEnded(GameResult.HuntersWin);
             return;
         }
 
-        // check if Haunted is voted out
     }
 }

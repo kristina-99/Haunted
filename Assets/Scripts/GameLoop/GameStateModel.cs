@@ -12,6 +12,7 @@ public class GameStateModel
     private int tasksRemaining = 10;
     private int roundNumber;
     private int discussionCount;
+    private int skipCount;
 
     // Use property shortcuts for cleaner reading
     public GamePhase CurrentPhase => currentPhase;
@@ -20,14 +21,27 @@ public class GameStateModel
     public int RoundNumber => roundNumber;
     public int DiscussionCount => discussionCount;
     public int AlivePlayersCount => alivePlayers.Count;
+    public int SkipCount => skipCount;
 
     public void SetPhase(GamePhase gamePhase) => currentPhase = gamePhase;
 
+    public void ResetSkipCount()
+    {
+        skipCount = 0;
+    }
+
+    public Dictionary<BaseCharacter, int> GetVotes()
+    {
+        return votes;
+    }
+    
     // Receives the players gathered by the GameManager
     public void InitializePlayers(List<BaseCharacter> players)
     {
         alivePlayers = players;
     }
+
+    
 
     // Stores assigned role statuses natively if needed
     public void PopulateRoles()
@@ -49,29 +63,65 @@ public class GameStateModel
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
-        if (voter == null || target == null || playersWhoVoted.Contains(voter))
+        if (voter == null || playersWhoVoted.Contains(voter))
         {
             return;
         }
 
-        if (!votes.ContainsKey(target))
+        if (target != null)
         {
-            votes[target] = 1;
+            if (!votes.ContainsKey(target))
+            {
+                votes[target] = 1;
+            }
+            else
+            {
+                votes[target]++;
+            }
         }
         else
         {
-            votes[target]++;
+            skipCount++;
         }
 
         playersWhoVoted.Add(voter);
-        voteTally++;
+        ++voteTally;
+    }
 
-        if (voteTally == alivePlayers.Count)
+    public void RegisterVotedOut(BaseCharacter victim)
+    {
+        if (victim == null) return;
+
+        if (alivePlayers.Contains(victim))
         {
-            // End of voting logic goes here...
+            alivePlayers.Remove(victim);
+        }
+
+        if (roles.ContainsKey(victim))
+        {
+            roles.Remove(victim);
         }
     }
 
+    public void ClearVotes()
+    {
+        votes.Clear();
+        playersWhoVoted.Clear();
+        voteTally = 0;
+    }
+
+    public int GetCharacterVotes(BaseCharacter character)
+    {
+        if(votes.ContainsKey(character))
+        {
+            return votes[character];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
     public void CompleteTask(BaseCharacter completer)
     {
         if (tasksRemaining > 0)

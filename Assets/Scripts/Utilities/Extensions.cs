@@ -1,7 +1,5 @@
-using System;
-using System.Numerics;
-using UnityEngine.TextCore;
-
+using System.Collections.Generic;
+using UnityEngine;
 
 public static class Extensions
 {
@@ -80,5 +78,11 @@ public static class Extensions
         float distance;
         distance = Vector3.Distance(firstCharacter.gameObject.transform.position, secondCharacter.gameObject.transform.position);
         return distance;
+    }
+
+    public static List<BaseCharacter> GetAlivePlayers()
+    {
+        List<BaseCharacter> alivePlayers = GameManager.Instance.gameStateModel.GetAlivePlayers();
+        return alivePlayers;
     }
 }
