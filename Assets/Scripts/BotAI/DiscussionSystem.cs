@@ -68,9 +68,9 @@ public class DiscussionSystem : MonoBehaviour
 
         BaseCharacter botSender = PickRandomCharacter(player);
         if (botSender == null)
-        { 
+        {
             return;
-        } 
+        }
 
         BaseCharacter targetCharacter = PickRandomCharacter(botSender);
         if (targetCharacter == null) 
@@ -90,7 +90,7 @@ public class DiscussionSystem : MonoBehaviour
     private BaseCharacter PickRandomCharacter(BaseCharacter characterToExclude)
     {
         int count = aliveCharacters.Count;
-        if (count == 0) 
+        if (count == 0)
         {
             return null;
         }

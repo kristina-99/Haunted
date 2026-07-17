@@ -10,9 +10,10 @@ public class PhaseTimer : MonoBehaviour
     private float remainingTime;
     private PhaseManager phaseManager;
     private string currentPhase;
- 
+
     void OnEnable()
     {
+        OnStartScenesFinished += RouteGameStarted;
         OnDayStarted += RestartTimerDay;
         OnNightStarted += RestartTimerNight;
         OnBodyReported += RouteBodyReported;
@@ -22,11 +23,18 @@ public class PhaseTimer : MonoBehaviour
 
     void OnDisable()
     {
+        OnStartScenesFinished -= RouteGameStarted;
         OnDayStarted -= RestartTimerDay;
         OnNightStarted -= RestartTimerNight;
         OnBodyReported -= RouteBodyReported;
         OnVotingFinished -= RouteVotingFinished;
         OnTransitionStarted -= HandleTransitionPhase;
+    }
+
+    private void RouteGameStarted() 
+    {
+        timerText.enabled = true;
+        RestartTimerNight(1);
     }
 
     private void RouteBodyReported(BaseCharacter reporter) 
@@ -38,23 +46,22 @@ public class PhaseTimer : MonoBehaviour
     void Start()
     {
         phaseManager = FindAnyObjectByType<PhaseManager>();
-        remainingTime = phaseManager.GetNightDuration();
-        currentPhase = "Night time: ";
+        timerText.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(remainingTime > 0)
+        if (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
         }
-        else if(remainingTime < 0)
+        else if (remainingTime < 0)
         {
             remainingTime = 0;
         }
 
-        if(currentPhase != "Transition")
+        if (currentPhase != "Transition")
         {
             int minutes = Mathf.FloorToInt(remainingTime / SecondsPerMinute);
             int seconds = Mathf.FloorToInt(remainingTime % SecondsPerMinute);
