@@ -1,105 +1,60 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using static GameConstants;
 
 public class GameStateModel
 {
     private GamePhase currentPhase;
     private List<BaseCharacter> alivePlayers = new List<BaseCharacter>();
-    private Dictionary<int,CharacterRole> roles = new Dictionary<int, CharacterRole>();
-    private Dictionary<BaseCharacter,int> votes = new Dictionary<BaseCharacter,int>();
+    private Dictionary<BaseCharacter, CharacterRole> roles = new Dictionary<BaseCharacter, CharacterRole>();
+    private Dictionary<BaseCharacter, int> votes = new Dictionary<BaseCharacter, int>();
     private HashSet<BaseCharacter> playersWhoVoted = new HashSet<BaseCharacter>();
     private int voteTally;
-    private int tasksRemaining;
+    private int tasksRemaining = 10;
     private int roundNumber;
     private int discussionCount;
 
-    public GamePhase CurrentPhase
+    // Use property shortcuts for cleaner reading
+    public GamePhase CurrentPhase => currentPhase;
+    public int VoteTally => voteTally;
+    public int TasksRemaining => tasksRemaining;
+    public int RoundNumber => roundNumber;
+    public int DiscussionCount => discussionCount;
+    public int AlivePlayersCount => alivePlayers.Count;
+
+    public void SetPhase(GamePhase gamePhase) => currentPhase = gamePhase;
+
+    // Receives the players gathered by the GameManager
+    public void InitializePlayers(List<BaseCharacter> players)
     {
-        get
-        {
-            return currentPhase;
-        }
+        alivePlayers = players;
     }
 
-    public int VoteTally
+    // Stores assigned role statuses natively if needed
+    public void PopulateRoles()
     {
-        get
+        roles.Clear();
+        foreach (var character in alivePlayers)
         {
-            return voteTally;
+            roles.Add(character, character.Role);
         }
-        private set
-        {
-            voteTally = value;
-        }
-    }
-
-    public int TasksRemaining
-    {
-        get
-        {
-            return tasksRemaining;
-        }
-        private set
-        {
-            tasksRemaining = value;
-        }
-    }
-
-    public int RoundNumber
-    {
-        get
-        {
-            return roundNumber;
-        }
-        private set
-        {
-            roundNumber = value;
-        }
-    }
-
-    public int DiscussionCount
-    {
-        get
-        {
-            return discussionCount;
-        }
-        private set
-        {
-            discussionCount = value;
-        }
-    }
-
-    public void GetAllPlayers(List<BaseCharacter> allPlayersList)
-    {
-        alivePlayers.AddRange(allPlayersList);
-    }
-
-    public void SetPhase(GamePhase gamePhase)
-    {
-        currentPhase = gamePhase;
     }
 
     public void RegisterKill(BaseCharacter victim)
     {
-        alivePlayers.Remove(victim);
+        if (alivePlayers.Contains(victim))
+        {
+            alivePlayers.Remove(victim);
+        }
     }
 
     public void RegisterVote(BaseCharacter voter, BaseCharacter target)
     {
-        if(voter == null || target == null)
+        if (voter == null || target == null || playersWhoVoted.Contains(voter))
         {
             return;
         }
 
-        if(playersWhoVoted.Contains(voter))
-        {
-            //player shouldn't be able to vote twice!
-            return;
-        }
-
-        if(!votes.ContainsKey(target))
+        if (!votes.ContainsKey(target))
         {
             votes[target] = 1;
         }
@@ -109,23 +64,24 @@ public class GameStateModel
         }
 
         playersWhoVoted.Add(voter);
-
         voteTally++;
 
-        if(voteTally == alivePlayers.Count)
+        if (voteTally == alivePlayers.Count)
         {
-            //stop voting and count votes
+            // End of voting logic goes here...
         }
     }
 
     public void CompleteTask(BaseCharacter completer)
     {
-        tasksRemaining--;
+        if (tasksRemaining > 0)
+        {
+            tasksRemaining--;
+        }
     }
-    
-    public void ClearVotes()
+
+    public List<BaseCharacter> GetAlivePlayers()
     {
-        votes.Clear();
-        voteTally = 0;
+        return alivePlayers;
     }
 }

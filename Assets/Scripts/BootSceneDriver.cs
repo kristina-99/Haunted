@@ -23,6 +23,7 @@ public class BootSceneDriver : MonoBehaviour
         yield return StartCoroutine(SingleSceneLoad(loadHUD)); 
         AsyncOperation loadArcadeMap = SceneManager.LoadSceneAsync(ArcadeMap, LoadSceneMode.Additive);
         yield return StartCoroutine(SingleSceneLoad(loadArcadeMap));
+        GameEvents.ArcadeMapLoaded();
         Destroy(gameObject);
     }
 

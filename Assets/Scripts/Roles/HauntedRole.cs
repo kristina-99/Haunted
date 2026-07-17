@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class HauntedRole : RoleBase
 {
-    private float distanceFromTarget;
-    private const float AttackDistance = 3.0f;
     private const float LightsOffPeriod = 30f;
-    private const float StunTime = 10f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
     private bool isLightOn = true;

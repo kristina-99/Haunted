@@ -1,14 +1,20 @@
+using System.Linq;
 using UnityEngine;
 using static GameConstants;
 
 public class GameManager : MonoBehaviour
 {
-    private GameStateModel stateModel;
-
-    private void Awake()
+    public GameStateModel gameStateModel;
+    void Awake()
     {
-        stateModel = new GameStateModel();
+        gameStateModel = new GameStateModel();
     }
+
+    private void CompleteTask(BaseCharacter completer)
+    {
+        stateModel.CompleteTask(completer);
+    }
+
     private void OnEnable()
     {
         GameEvents.OnNightStarted += RouteNightStart;
@@ -16,8 +22,11 @@ public class GameManager : MonoBehaviour
         GameEvents.OnBodyReported += RouteBodyReported;
         GameEvents.OnGameEnded += RouteGameEnded;
         GameEvents.OnPlayerKilled += RegisterKill;
-        GameEvents.OnVoteCast += RegisterVote;
+        GameEvents.OnPlayerKilled += RouteToWinConditions;
+        GameEvents.OnVoteCast += HandleVoteCast;
         GameEvents.OnTaskCompleted += CompleteTask;
+        GameEvents.OnArcadeMapLoaded += InitializePlayers;
+        GameEvents.OnArcadeMapLoaded += AssignRoles;
     }
 
     private void OnDisable()
@@ -27,42 +36,89 @@ public class GameManager : MonoBehaviour
         GameEvents.OnBodyReported -= RouteBodyReported;
         GameEvents.OnGameEnded -= RouteGameEnded;
         GameEvents.OnPlayerKilled -= RegisterKill;
-        GameEvents.OnVoteCast -= RegisterVote;
+        GameEvents.OnPlayerKilled -= RouteToWinConditions;
+        GameEvents.OnVoteCast -= HandleVoteCast;
         GameEvents.OnTaskCompleted -= CompleteTask;
+        GameEvents.OnArcadeMapLoaded -= InitializePlayers;
+        GameEvents.OnArcadeMapLoaded -= AssignRoles;
     }
-private void RouteNightStart(int round)
-    {
-        stateModel.SetPhase(GamePhase.Night);
-    }
+     private void RouteNightStart(int round) 
+    => gameStateModel.SetPhase(GamePhase.Night);
 
     private void RouteDayStart()
-    {
-        stateModel.SetPhase(GamePhase.Day);
-        stateModel.ClearVotes(); 
-    }
+    => gameStateModel.SetPhase(GamePhase.Day);
 
-    private void RouteBodyReported(BaseCharacter victim)
-    {
-        stateModel.SetPhase(GamePhase.Voting);
-    }
+    private void RouteBodyReported(BaseCharacter reporter) 
+    => gameStateModel.SetPhase(GamePhase.Voting);
 
-    private void RouteGameEnded(GameResult gameResult)
-    {
-        stateModel.SetPhase(GamePhase.Ended);
-    }
+    private void RouteGameEnded(GameResult result)
+    => gameStateModel.SetPhase(GamePhase.Ended);
+
+    private void RouteToWinConditions(BaseCharacter victim)
+    => CheckWinConditions();
 
     private void RegisterKill(BaseCharacter victim)
     {
-        stateModel.RegisterKill(victim);
+        gameStateModel.RegisterKill(victim);
     }
 
-    private void RegisterVote(BaseCharacter voter, BaseCharacter target)
+    private void HandleVoteCast(BaseCharacter voter, BaseCharacter target)
     {
-        stateModel.RegisterVote(voter, target);
+        gameStateModel.RegisterVote(voter, target);
+        
+        if (gameStateModel.VoteTally == gameStateModel.AlivePlayersCount)
+        {
+            // Evaluate votes here and dispatch appropriate win events safely
+        }
+        CheckWinConditions();
     }
 
     private void CompleteTask(BaseCharacter completer)
     {
-        stateModel.CompleteTask(completer);
+        gameStateModel.CompleteTask(completer);
+        CheckWinConditions();
+    }
+
+    private void AssignRoles()
+    {
+        RoleFactory.AssignRoles();
+    }
+
+    private void InitializePlayers()
+    {
+        var players = FindObjectsByType<BaseCharacter>().ToList();
+        gameStateModel.InitializePlayers(players);
+    }
+
+    private void CheckWinConditions()
+    {
+
+        var alivePlayers = gameStateModel.GetAlivePlayers();
+        bool isHauntedAlive = alivePlayers.Any(player => player.Role == CharacterRole.Haunted);
+
+        //Possible if Priest kills Haunted
+        if (!isHauntedAlive)
+        {
+            GameEvents.GameEnded(GameResult.HuntersWin);
+            Debug.Log("Priest has killed Haunted and Hunters win!");
+            return; 
+        }
+        //if only one alive hunter is left and the haunted is still alive
+        //mutually exclusive with the above condition
+        else if (gameStateModel.AlivePlayersCount == 2)
+        {
+            GameEvents.GameEnded(GameResult.HauntedWins);
+            Debug.Log("Only 1 Hunter left and Haunted wins!");
+            return;
+        }
+        
+        if(gameStateModel.TasksRemaining == 0)
+        {
+            GameEvents.GameEnded(GameResult.HuntersWin);
+            Debug.Log("All tasks finished and Hunters win");
+            return;
+        }
+
+        // check if Haunted is voted out
     }
 }
