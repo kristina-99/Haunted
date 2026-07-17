@@ -22,11 +22,6 @@ public class GameManager : MonoBehaviour
         gameStateModel = new GameStateModel();
     }
 
-    private void CompleteTask(BaseCharacter completer)
-    {
-        stateModel.CompleteTask(completer);
-    }
-
     private void OnEnable()
     {
         GameEvents.OnNightStarted += RouteNightStart;

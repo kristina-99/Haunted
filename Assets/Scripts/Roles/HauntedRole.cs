@@ -75,11 +75,6 @@ public class HauntedRole : RoleBase
         }
     }
 
-    private void CalculateDistance(BaseCharacter target)
-    {
-        distanceFromTarget = Vector3.Distance(target.gameObject.transform.position, this.gameObject.transform.position);
-    }
-
     private void TurnOnLights()
     {
         isLightOn = true;
