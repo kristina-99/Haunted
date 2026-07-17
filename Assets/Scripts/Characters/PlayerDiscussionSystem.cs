@@ -3,20 +3,15 @@ using UnityEngine.UI;
 
 public class PlayerDiscussionSystem : MonoBehaviour
 {
-    private GameObject[] characterButtonObjects;
+    public Button blameButton;
+    public Button defendButton;
+    public GameObject[] characterButtonObjects;
     private string saveKey = "SelectedCharacter";
     private string targetName;
 
     void Start()
     {
-        characterButtonObjects = GameObject.FindGameObjectsWithTag("CharacterButton");
-
-        SetCharacterButtons();
-
-        Button blameButton = GameObject.FindGameObjectWithTag("BlameButton").GetComponent<Button>();
         blameButton.onClick.AddListener(() => OnBlameButtonClick());
-
-        Button defendButton = GameObject.FindGameObjectWithTag("DefendButton").GetComponent<Button>();
         defendButton.onClick.AddListener(() => OnDefendButtonClick());
     }
 
@@ -35,7 +30,7 @@ public class PlayerDiscussionSystem : MonoBehaviour
         }
 
     }
-
+    
     public void OnCharacterButtonClick(string selectedButttonName)
     {
         PlayerPrefs.SetString(saveKey, selectedButttonName);

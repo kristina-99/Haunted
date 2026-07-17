@@ -1763,6 +1763,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89601a9fce10f7a47a17b4261212b1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDiscussionSystem
+  blameButton: {fileID: 2503207702270543903, guid: c33214cfafc76434daa933723892f205, type: 3}
+  defendButton: {fileID: 2779869354627720318, guid: 9e5feb0727545474cb692417a9d5bb87, type: 3}
+  characterButtonObjects:
+  - {fileID: 862287188189659186, guid: f0ae9692cba536b448ed3a9dde75cede, type: 3}
+  - {fileID: 1213966555675969384, guid: 4eda1a52132de2d4e8ae175ccf0863aa, type: 3}
+  - {fileID: 1436476151245256024, guid: 3fa0aaf578b3c194aac0cbeb9e41f6be, type: 3}
+  - {fileID: 4216653949769150482, guid: e40457e703fb9a844b0d906af30be155, type: 3}
+  - {fileID: 4956194971008206340, guid: b74dc39738dffbb45aa69a525fd143fd, type: 3}
 --- !u!1 &451234385
 GameObject:
   m_ObjectHideFlags: 0
