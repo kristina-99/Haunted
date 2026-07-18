@@ -44,7 +44,7 @@ public class BotAgent : BaseCharacter
     {
             return;
     }
-    
+
     BaseCharacter votedCharacter = null;
     float votingProbability = 2f / 3f;
 

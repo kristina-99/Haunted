@@ -11,6 +11,7 @@ TagManager:
   - BlameButton
   - DefendButton
   - SkipButton
+  - StartButton
   layers:
   - Default
   - TransparentFX

@@ -22,11 +22,6 @@ public class GameManager : MonoBehaviour
         gameStateModel = new GameStateModel();
     }
 
-    private void CompleteTask(BaseCharacter completer)
-    {
-        stateModel.CompleteTask(completer);
-    }
-
     private void OnEnable()
     {
         GameEvents.OnNightStarted += RouteNightStart;
@@ -134,6 +129,7 @@ public class GameManager : MonoBehaviour
 
         var alivePlayers = gameStateModel.GetAlivePlayers();
         bool isHauntedAlive = alivePlayers.Any(player => player.Role == CharacterRole.Haunted);
+        bool isPlayerAlive = alivePlayers.Any(player => player is PlayerController);
 
         if (!isHauntedAlive)
         {
@@ -153,6 +149,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("All tasks finished and Hunters win");
             GameEvents.GameEnded(GameResult.HuntersWin);
+            return;
+        }
+
+        //condition added for single player - if the player dies Haunted wins
+
+        if (!isPlayerAlive)
+        {
+            Debug.Log("Player has died and Haunted wins");
+            GameEvents.GameEnded(GameResult.HauntedWins);
             return;
         }
 

@@ -53,7 +53,7 @@ public class VotingOptionSlot : MonoBehaviour
         List<BaseCharacter> alivePlayers = GameManager.Instance.gameStateModel.GetAlivePlayers();
         foreach(BaseCharacter character in alivePlayers)
         {
-            if(character.gameObject.name == this.gameObject.name)
+            if (character.gameObject.name == this.gameObject.name)
             {
                 associatedCharacter = character;
             }
@@ -62,7 +62,7 @@ public class VotingOptionSlot : MonoBehaviour
 
     private void DisableCharacterButton()
     {
-        if(associatedCharacter == null)
+        if (associatedCharacter == null)
         {
             this.gameObject.GetComponent<Button>().interactable = false;
         }
