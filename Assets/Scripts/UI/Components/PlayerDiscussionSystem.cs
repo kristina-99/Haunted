@@ -3,21 +3,33 @@ using UnityEngine.UI;
 
 public class PlayerDiscussionSystem : MonoBehaviour
 {
-    private GameObject[] characterButtonObjects;
+    public Button blameButton;
+    public Button defendButton;
+    public GameObject[] characterButtonObjects;
     private string saveKey = "SelectedCharacter";
     private string targetName;
+    private BaseCharacter player;
 
+    void OnEnable()
+    {
+        GameEvents.OnArcadeMapLoaded += FindPlayer;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnArcadeMapLoaded -= FindPlayer;
+    }
     void Start()
     {
-        characterButtonObjects = GameObject.FindGameObjectsWithTag("CharacterButton");
-
         SetCharacterButtons();
 
-        Button blameButton = GameObject.FindGameObjectWithTag("BlameButton").GetComponent<Button>();
         blameButton.onClick.AddListener(() => OnBlameButtonClick());
-
-        Button defendButton = GameObject.FindGameObjectWithTag("DefendButton").GetComponent<Button>();
         defendButton.onClick.AddListener(() => OnDefendButtonClick());
+    }
+
+    private void FindPlayer()
+    {
+        player = Extensions.GetAlivePlayers().Find(player => player is PlayerController);
     }
 
     private void SetCharacterButtons()
@@ -26,7 +38,7 @@ public class PlayerDiscussionSystem : MonoBehaviour
         {
             Button button = characterButton.GetComponent<Button>();
 
-            if(button != null)
+            if (button != null)
             {
                 string buttonName = characterButton.name;
 
@@ -35,7 +47,7 @@ public class PlayerDiscussionSystem : MonoBehaviour
         }
 
     }
-
+    
     public void OnCharacterButtonClick(string selectedButttonName)
     {
         PlayerPrefs.SetString(saveKey, selectedButttonName);
@@ -46,13 +58,13 @@ public class PlayerDiscussionSystem : MonoBehaviour
     public void OnBlameButtonClick()
     {
         string blameMessage = $"I think {targetName} is acting incredibly suspicious right now";
-        SendMessage(gameObject.name,blameMessage);
+        SendMessage(player.gameObject.name,blameMessage);
     }
 
     public void OnDefendButtonClick()
     {
         string defendMessage = $"Leave {targetName} alone, I'm certain they're innocent";
-        SendMessage(gameObject.name,defendMessage);
+        SendMessage(player.gameObject.name,defendMessage);
     }
 
     private void SendMessage(string name, string message)

@@ -25,15 +25,13 @@ public class SceneSequenceManager : MonoBehaviour
 
     private IEnumerator PlayUISequence()
     {
-        // Step 1: Hide the Start Menu
+
         yield return startMenuPanel.Hide(1f).WaitForCompletion();
 
-        // Step 2: Show All Characters, wait 2 seconds, then hide
         yield return allCharactersPanel.Show(1f).WaitForCompletion();
         yield return new WaitForSeconds(2f); 
         yield return allCharactersPanel.Hide(2f).WaitForCompletion();
 
-        // Step 3: Show Chosen Role, wait 2 seconds, then hide
         yield return chosenRolePanel.Show(2f).WaitForCompletion();
         yield return new WaitForSeconds(2f);
         yield return chosenRolePanel.Hide(2f).WaitForCompletion();

@@ -6,7 +6,7 @@ public class HauntedRole : RoleBase
     private const float LightsOffPeriod = 30f;
     private bool isInTheSafeZone = false;
     private bool canKill = true;
-    private bool isLightOn = false;
+    private bool isLightOn = true;
 
     protected override void HandleNightStarted(int roundNumber)
     {
@@ -31,11 +31,11 @@ public class HauntedRole : RoleBase
 
     public override void UseAbility(BaseCharacter target)
     {
-        if(canUseAbility)
+        if (canUseAbility)
         {
-            isLightOn = true;
+            isLightOn = false;
             Debug.Log("Lights are off!");
-            Invoke("TurnOffLights", LightsOffPeriod);
+            Invoke("TurnOnLights", LightsOffPeriod);
         }
         
         canUseAbility = false;
@@ -53,7 +53,7 @@ public class HauntedRole : RoleBase
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Trap"))
+        if (other.CompareTag("Trap"))
         {
            GameEvents.HauntedStunned();
         }
@@ -61,7 +61,7 @@ public class HauntedRole : RoleBase
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.CompareTag("SafeZone"))
+        if (other.CompareTag("SafeZone"))
         {
             isInTheSafeZone = true;
         }
@@ -69,15 +69,15 @@ public class HauntedRole : RoleBase
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("SafeZone"))
+        if (other.CompareTag("SafeZone"))
         {
             isInTheSafeZone = false;
         }
     }
 
-    private void TurnOffLights()
+    private void TurnOnLights()
     {
-        isLightOn = false;
-        Debug.Log("Lights are on!");
+        isLightOn = true;
+        Debug.Log("Lights are back on!");
     }
 }

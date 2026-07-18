@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using static GameConstants;
 
 public class GameStateModel
@@ -70,7 +68,7 @@ public class GameStateModel
             return;
         }
 
-        if(target != null)
+        if (target != null)
         {
             if (!votes.ContainsKey(target))
             {
@@ -92,7 +90,10 @@ public class GameStateModel
 
     public void RegisterVotedOut(BaseCharacter victim)
     {
-        if (victim == null) return;
+        if (victim == null) 
+        {
+            return;
+        }
 
         if (alivePlayers.Contains(victim))
         {
@@ -114,7 +115,7 @@ public class GameStateModel
 
     public int GetCharacterVotes(BaseCharacter character)
     {
-        if(votes.ContainsKey(character))
+        if (votes.ContainsKey(character))
         {
             return votes[character];
         }

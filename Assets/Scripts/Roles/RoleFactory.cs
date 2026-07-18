@@ -29,7 +29,7 @@ public static class RoleFactory
 
     private static CharacterRole ChooseRole()
     {
-        if(availableRoles.Count == 0)
+        if (availableRoles.Count == 0)
         {
             return CharacterRole.Normal;
         }

@@ -9,7 +9,7 @@ public class BotAgent : BaseCharacter
 
     void FixedUpdate()
     {
-        if(actionQueue.Count != 0)
+        if (actionQueue.Count != 0)
         {
             ExecuteNextCommand();
         }
@@ -40,7 +40,10 @@ public class BotAgent : BaseCharacter
     private void VoteRandomly()
     {
 
-    if (this == null) return;
+    if (this == null)
+    {
+            return;
+    }
 
     BaseCharacter votedCharacter = null;
     float votingProbability = 2f / 3f;
