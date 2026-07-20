@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class BootSceneDriver : MonoBehaviour
 {
     private const string HUDscene = "Assets/Scenes/HUD.unity";
+    
+    // NOTE: Change the scene to the Updated one if you want to test it.
     private const string ArcadeMap = "Assets/Scenes/Arcade_Map.unity";
     
     void Awake()
