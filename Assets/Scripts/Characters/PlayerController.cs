@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : BaseCharacter
 {
-    private const float Speed = 1f;
+    private const float Speed = 1.25f;
     private Rigidbody rigidBody;
     private MoveCommand moveCommand;
     private float inputHorizontal;

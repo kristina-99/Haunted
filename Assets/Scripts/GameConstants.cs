@@ -61,4 +61,12 @@ public class GameConstants
         Ritual,
         GhostTrap     
     }
+
+    public enum BotState
+    {
+        Wander,
+        Task,
+        Discussion,
+        Dead
+    }
 }
